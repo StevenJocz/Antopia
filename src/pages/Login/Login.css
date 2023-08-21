@@ -226,6 +226,8 @@
     .login {
         background-repeat: no-repeat;
         background-size: cover;
+        background-position-y: 10%;
+        background-position-X:20% ;
         height: auto;
         display: block;
         padding: 0 5%;
