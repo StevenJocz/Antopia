@@ -1,0 +1,208 @@
+.RoutePerfil{
+    width: 100%;
+}
+.Fotos {
+    margin-top: 3%;
+}
+
+.Fotos-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Fotos-content img {
+    width: 23.5%;
+    height: 150px;
+    margin: 5px;
+
+}
+
+.Diario {
+    margin-top: 3%;
+    display: flex;
+    width: 100%;
+}
+
+.Diario-nav {
+    width: 30%;
+}
+
+ .Diario-nav ul {
+    list-style: none;
+}
+
+
+.Diario-nav  li {
+    text-decoration: none;
+    color: aliceblue;
+    background-color: #fcfdfd1f;
+    border: 1px solid #ffffff7d;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+}
+
+.Diario-nav .LiBoton {
+    background-color: #3426f4;
+    border: 1px solid #3426f47d;
+    cursor: pointer;
+}
+
+.Diario-nav .LiBoton:hover {
+    background-color: #3426f4be;
+}
+
+.Diario-nav li button {
+    background-color: #00000000;
+    border: none;
+    color: aliceblue;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.Diario-content {
+    width: 70%;
+    margin-left: 20px;
+}
+
+.Diario-content-publicado {
+    border: #747474 solid 1px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.Diario-content h3 {
+    margin-top: 3%;
+}
+
+.Diario-content .Diario-content-boton {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+
+}
+
+.Diario-content .Diario-content-boton button {
+    background-color: #268df4;
+    border: 1px solid #3426f47d;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 3% 0;
+}
+
+
+.RegistrarDiario {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.448);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+
+.RegistrarDiario-content {
+    width: 600px;
+    background-color: #262b34;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+    position: relative;
+
+}
+
+.Formulario-registroDiario {
+    width: 100%;
+}
+
+.Formulario-registroDiario .Formulario-encabezado {
+    text-align: center;
+}
+
+.Formulario-registroDiario .Formulario-encabezado h3 {
+    font-size: 22px;
+}
+
+.Formulario-registroDiario .Formulario-content {
+    margin-top: 3%;
+}
+
+.Formulario-registroDiario .Formulario-content label,
+.Formulario-registroDiario .Formulario-content input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.Formulario-registroDiario .Formulario-content input {
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    outline: none; 
+}
+
+.Formulario-registroDiario .Formulario-content textarea {
+    width: 100%;
+    height: 200px;
+    background-color: #f4f4f4;
+    border: none;
+    overflow-x: auto;
+    resize: none;
+    overflow-y: hidden;
+    outline: none;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.Formulario-registroDiario .Formulario-footer button {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(78, 75, 230);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: #f4f4f4;
+    cursor: pointer;
+    margin-top: 2%;
+}

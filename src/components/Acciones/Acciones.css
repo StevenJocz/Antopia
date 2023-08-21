@@ -1,0 +1,47 @@
+.Acciones {
+    width: 300px;
+    height: 110px;
+    background-color: #262b34;
+    position: absolute;
+    bottom: 2%;
+    right: 2.5%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.Acciones_compartir {
+    margin-top: 10px;
+}
+
+.Acciones_compartir  div{
+    display: flex;
+}
+
+.Acciones_compartir a {
+    margin-left: 10px;
+    font-size: 19px;
+    margin-top: 10px;
+}
+
+.Acciones a {
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.Acciones-icon {
+    margin-right: 10px;
+}
+.Acciones_cerrar {
+    width: 100%;
+    
+}
+
+.Acciones_cerrar  .Icono-cerrar {
+    font-size: 25px;
+    cursor: pointer;
+    color: #ffffff;
+    float: right;
+}

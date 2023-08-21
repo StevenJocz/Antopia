@@ -1,0 +1,21 @@
+.Buscardor{
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    z-index: 1000;
+}
+
+
+.Buscardor-content {
+    width: 750px;
+    height: 70vh;
+    background-color: #262b34;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #ffffff57;
+    
+}

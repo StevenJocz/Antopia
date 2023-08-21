@@ -1,0 +1,244 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../assets/imagenes/bg_image.png);
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__logo {
+    width: 700px;
+    height: 70vh;
+    margin-right: 60px;
+
+}
+
+.login__logo img {
+    width: 100%;
+}
+
+.login__container {
+    width: 400px;
+    background-color: #121316;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 20px;
+
+}
+
+.login__container__title {
+    text-align: center;
+}
+
+
+.login__container__title img {
+    width: 20%;
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+}
+
+.login__container__title h1 {
+    color: aliceblue;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+.login__container__input {
+    margin-top: 10%;
+    position: relative;
+}
+
+
+.login__container__group {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+.login__container__group input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+    background-color: #121316;
+    width: 100%;
+    color: aliceblue;
+}
+
+.login__container__group input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+.login__container__group label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+.login__container__group input:focus~label,
+.login__container__group input:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: #5264AE;
+}
+
+.login__container__group .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.login__container__group .bar:before,
+.login__container__group .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.login__container__group .bar:before {
+    left: 50%;
+}
+
+.login__container__group .bar:after {
+    right: 50%;
+}
+
+/* active state */
+.login__container__group input:focus~.bar:before,
+.login__container__group input:focus~.bar:after {
+    width: 50%;
+}
+
+.login__container__group .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* active state */
+.login__container__group input:focus~.highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+.olvido-contrseña {
+    background-color: #121316;
+    border: none;
+    color: #AAEDFD;
+    font-weight: 900;
+    text-decoration: none;
+    position: absolute;
+    bottom: -30%;
+    right: 0;
+}
+
+.login__container button {
+    width: 100%;
+    height: 40px;
+    margin-top: 8%;
+    margin-bottom: 5%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.login__container .Crear-cuenta {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.login__container span {
+    text-decoration: none;
+    color: #AAEDFD;
+    font-weight: 900;
+}
+
+/* ========= MEDIA QUERIES (MEDIUM DEVICES) =======*/
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+    .login {
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        display: block;
+        padding: 0 5%;
+    }
+
+    .login__logo {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+    
+    }
+
+    .login__container {
+        width: 100%;
+    }
+}

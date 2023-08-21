@@ -1,0 +1,22 @@
+.Emoticones {
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+}
+
+.Emoticones_cerrar {
+    width: 100%;
+    
+}
+
+.Emoticones_cerrar  .Icono-cerrar {
+    font-size: 25px;
+    cursor: pointer;
+    color: rgb(49, 49, 49);
+    float: right;
+}

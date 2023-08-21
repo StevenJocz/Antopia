@@ -1,0 +1,17 @@
+.Notificaciones {
+    width: 350px;
+    height: 90vh;
+    background-color: #262b34;
+    z-index: 1000;
+    position: absolute;
+    top: 70px;
+    right: 0;
+}
+
+.Notificaciones h4{
+    font-size: 20px;
+    color: aliceblue;
+    text-align: center;
+}
+
+

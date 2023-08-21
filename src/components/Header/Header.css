@@ -1,0 +1,88 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 60px 10px 80px;
+    align-items: center;
+    position: relative;
+}
+
+.Header-buscador {
+    position: relative;
+}
+
+.Header-buscador input {
+    width: 750px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid rgba(240, 248, 255, 0.437);
+    background-color: rgba(240, 248, 255, 0);
+    color: aliceblue;
+    outline: none;
+}
+
+.Header-buscador-icono {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: aliceblue;
+    font-size: 18px;
+}
+
+.Header-menu {
+    display: flex;
+}
+
+.Header-menu .Header-menu-contect {
+    background-color: rgba(240, 248, 255, 0.421);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Header-menu .Header-menu-icono {
+    font-size: 20px;
+}
+
+.Header-menu img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+
+    .Header {
+        display: flex;
+        justify-content: right;
+        width: 100%;
+    }
+    
+    .Header-buscador {
+        display: none;
+    }
+
+}

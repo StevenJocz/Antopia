@@ -1,0 +1,45 @@
+.BarraProgreso {
+    display: flex;
+    border-bottom: 1px solid rgb(103, 103, 103) ;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.BarraProgreso img {
+    width: 35px;
+    height: 35px;
+
+}
+
+
+.BarraProgreso img.huevo {
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+
+}
+
+.BarraProgreso-nivel {
+    width: 100%;
+    position: relative;
+}
+
+.BarraProgreso-nivel p {
+    margin-bottom: -15px;
+    color: aliceblue;
+    text-align: center;
+}
+
+.progress-bar {
+    height: 5px;
+    background-color: rgb(155, 155, 155);
+    margin: 10px;
+    margin-top: 20px;
+
+}
+
+.progress-bar-progreso {
+    text-align: center;
+    height: 5px;
+    background-color: rgb(43, 226, 220);
+}

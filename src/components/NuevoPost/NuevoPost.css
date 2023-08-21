@@ -1,0 +1,246 @@
+.NuevoPost {
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 2% 0 5% 0;
+    box-shadow: 0px 10px 15px -3px rgba(79, 79, 79, 0.148), 0px 10px 15px -3px rgba(79, 79, 79, 0.148);
+}
+
+.NuevoPost-perfil img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.NuevoPost-div {
+    width: 100%;
+    height: 50px;
+    margin-left: 10px;
+    background-color: rgb(31, 31, 31);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.NuevoPost-div:hover {
+    background-color: rgb(46, 45, 45);
+}
+
+.NuevoPost-Publicar {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.448);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.NuevoPost-Publicar-content {
+    width: 600px;
+    height: auto;
+    background-color: #262b34;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+}
+
+
+.NuevoPost-Publicar-post-perfil {
+    display: flex;
+}
+
+.NuevoPost-Publicar-post-perfil img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-bottom: 3%;
+    margin-right: 10px;
+}
+
+.NuevoPost-Publicar-post-Publicacion {
+    height: auto;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 20px;
+}
+
+.NuevoPost-Publicar-post-Publicacion-textarea {
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 25vh;
+}
+
+
+.NuevoPost-Publicar-post-Publicacion-textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+.NuevoPost-Publicar-post-Publicacion-textarea::-webkit-scrollbar-thumb {
+    background-color: #262b3400;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+.NuevoPost-Publicar-post-Publicacion-textarea::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.NuevoPost-Publicar-post input {
+    width: 100%;
+    background-color: #f4f4f4;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 2%;
+}
+
+.NuevoPost-Publicar-post-Publicacion textarea {
+    width: 100%;
+    height: 200px;
+    background-color: #f4f4f4;
+    border: none;
+    overflow-x: auto;
+    resize: none;
+    overflow-y: hidden;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+}
+
+.Comentar-input-acciones .iconos {
+    font-size: 25px;
+    color: #b2b2b2;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.Comentar-vista-imagenes {
+    display: flex;
+    border-top: 1px solid #262b3429;
+    margin-top: 2%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.Comentar-vista-imagenes-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    position: relative;
+}
+
+.Comentar-vista-imagenes-content img,
+.VideoThumbnail img {
+    width: 100px;
+    height: 100px;
+}
+
+.VideoThumbnail {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.VideoThumbnail img {
+    width: 200px;
+    height: 200px;
+
+}
+
+.VideoThumbnail .Icono-cerrar {
+    font-size: 25px;
+    cursor: pointer;
+    background-color: #f4f4f4;
+    color: #2d2d2d;
+    position: absolute;
+    top: 2%;
+    right: 32%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Comentar-vista-imagenes-content .Icono-cerrar {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #f4f4f4;
+    color: #2d2d2d;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.NuevoPost-Publicar-buton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.NuevoPost-Publicar-buton button {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(78, 75, 230);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: #f4f4f4;
+    cursor: pointer;
+}
