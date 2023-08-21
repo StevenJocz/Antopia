@@ -5,5 +5,5 @@ export const PublicRoutes = {
 export const PrivateRoutes = {
   PRIVATE: 'admin',
   DASHBOARD: 'Dashboard',
-  User: 'Home'
+  User: '/Antopia/Home'
 };
