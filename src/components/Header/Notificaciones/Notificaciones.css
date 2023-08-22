@@ -8,6 +8,10 @@
     right: 0;
 }
 
+.Notificaciones-Contenedor.active {
+    display: block;
+}
+
 .Notificaciones h4{
     font-size: 20px;
     color: aliceblue;

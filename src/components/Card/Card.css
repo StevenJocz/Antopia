@@ -27,7 +27,7 @@
 }
 
 .borde-dos {
-    border: 1px solid #ce857a7d;
+    border: 1px solid #8379c1da;;
     border-bottom: 0;
 }
 
@@ -217,7 +217,7 @@
 }
 
 .footer-borde-dos img {
-    background-color: #ce857a;
+    background-color: #8379c1da;
 }
 
 .footer-borde-tres img {
@@ -240,8 +240,8 @@
 }
 
 .footer-borde-dos {
-    background-color: #ce857a1f;
-    border: 1px solid #ce857a7d;
+    background-color: #8379c11f;
+    border: 1px solid #8379c1;
 }
 
 .footer-borde-tres {
@@ -258,7 +258,7 @@
 }
 
 .footer-borde-dos a {
-    color: #ff9c8cda;
+    color:  #8379c1da;
 }
 
 .footer-borde-tres a {

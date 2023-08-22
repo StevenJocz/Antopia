@@ -5,10 +5,14 @@
     z-index: 1000;
 }
 
+.Buscardor-Contenedor.active {
+    display: block;
+}
+
 
 .Buscardor-content {
     width: 750px;
-    height: 70vh;
+    height: 10vh;
     background-color: #262b34;
     border-radius: 20px;
     -webkit-border-radius: 20px;

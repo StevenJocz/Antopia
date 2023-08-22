@@ -12,6 +12,10 @@
     overflow-x: hidden;
 }
 
+.Chat-Contenedor.active{
+    display: block;
+}
+
 .Chat h4 {
     font-size: 20px;
     color: aliceblue;
