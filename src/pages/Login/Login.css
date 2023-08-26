@@ -333,7 +333,7 @@
 
 }
 
-.login__container .Crear-cuenta a{
+.login__container .Crear-cuenta a {
     text-decoration: none;
     color: #AAEDFD;
 
@@ -386,7 +386,7 @@
     margin-top: 2%;
 }
 
-.Registro__Content a{
+.Registro__Content a {
     color: #AAEDFD;
     text-decoration: none;
     font-weight: 900;
@@ -410,36 +410,34 @@
         display: block;
         padding: 0 5%;
     }
+
     .login__bg--Uno {
         display: none;
-    
+
     }
-    
+
     .login__bg--Uno::before {
         display: none;
     }
-    
+
     .login__bg--Dos {
         display: none;
     }
-    
+
     .login__bg--Dos::before {
-       display: none;
+        display: none;
     }
 
     .Registro__Content {
-        width: 95%;
-        margin: 0 2.5%;
+        width: 96%;
+        margin: 0 2%;
     }
-    
-    
-    
 
     .login__logo {
         width: 100%;
         height: auto;
         margin-right: 0;
-        margin-bottom: 2%;
+        margin-bottom: 5%;
 
     }
 
