@@ -428,8 +428,8 @@
     }
 
     .Registro__Content {
-        width: 90%;
-        margin: 0 5%;
+        width: 95%;
+        margin: 0 2.5%;
     }
     
     
@@ -439,6 +439,7 @@
         width: 100%;
         height: auto;
         margin-right: 0;
+        margin-bottom: 2%;
 
     }
 
