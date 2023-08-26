@@ -10,7 +10,7 @@ const VideosYoutube: React.FC<YouTubeVideoProps> = ({ videoUrl }) => {
     }
     return (
         <div>
-            <ReactPlayer url={videoUrl} controls={true} width='100%'  />
+            <ReactPlayer url={videoUrl} controls={true} width='100%' height='360px' />
         </div>
     );
 

@@ -11,10 +11,16 @@ import Home from '../../assets/imagenes/eco-home.png';
 import { usePublicaciones } from '../../Context/PublicacionesContext';
 import { Comentario } from '../../models';
 import { Link } from 'react-router-dom';
+import { Slider } from '../Slider';
 
 const VideosYoutube = lazy(() => import('../Logout/VideosYoutube'));
 
-const Card: React.FC = () => {
+interface Props {
+    idTipo: number | null;
+    idPerfil: number | null;
+}
+
+const Card: React.FC<Props> = (props) => {
 
     const [verComentarios, setVerComentarios] = useState(false);
     const [verAcciones, setVerAcciones] = useState<{ [key: number]: boolean }>({});
@@ -50,12 +56,13 @@ const Card: React.FC = () => {
             [idPublicacion]: !prevStates[idPublicacion]
         }));
     };
-
+    
 
     return (
         <div className="Card">
-            {publicacionesOrdenadas.map(publicacion => (
+            {publicacionesOrdenadas.map((publicacion, index) => (
                 <div className="Card-content" key={publicacion.IdPublicacion}>
+                    {((props.idPerfil === null) && (index % 8 === 0)) && <Slider idTipo={props.idTipo} />}
                     <article
                         className={`Card-Articulo borde-${publicacion.IdTipo === 1 ? "Uno" :
                             publicacion.IdTipo === 2 ? "dos" :

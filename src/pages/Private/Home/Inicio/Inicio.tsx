@@ -16,7 +16,7 @@ const Inicio: React.FC = () => {
             <PublicacionesProvider idTipo={null} idPerfil={null}>
                 <NuevoPost />
                 <h2>Reciente</h2>
-                <Card />
+                <Card idTipo={null} idPerfil={null}/>
             </PublicacionesProvider>
         </div>
     )

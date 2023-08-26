@@ -1,15 +1,23 @@
-
-import RegistrarDiario from './RegistrarDiario'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDiarioContext } from '../../../Context/DiarioContext';
 import { format } from 'date-fns';
-import './PerfilContenido.css'
+import RegistrarDiario from './RegistrarDiario';
+import { AppStore } from '../../../redux/store';
+import { useSelector } from "react-redux";
+import './PerfilContenido.css';
 
-const Diario = () => {
+interface Props {
+    idPerfil: number;
+}
+
+const Diario: React.FC<Props> = (props) => {
     const [verRegistrarDiario, setRegistrarDiario] = useState(false);
     const [tipo, setTipo] = useState(false);
-    const { diarioData } = useDiarioContext();
-    const [selectedDiarioId, setSelectedDiarioId] = useState(1);
+    const { getDiariosPorIdPerfil } = useDiarioContext();
+    const [mostrarRegistrar, setMostrarRegistrar] = useState(false);
+    const userState = useSelector((store: AppStore) => store.user);
+
+    const [selectedDiarioId, setSelectedDiarioId] = useState<number>(1);
 
     const mostrarRegistrarDiario = (tipo: boolean) => {
         setRegistrarDiario(true);
@@ -20,28 +28,45 @@ const Diario = () => {
         setSelectedDiarioId(id);
     };
 
+    const diariosPorIdPerfil = getDiariosPorIdPerfil(props.idPerfil);
+
+    useEffect(() => {
+        if (props.idPerfil === userState.IdPerfil) {
+            setMostrarRegistrar(true);
+        } else {
+            setMostrarRegistrar(false);
+        }
+    }, [props.idPerfil, userState.IdPerfil]);
+
+
     return (
         <div className='Diario'>
             <div className='Diario-nav'>
                 <ul>
-                    <li className='LiBoton' onClick={() => mostrarRegistrarDiario(true)}><button>Crear nuevo diario</button></li>
-                    {diarioData.map((diario, index) => (
+                    {mostrarRegistrar && (
+                        <li className='LiBoton' onClick={() => mostrarRegistrarDiario(true)}><button>Crear nuevo diario</button></li>
+                    )}
+
+                    {diariosPorIdPerfil.map((diario, index) => (
                         <li key={index} onClick={() => mostrarRegistrosDiario(diario.id)}>{diario.diario}</li>
                     ))}
                 </ul>
             </div>
             <div className='Diario-content'>
-                <div className='Diario-content-boton'>
-                    <button onClick={() => mostrarRegistrarDiario(false)} >Agregar registro al diario</button>
-                </div>
+                {mostrarRegistrar && (
+                    <div className='Diario-content-boton'>
+                        <button onClick={() => mostrarRegistrarDiario(false)} >Agregar registro al diario</button>
+                    </div>
+                )}
+
                 {selectedDiarioId !== null && (
-                    <div >
-                        <h1>{diarioData.find(diario => diario.id === selectedDiarioId)?.diario}</h1>
-                        {diarioData
+                    <div>
+                        <h1>{diariosPorIdPerfil.find(diario => diario.id === selectedDiarioId)?.diario}</h1>
+                        {diariosPorIdPerfil
                             .find(diario => diario.id === selectedDiarioId)
                             ?.registros
                             .slice()
-                            .reverse() 
+                            .reverse()
                             .map((registro, registroIndex, registros) => (
                                 <div className='Diario-content-publicado' key={registroIndex}>
                                     <h3>{`Día ${registros.length - registroIndex}: ${format(new Date(registro.fecha), 'd \'de\' MMMM, yyyy')}`}</h3>
@@ -54,10 +79,8 @@ const Diario = () => {
             {verRegistrarDiario && (
                 <RegistrarDiario mostrarRegistrarDiario={() => setRegistrarDiario(false)} tipo={tipo} id={selectedDiarioId} />
             )}
-
         </div>
+    );
+};
 
-    )
-}
-
-export default Diario
+export default Diario;

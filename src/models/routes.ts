@@ -1,5 +1,6 @@
 export const PublicRoutes = {
-  Home: 'Antopia'
+  Home:  'Antopia',
+  Registro: 'Registro',
 };
 
 export const PrivateRoutes = {

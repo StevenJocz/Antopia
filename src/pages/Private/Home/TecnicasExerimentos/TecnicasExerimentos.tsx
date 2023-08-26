@@ -16,7 +16,7 @@ const TecnicasExerimentos = () => {
             <PublicacionesProvider idTipo={3} idPerfil={null}>
                 <NuevoPost />
                 <h2>Experimentos y técnicas</h2>
-                <Card />
+                <Card idTipo={3} idPerfil={null}/>
             </PublicacionesProvider>
         </div>
     )

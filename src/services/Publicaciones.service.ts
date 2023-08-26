@@ -252,56 +252,55 @@ export const objetoEjemplo: Publicacion[] = [
         ],
     },
     {
-        "IdPerfil": 3,
-        "NombrePerfil": "María González",
-        "urlPerfil": "MariaGonzalez",
-        "ImagenPerfil": "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png",
-        "IdPublicacion": 555,
-        "IdTipo": 2,
-        "Megustas": 70,
-        "CantidadComentarios": 0,
-        "FechaPublicacion": "2023-08-20 10:15:00",
-        "Titulo": "Evolución de las Estrategias de Caza en Hormigas",
-        "Contenido": "Las hormigas han desarrollado una amplia variedad de estrategias de caza para obtener alimento. Algunas especies son cazadoras solitarias, mientras que otras forman grupos cooperativos para capturar presas más grandes. Estas estrategias de caza son el resultado de millones de años de evolución y adaptación al entorno. Exploraremos cómo las hormigas han refinado sus técnicas para garantizar el éxito en la obtención de alimento.",
-        "UrlYoutube": "",
-        "ImagenesPublicacion": {
-            "imagen1": "https://mf.b37mrtl.ru/actualidad/public_images/2022.03/article/6242ecc1e9ff7142bd1421af.jpeg",
-            "imagen2": "https://img.freepik.com/fotos-premium/hormigas-rojas-atacan-su-presa_665346-2336.jpg",
-            "imagen3": "https://cumbrepuebloscop20.org/wp-content/uploads/2023/06/ant.jpg"
+        IdPerfil: 3,
+        NombrePerfil: "María González",
+        urlPerfil: "MariaGonzalez",
+        ImagenPerfil: "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png",
+        IdPublicacion: 555,
+        IdTipo: 2,
+        Megustas: 70,
+        CantidadComentarios: 0,
+        FechaPublicacion: "2023-08-20 10:15:00",
+        Titulo: "Evolución de las Estrategias de Caza en Hormigas",
+        Contenido: "Las hormigas han desarrollado una amplia variedad de estrategias de caza para obtener alimento. Algunas especies son cazadoras solitarias, mientras que otras forman grupos cooperativos para capturar presas más grandes. Estas estrategias de caza son el resultado de millones de años de evolución y adaptación al entorno. Exploraremos cómo las hormigas han refinado sus técnicas para garantizar el éxito en la obtención de alimento.",
+        UrlYoutube: "",
+        ImagenesPublicacion: {
+            imagen1: "https://mf.b37mrtl.ru/actualidad/public_images/2022.03/article/6242ecc1e9ff7142bd1421af.jpeg",
+            imagen2: "https://img.freepik.com/fotos-premium/hormigas-rojas-atacan-su-presa_665346-2336.jpg",
+            imagen3: "https://cumbrepuebloscop20.org/wp-content/uploads/2023/06/ant.jpg"
         },
-        "Comentarios": [
-            
+        Comentarios: [
+
         ]
     },
     {
-        "IdPerfil": 4,
-        "NombrePerfil": "Luisa Martínez",
-        "urlPerfil": "LuisaMartinez",
-        "ImagenPerfil": "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png",
-        "IdPublicacion": 777,
-        "IdTipo": 1,
-        "Megustas": 40,
-        "CantidadComentarios": 0,
-        "FechaPublicacion": "2023-08-21 09:30:00",
-        "Titulo": "🐜🎉 Explorando el Mundo de las Hormigas Gigantes 🎉🐜",
-        "Contenido": "Las hormigas gigantes son un ejemplo sorprendente de la biodiversidad en el reino de los insectos. 🌎🔍 Aunque su tamaño puede ser intimidante, estas hormigas a menudo tienen comportamientos únicos y fascinantes. Algunas especies construyen nidos intrincados bajo tierra, mientras que otras son excelentes cazadoras solitarias. ¡Acompáñanos en un viaje para conocer las maravillas de las hormigas gigantes y su papel en los ecosistemas! 🐜🌿",
-        "UrlYoutube": "https://www.youtube.com/watch?v=giHl82SIbXU&t=74s",
-        "ImagenesPublicacion": {
-            
-       
-        },"Comentarios": [{
-            "IdPerfilComentarios": 678,
-            "FechaComentario": "2023-08-21 14:45:00",
-            "NombrePerfilComentarios": "Daniel Martinez",
-            "urlPerfil": "CarlosGomez",
-            "ImagenPerfilComentarios": "https://cdn.pixabay.com/photo/2016/08/20/05/42/avatar-1606920_960_720.png",
-            "Comentario": "¡Increíble artículo! Las diferentes estrategias de caza en hormigas muestran la diversidad de enfoques que pueden surgir en la naturaleza para resolver un problema común: conseguir alimento. Desde emboscadas hasta caza en equipo, estas estrategias son un testimonio de la creatividad de la evolución.",
-            "imagenComentario": "",
-            "megustaComentarios": 6
-        } ]
+        IdPerfil: 4,
+        NombrePerfil: "Luisa Martínez",
+        urlPerfil: "LuisaMartinez",
+        ImagenPerfil: "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png",
+        IdPublicacion: 777,
+        IdTipo: 1,
+        Megustas: 40,
+        CantidadComentarios: 0,
+        FechaPublicacion: "2023-08-21 09:30:00",
+        Titulo: "🐜🎉 Explorando el Mundo de las Hormigas Gigantes 🎉🐜",
+        Contenido: "Las hormigas gigantes son un ejemplo sorprendente de la biodiversidad en el reino de los insectos. 🌎🔍 Aunque su tamaño puede ser intimidante, estas hormigas a menudo tienen comportamientos únicos y fascinantes. Algunas especies construyen nidos intrincados bajo tierra, mientras que otras son excelentes cazadoras solitarias. ¡Acompáñanos en un viaje para conocer las maravillas de las hormigas gigantes y su papel en los ecosistemas! 🐜🌿",
+        UrlYoutube: "https://www.youtube.com/watch?v=giHl82SIbXU&t=74s",
+        ImagenesPublicacion: {
+        },
+        Comentarios: [{
+            IdPerfilComentarios: 678,
+            FechaComentario: "2023-08-21 14:45:00",
+            NombrePerfilComentarios: "Daniel Martinez",
+            urlPerfil: "CarlosGomez",
+            ImagenPerfilComentarios: "https://cdn.pixabay.com/photo/2016/08/20/05/42/avatar-1606920_960_720.png",
+            Comentario: "¡Increíble artículo! Las diferentes estrategias de caza en hormigas muestran la diversidad de enfoques que pueden surgir en la naturaleza para resolver un problema común: conseguir alimento. Desde emboscadas hasta caza en equipo, estas estrategias son un testimonio de la creatividad de la evolución.",
+            imagenComentario: "",
+            megustaComentarios: 6
+        }]
     }
-    
-    
+
+
 ];
 
 

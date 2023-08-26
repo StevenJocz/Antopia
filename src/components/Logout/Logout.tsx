@@ -17,7 +17,7 @@ function Logout() {
   return (
     <div className='MiPerfil_Contenido_text' onClick={logOut}>
       <IonIcon icon={exitOutline} />
-      <h5>Cerror seccion</h5>
+      <h5>Cerror sesión</h5>
     </div>
   );
 

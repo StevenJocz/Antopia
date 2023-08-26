@@ -2,6 +2,8 @@ import { IonIcon } from "@ionic/react";
 import { closeCircleOutline } from 'ionicons/icons';
 import { useDiarioContext } from "../../../Context/DiarioContext";
 import { useState } from "react";
+import { AppStore } from '../../../redux/store';
+import { useSelector } from "react-redux";
 
 interface Props {
     mostrarRegistrarDiario: () => void;
@@ -14,7 +16,7 @@ const RegistrarDiario: React.FC<Props> = (props) => {
     const [nombreDiario, setNombreDiario] = useState("");
     const [fechaDiario, setFechaDiario] = useState("");
     const [contenidoDiario, setContenidoDiario] = useState("");
-
+    const userState = useSelector((store: AppStore) => store.user);
 
     const handleRegistrarDiarioSinRegistros = () => {
         if (nombreDiario === "") {
@@ -23,6 +25,7 @@ const RegistrarDiario: React.FC<Props> = (props) => {
         }
 
         const nuevoDiario = {
+            idPerfil: userState.IdPerfil,
             id: lastDiarioId + 1,
             diario: nombreDiario,
             registros: [],

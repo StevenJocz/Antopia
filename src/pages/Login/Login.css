@@ -1,22 +1,135 @@
 .login {
     width: 100%;
     height: 100vh;
-    background-image: url(../../assets/imagenes/bg_image.png);
     background-size: contain;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #010912;
+    position: relative;
+    overflow: hidden;
+}
+
+.login__bg--Uno {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+
+}
+
+.login__bg--Uno::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #bdcbf2d8;
+    filter: blur(60px);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    -webkit-filter: blur(60px);
+}
+
+.login__bg--Dos {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.login__bg--Dos::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #bdcbf299;
+    filter: blur(80px);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    -webkit-filter: blur(80px);
+}
+
+.login__bg--Tres {
+    position: absolute;
+    top: 0;
+    left: 12%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.login__bg--Tres::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #efedab23;
+    filter: blur(10px);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    -webkit-filter: blur(10px);
 }
 
 .login__logo {
     width: 700px;
     height: 70vh;
     margin-right: 60px;
-
+    text-align: center;
+    z-index: 1;
 }
 
 .login__logo img {
     width: 100%;
+}
+
+.login__logo p {
+    color: aliceblue;
+    font-size: 22px;
+    margin-top: -30px;
+}
+
+.login__logo button {
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.login__logo button a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
 }
 
 .login__container {
@@ -28,6 +141,7 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     padding: 20px;
+    z-index: 1;
 
 }
 
@@ -48,7 +162,15 @@
 .login__container__title h1 {
     color: aliceblue;
     text-align: center;
-    font-size: 25px;
+    font-size: 22px;
+
+}
+
+.login__container__title p {
+    margin-top: 2%;
+    color: aliceblue;
+    text-align: center;
+    font-size: 15px;
 
 }
 
@@ -98,7 +220,7 @@
 .login__container__group input:valid~label {
     top: -20px;
     font-size: 14px;
-    color: #5264AE;
+    color: #f4f4f4;
 }
 
 .login__container__group .bar {
@@ -191,9 +313,9 @@
     color: #AAEDFD;
     font-weight: 900;
     text-decoration: none;
-    position: absolute;
-    bottom: -30%;
-    right: 0;
+    display: flex;
+    justify-content: right;
+    cursor: pointer;
 }
 
 .login__container button {
@@ -208,13 +330,69 @@
 .login__container .Crear-cuenta {
     text-decoration: none;
     color: aliceblue;
+
+}
+
+.login__container .Crear-cuenta a{
+    text-decoration: none;
+    color: #AAEDFD;
+
 }
 
 .login__container span {
     text-decoration: none;
     color: #AAEDFD;
     font-weight: 900;
+    cursor: pointer;
 }
+
+.error {
+    color: rgb(255, 0, 51);
+}
+
+.Registro {
+    display: block;
+    z-index: 1;
+}
+
+.Registro__logo {
+    text-align: center;
+}
+
+.Registro__logo img {
+    width: 200px;
+}
+
+.Registro__Content {
+    width: 40%;
+    margin: 0 30%;
+    background-color: #121316;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+}
+
+.Registro__Formulario {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.Registro__Formulario .Aceptar {
+    color: #f4f4f4;
+    margin-top: 2%;
+}
+
+.Registro__Content a{
+    color: #AAEDFD;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 18px;
+}
+
 
 /* ========= MEDIA QUERIES (MEDIUM DEVICES) =======*/
 
@@ -227,7 +405,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position-y: 10%;
-        background-position-X:20% ;
+        background-position-X: 20%;
         height: auto;
         display: block;
         padding: 0 5%;
@@ -237,7 +415,7 @@
         width: 100%;
         height: auto;
         margin-right: 0;
-    
+
     }
 
     .login__container {

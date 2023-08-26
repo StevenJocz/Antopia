@@ -16,7 +16,7 @@ const CriaHormigas = () => {
             <PublicacionesProvider idTipo={1} idPerfil={null}>
                 <NuevoPost />
                 <h2>Cria de Hormigas</h2>
-                <Card />
+                <Card idTipo={1} idPerfil={null}/>
             </PublicacionesProvider>
 
         </div>

@@ -6,6 +6,7 @@ interface RegistroEntry {
 }
 
 interface DiarioEntry {
+    idPerfil: number;
     id: number;
     diario: string;
     registros: RegistroEntry[];
@@ -15,6 +16,7 @@ interface DiarioContextProps {
     diarioData: DiarioEntry[];
     agregarDiario: (nuevoDiario: DiarioEntry) => void;
     agregarRegistro: (idDiario: number, nuevoRegistro: RegistroEntry) => void;
+    getDiariosPorIdPerfil: (idPerfil: number) => DiarioEntry[];
     lastDiarioId: number;
 }
 
@@ -31,6 +33,7 @@ export const useDiarioContext = () => {
 export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     const defaultDiarioData: DiarioEntry[] = [
         {
+            idPerfil:1,
             id: 1,
             diario: "Diario de Hormigas",
             registros: [
@@ -62,6 +65,7 @@ export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) =>
             ],
         },
         {
+            idPerfil: 5,
             id: 2,
             diario: "Diario de OtraEspecie",
             registros: [
@@ -81,26 +85,34 @@ export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) =>
     const [lastDiarioId, setLastDiarioId] = useState<number>(defaultDiarioData.length);
 
     const agregarDiario = (nuevoDiario: DiarioEntry) => {
-        setDiarioData([...diarioData, nuevoDiario]);
+        setDiarioData(prevDiarios => [...prevDiarios, nuevoDiario]);
         setLastDiarioId(lastDiarioId + 1);
     };
 
     const agregarRegistro = (idDiario: number, nuevoRegistro: RegistroEntry) => {
-        const updatedDiarioData = diarioData.map(diario => {
-            if (diario.id === idDiario) {
-                return {
-                    ...diario,
-                    registros: [...diario.registros, nuevoRegistro],
-                };
-            }
-            return diario;
-        });
+        setDiarioData(prevDiarios =>
+            prevDiarios.map(diario =>
+                diario.id === idDiario
+                    ? { ...diario, registros: [...diario.registros, nuevoRegistro] }
+                    : diario
+            )
+        );
+    };
 
-        setDiarioData(updatedDiarioData);
+    const getDiariosPorIdPerfil = (idPerfil: number): DiarioEntry[] => {
+        return diarioData.filter(diario => diario.idPerfil === idPerfil);
+    };
+
+    const contextValue: DiarioContextProps = {
+        diarioData,
+        agregarDiario,
+        agregarRegistro,
+        getDiariosPorIdPerfil,
+        lastDiarioId
     };
 
     return (
-        <DiarioContext.Provider value={{ diarioData, agregarDiario, agregarRegistro, lastDiarioId }}>
+        <DiarioContext.Provider value={contextValue}>
             {children}
         </DiarioContext.Provider>
     );

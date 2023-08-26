@@ -20,6 +20,7 @@ export const AuthGuard = ({ privateValidation }: Props) => {
     )
   ) : (
     <Navigate replace to={PublicRoutes.Home} />
+    
   );
 };
 

@@ -1,3 +1,4 @@
+
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
@@ -7,7 +8,9 @@ import { PrivateRoutes, PublicRoutes, Roles } from './models';
 import store from './redux/store';
 import { RoutesWithNotFound } from './utilities';
 import { Home } from './pages/Private';
-import Cargando from './assets/imagenes/progreso.gif'
+import { PropagateLoader } from 'react-spinners';
+import Registro from './pages/Login/Registro';
+
 
 const Login = lazy(() => import('./pages/Login/Login'));
 const Private = lazy(() => import('./pages/Private/Private'));
@@ -30,9 +33,8 @@ function App() {
 
       <Suspense>
         {isLoading ? (
-          // Renderizar un componente de carga mientras isLoading sea true
           <div className='PropagateLoader'>
-            <img src={Cargando} alt="" />
+            <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
           </div>
         ) : (
           <Provider store={store}>
@@ -40,6 +42,7 @@ function App() {
               <RoutesWithNotFound>
                 <Route path="/Dashboard" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
                 <Route path={PublicRoutes.Home} element={<Login />} />
+                <Route path={PublicRoutes.Registro} element={<Registro />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard rol={Roles.ADMIN} />}>
                     <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />

@@ -1,6 +1,5 @@
 
-import { useEffect, useState } from 'react';
-import { ModalImagenes } from '../ModalImagenes';
+import { useEffect} from 'react';
 import Hormiga from '../../assets/imagenes/reina.png';
 import './Perfil.css';
 import { RoutePerfil } from '.';
@@ -37,16 +36,7 @@ const Perfil = () => {
         backgroundPositionY: '20%',
     };
 
-    const [modalImage, setModalImage] = useState<string | null>(null);
-
-    const openModal = (imageUrl: string) => {
-        setModalImage(imageUrl);
-    };
-
-    const closeModal = () => {
-        setModalImage(null);
-    };
-
+    
     useEffect(() => {
         const mainContainer = document.getElementById('Layout-main');
         if (mainContainer) {
@@ -63,7 +53,6 @@ const Perfil = () => {
                     <img
                         src={profileImageUrl}
                         alt=""
-                        onClick={() => openModal(profileImageUrl)}
                     />
                 </div>
                 <div className='Perfil-Info'>
@@ -85,9 +74,6 @@ const Perfil = () => {
             <div className='Perfil-contenido'>
                 <RoutePerfil />
             </div>
-            {modalImage && (
-                <ModalImagenes imageUrls={[modalImage]} onClose={closeModal} />
-            )}
         </div>
     );
 }
