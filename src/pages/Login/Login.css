@@ -444,4 +444,8 @@
     .login__container {
         width: 100%;
     }
+
+    .Registro__logo img {
+        width:  100%;
+    }
 }
