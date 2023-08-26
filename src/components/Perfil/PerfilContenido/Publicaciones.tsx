@@ -29,7 +29,7 @@ const Publicaciones = () => {
                     <NuevoPost />
                 )}
                 <h2>Publicaciones</h2>
-                <Card />
+                <Card idTipo={null} idPerfil={Number(idPerfil)}/>
             </PublicacionesProvider>
         </div>
     )
