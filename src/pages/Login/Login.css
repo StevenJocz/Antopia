@@ -410,6 +410,30 @@
         display: block;
         padding: 0 5%;
     }
+    .login__bg--Uno {
+        display: none;
+    
+    }
+    
+    .login__bg--Uno::before {
+        display: none;
+    }
+    
+    .login__bg--Dos {
+        display: none;
+    }
+    
+    .login__bg--Dos::before {
+       display: none;
+    }
+
+    .Registro__Content {
+        width: 90%;
+        margin: 0 5%;
+    }
+    
+    
+    
 
     .login__logo {
         width: 100%;
