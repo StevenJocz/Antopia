@@ -7,6 +7,9 @@ export interface UserInfo {
   ImagenPerfil: string;
   email: string;
   rol: Roles;
+  exp: string; 
+  iat: string;
+  nbf: string;
 }
 
 export interface InfoPerfil {

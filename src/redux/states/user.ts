@@ -9,6 +9,10 @@ export const EmptyUserState: UserInfo = {
   urlPerfil:  '',
   email: '',
   rol: Roles.Vacio,
+  exp: '', 
+  iat : '',
+  nbf: '',
+
 };
 
 export const UserKey = 'user';

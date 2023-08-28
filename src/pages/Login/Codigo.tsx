@@ -3,6 +3,7 @@ import logo from '../../assets/imagenes/hormigaLogo.png'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { BotonSubmit } from '../../components/Boton';
 import CambioPassword from './CambioPassword';
+import { PostEnviarCodigo } from '../../services';
 
 
 
@@ -24,10 +25,14 @@ const Codigo: React.FC<CodigoProps> = ({ correoElectronico }) => {
         try {
             setIsLoading(true);
             const { correoElectronico, codigo } = values;
-            console.log(correoElectronico, codigo);
-            setmostrarCambioPassword(true);
 
-
+            const result = await PostEnviarCodigo(correoElectronico, codigo);
+            if (result.resultado === false) {
+                setMsg(result.message);
+            } else {
+                setMsg(result.message);
+                setmostrarCambioPassword(true);
+            }
             setIsLoading(false);
         } catch (error) {
             setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
@@ -70,7 +75,7 @@ const Codigo: React.FC<CodigoProps> = ({ correoElectronico }) => {
                                         />
                                         <span className="highlight"></span>
                                         <span className="bar"></span>
-                                        <label>Email</label>
+                                        <label>Código</label>
                                     </div>
                                     <i className='mensaje'>{msg}</i>
                                     <ErrorMessage name='codigo' component={() => <div className='error'>{errors.codigo}</div>} />

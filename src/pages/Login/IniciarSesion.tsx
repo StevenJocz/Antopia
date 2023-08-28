@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { clearLocalStorage } from '../../utilities/localStorage.utility';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import logo from '../../assets/imagenes/hormigaLogo.png';
-import { PrivateRoutes, PublicRoutes, Roles } from '../../models';
+import { PrivateRoutes, PublicRoutes, Roles} from '../../models';
 import { UserKey, createUser, resetUser } from '../../redux/states/user';
-import { getMorty } from '../../services';
+import { getIniciar } from '../../services';
 import { BotonSubmit } from '../../components/Boton';
+import { Base64 } from "js-base64";
 
 
 interface LoginFormValues {
@@ -37,19 +38,25 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
         try {
             setIsLoading(true);
             const { correoElectronico, password } = values;
-            console.log(correoElectronico, password)
-            const result = await getMorty();
-            const userRole = Roles.USER;
 
-            dispatch(createUser({ ...result, rol: userRole }));
-
-            if (userRole === Roles.USER) {
-                navigate(`/${PrivateRoutes.User}`, { replace: true });
+            const result = await getIniciar(correoElectronico, password);
+            if (result.resultado === false) {
+                setMsg(result.msg);
 
             } else {
-                navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+
+                const token = result.token.split(".")[1];
+                const decodedValue = Base64.decode(token);
+                const obj = JSON.parse(decodedValue);
+
+                const userRole = Roles.USER;
+
+                dispatch(createUser({ ...obj, rol: userRole }));
+                navigate(`/${PrivateRoutes.User}`, { replace: true });
+
             }
             setIsLoading(false);
+
         } catch (error) {
             setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
             setIsLoading(false);
@@ -113,7 +120,7 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
                             <ErrorMessage name='correoElectronico' component={() => <div className='error'>{errors.correoElectronico}</div>} />
                             <ErrorMessage name='password' component={() => <div className='error'>{errors.password}</div>} />
                             <BotonSubmit texto={'Continuar'} isLoading={isLoading} isSubmitting={isSubmitting} onClick={() => login} color="guardar" />
-                            <p  className='Crear-cuenta'>¿No tienes una cuenta? <span> <Link to="/Registro">Únete</Link> </span> </p>
+                            <p className='Crear-cuenta'>¿No tienes una cuenta? <span> <Link to="/Registro">Únete</Link> </span> </p>
                         </Form>
                     )}
                 </Formik>

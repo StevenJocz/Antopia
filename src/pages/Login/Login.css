@@ -346,9 +346,30 @@
     cursor: pointer;
 }
 
-.error {
+.error, .mensaje {
     color: rgb(255, 0, 51);
 }
+
+.Content-exitoso {
+    display: block;
+}
+
+.Content-exitoso a {
+    display: block;
+    margin-top: 5%;
+}
+
+.mensajeCambio {
+    color: #52ae7d;
+}
+
+.color_IconoLogin {
+    font-size: 45px;
+    color: #52ae7d;
+    text-align: center;
+}
+
+
 
 .Registro {
     display: block;
@@ -360,7 +381,7 @@
 }
 
 .Registro__logo img {
-    width: 200px;
+    width: 300px;
 }
 
 .Registro__Content {
@@ -376,6 +397,11 @@
     z-index: 1;
 }
 
+.Registro__Content-paso {
+    font-size: 25px;
+    color: aliceblue;
+}
+
 .Registro__Formulario {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -386,12 +412,186 @@
     margin-top: 2%;
 }
 
+.Registro__Formulario .Aceptar span {
+    color: #AAEDFD;
+    cursor: pointer;
+}
+
 .Registro__Content a {
     color: #AAEDFD;
     text-decoration: none;
     font-weight: 900;
     font-size: 18px;
 }
+
+.select label {
+    margin-top: -30px;
+    font-size: 14px;
+    color: #f4f4f4;
+}
+
+.select select {
+    width: 100%;
+    border: solid 0.8px rgba(0, 0, 0, 0.09);
+    outline: none;
+    height: 30px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    padding-left: 10px;
+    font-size: 1em;
+    margin-top: 20px;
+    background-color: #010912;
+    color: #fff;
+}
+
+.configuracion-Perfil {
+    position: relative;
+    height: 250px;
+}
+
+.configuracion-portada {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.configuracion-portada img {
+    width: 100%;
+    height: 150px;
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    -o-transform: scale(1.4);
+}
+
+.configuracion-portada-bg {
+    background-color: #010912cb;
+    width: 100%;
+    height: 250px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+}
+
+.configuracion-portada p {
+    margin-top: 5%;
+    color: #f4f4f4;
+    font-size: 25px;
+}
+
+.configuracion-portada:hover .configuracion-portada-bg {
+    display: flex;
+    justify-content: center;
+}
+
+.foto-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: absolute;
+    bottom: 30%;
+    left: 35%;
+    position: relative;
+}
+
+.foto-preview img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    
+}
+
+.foto-preview-bg {
+    background-color: #010912cb;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    display: none;
+}
+
+.foto-preview:hover .foto-preview-bg {
+    display: block;
+}
+
+.foto-preview-bg p {
+    text-align: center;
+    color: #f4f4f4;
+    font-size: 18px;
+    margin-top: 20%;
+
+}
+
+.foto-preview input, .configuracion-portada input{
+    display: none;
+}
+
+.paso  h2 , .paso  p{
+    color: #f4f4f4;
+}
+
+.paso  p{
+    margin-bottom: 10%;
+}
+
+.frase p {
+    margin-bottom: 2%;
+    font-size: 18px;
+}
+
+
+.frase textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #f4f4f4;
+    border: none;
+    overflow-x: auto;
+    resize: none;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+}
+
+.finalizacion {
+    text-align: center;
+    color: #52ae7d;
+}
+
+.finalizacion h2 {
+    font-size: 40px;
+    color: #5ef3a4;
+}
+
+.finalizacion p {
+    font-size: 20px;
+}
+
+
 
 
 /* ========= MEDIA QUERIES (MEDIUM DEVICES) =======*/

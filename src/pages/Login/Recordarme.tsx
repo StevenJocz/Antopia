@@ -2,7 +2,8 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import logo from '../../assets/imagenes/hormigaLogo.png'
 import { BotonSubmit } from '../../components/Boton';
 import { useState } from 'react';
-import Codigo  from './Codigo';
+import Codigo from './Codigo';
+import { PostRecordarme } from '../../services';
 
 interface RecordarProps {
     mostrarIniciarSesion: () => void;
@@ -17,15 +18,21 @@ const Recordarme: React.FC<RecordarProps> = (props) => {
     const [msg, setMsg] = useState('');
     const [mostrarCodigo, setMostrarCodigo] = useState(false);
     const [correoElectronico, setCorreoElectronico] = useState('');
+    
     const handleRecordar = async (values: LoginFormValues) => {
         try {
-            const { correoElectronico } = values;
             setIsLoading(true);
-            console.log(correoElectronico)
-            setCorreoElectronico(correoElectronico);
-            setMostrarCodigo(true);
-            setIsLoading(false);
+            const { correoElectronico } = values;
 
+            const result = await PostRecordarme(correoElectronico);
+            if (result.resultado === false) {
+                setMsg(result.message);
+            } else {
+                setMsg(result.message);
+                setCorreoElectronico(correoElectronico);
+                setMostrarCodigo(true);
+            }
+            setIsLoading(false);
         } catch (error) {
             setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
             setIsLoading(false);
