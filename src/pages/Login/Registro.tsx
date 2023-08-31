@@ -6,6 +6,7 @@ import { BotonSubmit } from '../../components/Boton';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PostRegistrarUser } from '../../services';
+import { PublicRoutes } from '../../models';
 
 
 
@@ -235,7 +236,7 @@ const Registro = () => {
                     <div className="paso finalizacion">
                         <h2>🎉 ¡Felicitaciones! 🎉</h2>
                         <p>Ahora eres parte de Antopia. Inicia sesión para explorar este maravilloso mundo y conectar con otros amantes de las hormigas.</p>
-                        <Link to="/">Volver al iniciar sesión</Link>
+                        <Link to={PublicRoutes.Home}>Volver al iniciar sesión</Link>
                     </div>
                 ) : (
                     <>
@@ -381,12 +382,8 @@ const Registro = () => {
                         </div>
                         <Link to="/">Volver al iniciar sesión</Link>
                     </>
-
                 )}
-
-                
             </div>
-
         </div >
     )
 }
