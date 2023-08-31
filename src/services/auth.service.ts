@@ -1,7 +1,9 @@
 
-const baseUrl = 'http://localhost:5214/api/';
+const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
 const characterUrl = baseUrl + 'Login/login';
 
+// Esta función exportada, getIniciar, se encarga de enviar una solicitud POST a la URL characterUrl para iniciar sesión.
+// Toma la dirección de correo electrónico y la contraseña del usuario como parámetros.
 export const getIniciar = (userEmail: string, userPassword: string) => {
     const url = characterUrl;
     const body = JSON.stringify({ userEmail, userPassword });
@@ -15,6 +17,9 @@ export const getIniciar = (userEmail: string, userPassword: string) => {
     }).then(res => res.json());
 };
 
+
+// Esta función exportada, PostRecordarme, se encarga de enviar una solicitud POST para enviar un correo electrónico de restablecimiento de contraseña.
+// Toma la dirección de correo electrónico del usuario como parámetro.
 export const PostRecordarme = (userEmail: string) => {
     const url = baseUrl + 'Login/EmailRestablecimientoPassword';
     const body = JSON.stringify({
@@ -32,6 +37,9 @@ export const PostRecordarme = (userEmail: string) => {
     }).then(res => res.json());
 };
 
+
+// Esta función exportada, PostEnviarCodigo, se encarga de enviar una solicitud POST para verificar un código de seguridad durante el proceso de restablecimiento de contraseña.
+// Toma la dirección de correo electrónico y el código como parámetros.
 export const PostEnviarCodigo = (userEmail: string, codigo: string) => {
     const url = baseUrl + 'Login/VerificarCodigo';
     const body = JSON.stringify({
@@ -49,6 +57,9 @@ export const PostEnviarCodigo = (userEmail: string, codigo: string) => {
     }).then(res => res.json());
 };
 
+
+// Esta función exportada, PostActualizarPassword, se encarga de enviar una solicitud PUT para actualizar la contraseña del usuario.
+// Toma la dirección de correo electrónico y la nueva contraseña como parámetros.
 export const PostActualizarPassword = (userEmail: string, nuevoPassword: string) => {
     const url = `${baseUrl}Login/ActualizarPassword?userEmail=${encodeURIComponent(userEmail)}&nuevoPassword=${encodeURIComponent(nuevoPassword)}`;
 

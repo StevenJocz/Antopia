@@ -45,9 +45,11 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
 
             } else {
 
+                
                 const token = result.token.split(".")[1];
                 const decodedValue = Base64.decode(token);
                 const obj = JSON.parse(decodedValue);
+                console.log(obj)
 
                 const userRole = Roles.USER;
 

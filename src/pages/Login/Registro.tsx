@@ -34,22 +34,22 @@ const Registro = () => {
         setIsLoading(true);
         if (numeroPaso === 1) {
             if (nombre === '') {
-                setMsg('El nombre es requerido');
+                setMsg('* El nombre es requerido');
                 setIsLoading(false);
                 return;
             }
             if (correo === '') {
-                setMsg('El correo es requerido');
+                setMsg('* El correo electrónico es requerido');
                 setIsLoading(false);
                 return;
             }
             if (correo.indexOf('@') === -1) {
-                setMsg('El correo no es válido');
+                setMsg('* El correo electrónico no es válido');
                 setIsLoading(false);
                 return;
             }
             if (correo.indexOf('.') === -1) {
-                setMsg('El correo no es válido');
+                setMsg('* El correo electrócnio no es válido');
                 setIsLoading(false);
                 return;
             }
@@ -61,22 +61,22 @@ const Registro = () => {
         }
         else if (numeroPaso === 2) {
             if (fechaNacimiento === '') {
-                setMsg('La fecha de nacimiento es requerida');
+                setMsg('* La fecha de nacimiento es requerida');
                 setIsLoading(false);
                 return;
             }
             if (telefono === '') {
-                setMsg('El telefono es requerido');
+                setMsg('* El teléfono es requerido');
                 setIsLoading(false);
                 return;
             }
             if (telefono.length < 7) {
-                setMsg('El telefono no es válido');
+                setMsg('* El teléfono no es válido');
                 setIsLoading(false);
                 return;
             }
             if (genero === '') {
-                setMsg('El genero es requerido');
+                setMsg('* El género es requerido');
                 setIsLoading(false);
                 return;
             }
@@ -87,12 +87,12 @@ const Registro = () => {
         }
         else if (numeroPaso === 3) {
             if (fotoPerfilPreview === '') {
-                setMsg('La foto de perfil es requerida');
+                setMsg('* La foto de perfil es requerida');
                 setIsLoading(false);
                 return;
             }
             if (fondo === '') {
-                setMsg('El fondo es requerido');
+                setMsg('* El fondo es requerido');
                 setIsLoading(false);
                 return;
             }
@@ -104,13 +104,13 @@ const Registro = () => {
         } else if (numeroPaso === 4) {
 
             if (frase === '') {
-                setMsg('La frase es un campo requerido, ya que nos permite capturar tu pasión en palabras y expresarla al mundo.');
+                setMsg('* La frase es un campo requerido, ya que nos permite capturar tu pasión en palabras y expresarla al mundo.');
                 setIsLoading(false);
                 return;
             }
 
             if (frase.length < 30) {
-                setMsg('¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya y comparte una frase que refleje tu amor de manera más completa.');
+                setMsg('* ¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya y comparte una frase que refleje tu amor de manera más completa.');
                 setIsLoading(false);
                 return;
             }
@@ -123,22 +123,22 @@ const Registro = () => {
         }
         else if (numeroPaso === 5) {
             if (contraseña === '') {
-                setMsg('La contraseña es requerida');
+                setMsg('* La contraseña es requerida');
                 setIsLoading(false);
                 return;
             }
             if (contraseña.length < 8) {
-                setMsg('La contraseña no es válida');
+                setMsg('* La contraseña no es válida');
                 setIsLoading(false);
                 return;
             }
             if (!/(?=.*[A-Z])/.test(contraseña)) {
-                setMsg('La contraseña debe contener al menos una mayúscula');
+                setMsg('* La contraseña debe contener al menos una mayúscula');
                 setIsLoading(false);
                 return;
             }
             if (!/(?=.*\d)/.test(contraseña)) {
-                setMsg('La contraseña debe contener al menos un número');
+                setMsg('* La contraseña debe contener al menos un número');
                 setIsLoading(false);
                 return;
             }
@@ -325,7 +325,7 @@ const Registro = () => {
                                     <p>Asegúrate de que tenga 8 caracteres o más y una mayúscula.</p>
                                     <div className="login__container__group">
                                         <input
-                                            type='pasword'
+                                            type='password'
                                             name='contraseña'
                                             placeholder='*******'
                                             onChange={(e) => setContraseña(e.target.value)}

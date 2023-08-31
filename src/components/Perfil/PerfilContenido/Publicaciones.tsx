@@ -13,12 +13,14 @@ const Publicaciones = () => {
     
     const [verNuevoPost, setVerNuevoPost] = useState(false);
 
+    
     useEffect(() => {
-        if (Number(idPerfil) === userState.IdPerfil) {
+        if (Number(idPerfil) === Number(userState.IdPerfil)) {
             setVerNuevoPost(true);
         } else {
             setVerNuevoPost(false);
         }
+        
     }, [idPerfil, userState.IdPerfil]);
   
 
