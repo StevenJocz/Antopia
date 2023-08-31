@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:5239/api/';
+// const baseUrl = 'http://localhost:5239/api/';
+const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
 
 interface userData {
     id: number;
