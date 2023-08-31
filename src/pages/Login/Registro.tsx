@@ -5,6 +5,7 @@ import './Login.css'
 import { BotonSubmit } from '../../components/Boton';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PostRegistrarUser } from '../../services';
 
 
 
@@ -143,10 +144,46 @@ const Registro = () => {
                 return;
             }
             setMsg('');
-            setTextBoton('Finalizar');
-            setnumeroPaso(numeroPaso + 1);
+
+            CreateUser()
+            
             setIsLoading(false);
 
+        }
+    };
+
+
+    const CreateUser = async () => {
+        try {
+
+            const userData = {
+                id: 0,
+                s_user_name: nombre,
+                dt_user_birthdate: new Date(fechaNacimiento + 'T00:00:00Z').toISOString(),
+                s_user_gender: genero,
+                fk_user_address_city: 1, 
+                s_user_cellphone: telefono,
+                s_user_email: correo,
+                Password: contraseña,
+                s_userProfile: nombre.replace(/\s+/g, ''), 
+                s_userPhoto: fotoPerfilPreview, 
+                s_userFrontpage: fondo, 
+                fk_tblRol: 2, 
+            };
+
+            const result = await PostRegistrarUser(userData);
+            if (result.resultado === false) {
+                
+                setMsg(result.msg);
+
+            } else {
+                setnumeroPaso(numeroPaso + 1);
+
+            }
+
+        } catch (error) {
+            setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
+            setIsLoading(false);
         }
     };
 

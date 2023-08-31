@@ -33,7 +33,6 @@ export interface UserDTOs {
   fk_user_address_city: number;
   s_user_cellphone: string;
   s_user_email: string;
-  Password: string;
   s_userProfile: string;
   s_userPhoto: string;
   s_userFrontpage: string;
