@@ -6,7 +6,6 @@ import { BotonSubmit } from '../../components/Boton';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PostRegistrarUser } from '../../services';
-import { PublicRoutes } from '../../models';
 
 
 
@@ -27,6 +26,9 @@ const Registro = () => {
 
     const [fondo, setfondo] = useState('');
     const [fotoPerfilPreview, setFotoPerfilPreview] = useState('');
+
+    const [fotoPerfilBase64, setFotoPerfilBase64] = useState('');
+    const [fondoBase64, setFondoBase64] = useState('');
 
     const [contraseña, setContraseña] = useState('');
 
@@ -94,7 +96,7 @@ const Registro = () => {
                 return;
             }
             if (fondo === '') {
-                setMsg('* El fondo es requerido');
+                setMsg('*La portada es requerida');
                 setIsLoading(false);
                 return;
             }
@@ -167,8 +169,9 @@ const Registro = () => {
                 s_user_email: correo,
                 Password: contraseña,
                 s_userProfile: nombre.replace(/\s+/g, ''), 
-                s_userPhoto: fotoPerfilPreview, 
-                s_userFrontpage: fondo, 
+                s_userPhoto: fotoPerfilBase64,
+                s_userFrontpage: fondoBase64,
+                s_frase: frase,
                 fk_tblRol: 2, 
             };
 
@@ -189,15 +192,27 @@ const Registro = () => {
     };
 
 
-
+    
     const handleFotoPerfilChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
 
         if (files && files[0]) {
             const imageUrl = URL.createObjectURL(files[0]);
             setFotoPerfilPreview(imageUrl);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target) {
+                    const base64Image = e.target.result as string;
+                    setFotoPerfilBase64(base64Image);
+                }
+            };
+
+            reader.readAsDataURL(files[0]);
         }
     };
+
+   
 
     const handleFondoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const filesFondo = event.target.files;
@@ -205,8 +220,19 @@ const Registro = () => {
         if (filesFondo && filesFondo[0]) {
             const imageUrlFondo = URL.createObjectURL(filesFondo[0]);
             setfondo(imageUrlFondo);
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                if (e.target) {
+                    const base64ImageFondo = e.target.result as string;
+                    setFondoBase64(base64ImageFondo);
+                }
+            };
+            reader.readAsDataURL(filesFondo[0]);
         }
     };
+
 
 
     const handlePerfilIconClick = () => {
@@ -236,7 +262,7 @@ const Registro = () => {
                     <div className="paso finalizacion">
                         <h2>🎉 ¡Felicitaciones! 🎉</h2>
                         <p>Ahora eres parte de Antopia. Inicia sesión para explorar este maravilloso mundo y conectar con otros amantes de las hormigas.</p>
-                        <Link to={PublicRoutes.Home}>Volver al iniciar sesión</Link>
+                        <Link to="/">Volver al iniciar sesión</Link>
                     </div>
                 ) : (
                     <>

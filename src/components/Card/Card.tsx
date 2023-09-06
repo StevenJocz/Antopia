@@ -1,4 +1,4 @@
-import React, { useState, useCallback, lazy } from 'react';
+import React, { useState, useCallback, lazy} from 'react';
 import './Card.css';
 import { IonIcon } from '@ionic/react';
 import { chatboxOutline, addCircleOutline, heart } from 'ionicons/icons';
@@ -28,6 +28,7 @@ const Card: React.FC<Props> = (props) => {
     const [idPublicacion, setIdPublicacion] = useState(0);
     const { publicaciones } = usePublicaciones();
     const [leermasStates, setLeermasStates] = useState<{ [key: number]: boolean }>({});
+    
 
     const handleLeermas = (idPublicacion: number) => {
         setLeermasStates(prevStates => ({
@@ -56,7 +57,8 @@ const Card: React.FC<Props> = (props) => {
             [idPublicacion]: !prevStates[idPublicacion]
         }));
     };
-    
+
+
 
     return (
         <div className="Card">
@@ -111,9 +113,9 @@ const Card: React.FC<Props> = (props) => {
                             <button className='vermas' onClick={() => handleLeermas(publicacion.IdPublicacion)}>
                                 {leermasStates[publicacion.IdPublicacion] ? 'Leer menos' : 'Leer más'}
                             </button>
-                            {Object.values(publicacion.ImagenesPublicacion).some(imagen => imagen !== "") && (
-                                <div>
-                                    {Object.values(publicacion.ImagenesPublicacion).map((imagen, index) => (
+                            {publicacion.ImagenesPublicacion.length > 0 && (
+                                <div className="Card-ImagenesPublicacion">
+                                    {publicacion.ImagenesPublicacion.map((imagen, index) => (
                                         <img key={index} src={imagen} alt={`Imagen ${index}`} />
                                     ))}
                                 </div>

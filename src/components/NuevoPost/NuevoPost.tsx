@@ -19,9 +19,8 @@ const NuevoPost = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImages, setSelectedImages] = useState<string[]>([]);
-    const [selectedImageNames, setSelectedImageNames] = useState<string[]>([]);
+    const [base64Images, setBase64Images] = useState<string[]>([]);
     const userState = useSelector((store: AppStore) => store.user);
-    
 
     const mostrarPublicar = () => {
         setVerPublicar(!verPublicar);
@@ -65,19 +64,41 @@ const NuevoPost = () => {
         });
     };
 
-    const handleImageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-
+    
         if (files) {
-            const imageUrls = Array.from(files).map(file => URL.createObjectURL(file));
-            setSelectedImages(prevImages => [...prevImages, ...imageUrls]);
-
-            // Extract file names and update selectedImageNames
-            const imageNames = Array.from(files).map(file => file.name);
-            setSelectedImageNames(prevNames => [...prevNames, ...imageNames]);
-            setYoutubeThumbnail('');
+            const imagePromises = Array.from(files).map(async (file) => {
+                return new Promise<{ url: string, base64: string }>((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if (e.target) {
+                            const base64 = e.target.result as string;
+                            const url = URL.createObjectURL(file);
+                            resolve({ url, base64 });
+                        }
+                    };
+                    reader.onerror = (error) => {
+                        reject(error);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+    
+            try {
+                const results = await Promise.all(imagePromises);
+                const imageUrls = results.map(result => result.url);
+                const base64ImagesArray = results.map(result => result.base64);
+    
+                setSelectedImages((prevImages) => [...prevImages, ...imageUrls]);
+                setBase64Images((prevBase64Images) => [...prevBase64Images, ...base64ImagesArray]);
+            } catch (error) {
+                console.error('Error al convertir imágenes a base64:', error);
+            }
         }
     };
+    
+    
 
     useEffect(() => {
         const contentBody = document.querySelector('.NuevoPost-Publicar-post') as HTMLElement;
@@ -155,41 +176,32 @@ const NuevoPost = () => {
         ImagenPerfil: userState.ImagenPerfil,
         urlPerfil: 'alho',
         IdPublicacion: 999,
-        IdTipo: 0,
+        IdTipo: 1,
         Megustas: 0,
         CantidadComentarios: 0,
         FechaPublicacion: formattedDate,
         Titulo: inputValue,
         Contenido: textareaValue,
         UrlYoutube: youtubeUrl || '',
-        ImagenesPublicacion: {
-            
-        },
+        ImagenesPublicacion: [],
+        base64: [],
         Comentarios: [],
     };
 
     const handleAddPublicacion = () => {
-
-        if (inputValue == '') {
-            alert('Ingrese un titulo');
-        } else if (textareaValue == '') {
+        if (inputValue === '') {
+            alert('Ingrese un título');
+        } else if (textareaValue === '') {
             alert('Ingrese un contenido');
         } else {
-            
-            const imagenesPublicacion: { [key: string]: string } = {};
-
-            selectedImageNames.forEach((imageName, index) => {
-                imagenesPublicacion[`imagen${index + 1}`] = imageName;
-                
-            });
-
-            console.log(imagenesPublicacion);
-
+            const imagenesPublicacion = selectedImages.map(imageUrl => imageUrl);
+    
             agregarPublicacion({
                 ...nuevaPublicacion,
                 ImagenesPublicacion: imagenesPublicacion,
+                base64: base64Images,
             });
-            agregarPublicacion(nuevaPublicacion);
+    
             setYoutubeThumbnail('');
             setYoutubeUrl('');
             setInputValue('');
@@ -197,8 +209,8 @@ const NuevoPost = () => {
             setSelectedImages([]);
             mostrarPublicar();
         }
-
     };
+    
 
     return (
         <>

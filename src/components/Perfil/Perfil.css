@@ -1,7 +1,27 @@
 .Perfil-portada {
     width: 130%;
-    height: 200px;
+    height: 300px;
     margin: -5% -10% -10% -10%;
+    position: relative;
+}
+
+.Cambio__Perfil-portada {
+    position: absolute;
+    right: 10%;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .Perfil-contenido {
@@ -12,14 +32,22 @@
 .Perfil-Info {
     margin-top: 12%;
     margin-left: 5%;
+    width: 100%;
 }
 
 .Perfil-Info-Nombre {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.Perfil-Info-Nombre  div{
+    display: flex;
     align-items: center;
 }
 
-.Perfil-Info-Nombre  h2 {
+.Perfil-Info-Nombre h2 {
     font-size: 35px;
     margin-right: 20px;
 }
@@ -34,14 +62,48 @@
     -o-transform: rotate(270deg);
 }
 
+.Perfil-Info-Nombre button {
+    margin-left: 100px;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+}
+
+.Perfil-Info-Datos {
+    display: flex;
+    margin-top: 3%;
+}
+
+.Perfil-Info-Datos p {
+    color: rgb(159, 159, 159);
+    margin-right: 30px;
+}
+
+
+.Perfil-Info-Datos p span{
+   color: rgb(255, 255, 255);
+   font-weight: 700;
+}
+
+.Perfil-Info-frase {
+    display: flex;
+}
+
+.Perfil-Info-frase-icono {
+    font-size: 35px;
+    cursor: pointer;
+}
+
 
 .Perfil-Foto {
     width: 185px;
     height: 185px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    position: relative;
 }
 
 .Perfil-Foto img {
@@ -52,6 +114,42 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+.Perfil-Foto:hover .Cambio__Perfil-Foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Cambio__Perfil-Foto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.844);
+    display: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.Cambio__Perfil-Foto-Contenido {
+    display: block;
+    text-align: center;
+}
+
+.Cambio__Perfil-Foto-Contenido p {
+    font-size: 13px;
+}
+
+.Cambio__Perfil-Foto-Icon {
+    font-size: 28px;
 }
 
 .Perfil nav {
@@ -72,7 +170,8 @@
     cursor: pointer;
     text-align: center;
 }
-.Perfil nav ul a li{
+
+.Perfil nav ul a li {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -80,7 +179,7 @@
 }
 
 
-.Perfil nav ul a img{
+.Perfil nav ul a img {
     width: 20px;
     background-color: aliceblue;
     border-radius: 50%;
@@ -92,7 +191,7 @@
     margin-right: 10px;
 }
 
-.Perfil nav ul a  {
+.Perfil nav ul a {
     color: aliceblue;
     font-weight: 800;
     text-decoration: none;

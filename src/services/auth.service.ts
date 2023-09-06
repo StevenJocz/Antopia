@@ -1,4 +1,4 @@
-
+// const baseUrl = 'http://localhost:5239/api/';
 const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
 const characterUrl = baseUrl + 'Login/login';
 

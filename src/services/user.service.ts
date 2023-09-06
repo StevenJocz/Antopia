@@ -12,10 +12,11 @@ interface userData {
     s_userProfile: string;
     s_userPhoto: string;
     s_userFrontpage: string;
+    s_frase: string;
     fk_tblRol: number;
-  }
+}
 
-  export const PostRegistrarUser = async (userData: userData) => {
+export const PostRegistrarUser = async (userData: userData) => {
     const url = baseUrl + 'User/Create_User';
 
     const body = JSON.stringify(userData);
@@ -36,4 +37,15 @@ interface userData {
         console.error('Error al registrar usuario:', error);
         throw error;
     }
+};
+
+export const PostActualizarDatos = (idUser: string, tipo: string, dato: string) => {
+    const url = `${baseUrl}User/ActualizrDatos?idUser=${encodeURIComponent(idUser)}&tipo=${encodeURIComponent(tipo)}&dato=${encodeURIComponent(dato)}`;
+
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());
 };

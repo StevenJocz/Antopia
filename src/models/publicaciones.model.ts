@@ -1,6 +1,4 @@
-export interface ImagenesPublicacion {
-    
-}
+
 
 export interface Comentario {
     IdPerfilComentarios: number;
@@ -26,6 +24,7 @@ export interface Publicacion {
     Titulo: string;
     Contenido: string;
     UrlYoutube: string | null;
-    ImagenesPublicacion: ImagenesPublicacion;
+    ImagenesPublicacion: string[];
+    base64: string[];
     Comentarios: Comentario[];
 }

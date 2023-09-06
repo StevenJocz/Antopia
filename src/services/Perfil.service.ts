@@ -2,7 +2,7 @@ import { InfoPerfil } from "../models";
 
 export const getPerfil: InfoPerfil[] = [
     {
-        IdPerfil: 11,
+        IdPerfil: 17,
         NombrePerfil: "Steven Jocz",
         urlPerfil: "StevenJocz",
         ImagenPerfil: "https://pbs.twimg.com/profile_images/574006085805326337/Cazmvsp-_400x400.jpeg",
