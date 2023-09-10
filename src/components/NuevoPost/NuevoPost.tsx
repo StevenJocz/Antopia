@@ -218,6 +218,7 @@ const NuevoPost: React.FC<Props> = (props) => {
         urlPerfil: 'alho',
         UserLikes: 0,
         IdPublicacion: 999,
+        Level: 1,
         IdTipo: parseInt(selectValue),
         Megustas: 0,
         CantidadComentarios: 0,
