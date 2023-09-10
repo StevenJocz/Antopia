@@ -10,7 +10,7 @@ import { PostRegistrarUser } from '../../services';
 
 
 const Registro = () => {
-    const [numeroPaso, setnumeroPaso] = useState(3);
+    const [numeroPaso, setnumeroPaso] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [msg, setMsg] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
