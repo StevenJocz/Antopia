@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { PublicRoutes } from '../../models';
+import { PrivateRoutes} from '../../models';
 import { resetUser, UserKey } from '../../redux/states/user';
 import { clearLocalStorage } from '../../utilities';
 import { IonIcon } from '@ionic/react';
@@ -12,7 +12,7 @@ function Logout() {
   const logOut = () => {
     clearLocalStorage(UserKey);
     dispatch(resetUser());
-    navigate(PublicRoutes.Home, { replace: true });
+    navigate(PrivateRoutes.User, { replace: true });
   };
   return (
     <div className='MiPerfil_Contenido_text' onClick={logOut}>
