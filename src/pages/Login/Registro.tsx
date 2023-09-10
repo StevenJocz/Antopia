@@ -58,7 +58,7 @@ const Registro = () => {
                 return;
             }
             setMsg('');
-            setTextBoton('Sigueinte');
+            setTextBoton('Siguiente');
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
 
@@ -85,7 +85,7 @@ const Registro = () => {
                 return;
             }
             setMsg('');
-            setTextBoton('Sigueinte');
+            setTextBoton('Siguiente');
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
         }
@@ -115,6 +115,12 @@ const Registro = () => {
 
             if (frase.length < 30) {
                 setMsg('* ¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya y comparte una frase que refleje tu amor de manera más completa.');
+                setIsLoading(false);
+                return;
+            }
+
+            if (frase.length >= 200) {
+                setMsg('* Tu pasión por las hormigas es evidente, ¡pero quizás podrías resumirlo en una frase más concisa para que sea más fácil de digerir! A veces, menos es más');
                 setIsLoading(false);
                 return;
             }

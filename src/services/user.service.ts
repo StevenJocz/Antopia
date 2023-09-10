@@ -19,8 +19,9 @@ interface userData {
 
 export const PostRegistrarUser = async (userData: userData) => {
     const url = baseUrl + 'User/Create_User';
-
+    console.log(userData);
     const body = JSON.stringify(userData);
+
 
     try {
         const response = await fetch(url, {

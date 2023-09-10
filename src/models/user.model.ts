@@ -41,4 +41,5 @@ export interface UserDTOs {
   s_userPhoto: string;
   s_userFrontpage: string;
   fk_tblRol: number;
+  fk_tbl_level: number;
 }
