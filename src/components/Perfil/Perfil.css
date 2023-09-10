@@ -77,6 +77,11 @@
 .Perfil-Info-Datos {
     display: flex;
     margin-top: 3%;
+    position: relative;
+}
+
+.Perfil-Info-Datos-seguidores {
+    cursor: pointer;
 }
 
 .Perfil-Info-Datos p {

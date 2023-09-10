@@ -1,7 +1,7 @@
 import { useState, useCallback, lazy } from 'react';
 import './Card.css';
 import { IonIcon } from '@ionic/react';
-import { chatboxOutline, addCircleOutline} from 'ionicons/icons';
+import { chatboxOutline, addCircleOutline } from 'ionicons/icons';
 import { CardComentarios } from '../CardComentarios';
 import { Acciones } from '../Acciones';
 import { format, } from 'date-fns';
@@ -26,7 +26,7 @@ const Card = () => {
     const [verAcciones, setVerAcciones] = useState<{ [key: number]: boolean }>({});
     const [objetoComentarios, setObjetoComentarios] = useState<Comentario[]>([]);
     const [idPublicacion, setIdPublicacion] = useState(0);
-    const { publicaciones} = usePublicaciones();
+    const { publicaciones } = usePublicaciones();
     const [leermasStates, setLeermasStates] = useState<{ [key: number]: boolean }>({});
     const userState = useSelector((store: AppStore) => store.user);
     const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
@@ -94,9 +94,9 @@ const Card = () => {
                                         <Link to={`/Home/Perfil/${publicacion.IdPerfil}/${publicacion.urlPerfil}`}>
                                             <h3>{publicacion.NombrePerfil}</h3>
                                         </Link>
-                                        <Level  idlevel={publicacion.Level}/>
-                                        {publicacion.IdPerfil != userState.IdPerfil && (
-                                            <p className='siguiendo'>{publicacion.Siguiendo === 1 ? "Siguiendo" : ""}</p>
+                                        <Level idlevel={publicacion.Level} />
+                                        {publicacion.IdPerfil !== userState.IdPerfil && publicacion.Siguiendo === 1 && (
+                                            <p className='siguiendo'>Siguiendo</p>
                                         )}
                                     </div>
 

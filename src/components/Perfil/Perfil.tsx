@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import Configuracion from '../Configuracion/Configuracion';
 import { InfoPerfil } from '../../models';
 import { BotonFollowers } from '../BotonFollowers';
+import { Followers } from '../Followers';
 
 import './Perfil.css'
 import { Level } from '../Level';
@@ -25,6 +26,7 @@ const Perfil = () => {
     const userState = useSelector((store: AppStore) => store.user);
     const [verEditarPerfil, setVerEditarPerfil] = useState(false);
     const [verConfiguracion, setVerConfiguracion] = useState(false);
+    const [followers, setFollowers] = useState(false);
     const [tipo, setTipo] = useState(0);
     const [perfil, setPerfil] = useState<InfoPerfil | null>(null);
     const location = useLocation();
@@ -82,6 +84,10 @@ const Perfil = () => {
         setVerConfiguracion(true);
     };
 
+    const toggleFollowers = () => {
+        setFollowers(!followers);
+    };
+
 
     return (
         <div className="Perfil">
@@ -125,8 +131,9 @@ const Perfil = () => {
                     </div>
                     <div className='Perfil-Info-Datos'>
                         <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
-                        <p><span>{perfil.Seguidores}</span> seguidores</p>
+                        <p className='Perfil-Info-Datos-seguidores' onClick={toggleFollowers}><span>{perfil.Seguidores}</span> seguidores</p>
                     </div>
+
                 </div>
             </div>
             <nav>
@@ -149,6 +156,10 @@ const Perfil = () => {
                     fotoFondo={backgroundImageUrl}
                 />
             )}
+            {followers && (
+                <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)}/>
+            )}
+
         </div>
     );
 }
