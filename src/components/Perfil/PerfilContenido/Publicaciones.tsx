@@ -22,16 +22,15 @@ const Publicaciones = () => {
         }
         
     }, [idPerfil, userState.IdPerfil]);
-  
 
     return (
         <div>
             <PublicacionesProvider idTipo={null} idPerfil={Number(idPerfil)}>
                 {verNuevoPost && (
-                    <NuevoPost />
+                    <NuevoPost tipo={1}/>
                 )}
                 <h2>Publicaciones</h2>
-                <Card idTipo={null} idPerfil={Number(idPerfil)}/>
+                <Card />
             </PublicacionesProvider>
         </div>
     )

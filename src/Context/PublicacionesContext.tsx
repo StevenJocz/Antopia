@@ -1,6 +1,10 @@
+// PublicacionesContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../redux/store';
+import { getPublicaciones, getPublicacionesHashtag} from '../services/Publicaciones.service';
+import { PostPublicacion, enviarcomentario, Postlike } from '../services';
 import { Publicacion } from '../models';
-import { PostPublicacion } from '../services';
 
 interface Comentario {
     IdPerfilComentarios: number;
@@ -15,8 +19,10 @@ interface Comentario {
 
 interface PublicacionesContextType {
     publicaciones: Publicacion[];
-    agregarPublicacion: (nuevaPublicacion: Publicacion) => void;
+    agregarPublicacion: (nuevaPublicacion: Publicacion) => Promise<void>;
     agregarComentarioAPublicacion: (publicacionId: number, comentario: Comentario) => void;
+    darLikeAPublicacion: (publicacionId: number, isLike: number, idPerfil: number) => Promise<void>;
+    listarPublicaciones: (idPerfil: number, texto: string) => Promise<Publicacion[]>;
 }
 
 const PublicacionesContext = createContext<PublicacionesContextType | undefined>(undefined);
@@ -31,82 +37,116 @@ export const usePublicaciones = (): PublicacionesContextType => {
 
 interface PublicacionesProviderProps {
     children: React.ReactNode;
-    idTipo: number | null;
     idPerfil: number | null;
+    idTipo: number | null;
 }
 
 export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (props) => {
-    const [objetoEjemplo, setObjetoEjemplo] = useState<Publicacion[]>([]);
-    const baseUrl = 'http://localhost:5239/api/Pubication/TodoPublication';
-    useEffect(() => {
-        // Realiza una solicitud a la API para obtener las publicaciones iniciales
-        fetch(baseUrl)
-            .then((response) => response.json())
-            .then((data) => {
-                // Mapea los datos de la API al modelo Publicacion
-                const objetoMapeado: Publicacion[] = data.map((item: any) => ({
-                    IdPerfil: item.idPerfil,
-                    NombrePerfil: item.nombrePerfil,
-                    urlPerfil: item.urlPerfil,
-                    ImagenPerfil: item.imagenPerfil,
-                    IdPublicacion: item.idPublicacion,
-                    IdTipo: item.idTipo,
-                    Megustas: item.megustas,
-                    CantidadComentarios: item.cantidadComentarios,
-                    FechaPublicacion: item.fechaPublicacion,
-                    Titulo: item.titulo,
-                    Contenido: item.contenido,
-                    UrlYoutube: item.urlYoutube,
-                    ImagenesPublicacion: item.imagenesPublicacion,
-                    Comentarios: item.comentarios.map((comentarioItem: any) => ({
-                        IdPerfilComentarios: comentarioItem.idPerfilComentarios,
-                        FechaComentario: comentarioItem.fechaComentario,
-                        NombrePerfilComentarios: comentarioItem.nombrePerfilComentarios,
-                        ImagenPerfilComentarios: comentarioItem.imagenPerfilComentarios,
-                        Comentario: comentarioItem.comentario,
-                        imagenComentario: comentarioItem.imagenComentario,
-                        megustaComentarios: comentarioItem.megustaComentarios,
-                        urlPerfil: comentarioItem.urlPerfil,
-                    })),
-                }));
+    const userState = useSelector((store: AppStore) => store.user);
+    const [publicaciones, setPublicaciones] = useState<Publicacion[]>([]);
+    const [contextUpdateCounter, setContextUpdateCounter] = useState<number>(0); // Nuevo estado
 
-                // Actualiza el estado local con los datos mapeados de la API
-                setObjetoEjemplo(objetoMapeado);
-            })
-            .catch((error) => {
-                console.error('Error al obtener datos de la API', error);
-            });
-    }, []);
+    useEffect(() => {
+        async function fetchPublicaciones() {
+            try {
+                const resultado = await getPublicaciones(userState.IdPerfil);
+                const publicacionesFiltradas = resultado.filter((publicacion) => {
+                    if (props.idPerfil === null && props.idTipo === null) {
+                        return true;
+                    }
+                    if (props.idPerfil === null && props.idTipo !== null) {
+                        return publicacion.IdTipo === props.idTipo;
+                    }
+                    if (props.idTipo === null && props.idPerfil !== null) {
+                        return publicacion.IdPerfil === props.idPerfil;
+                    }
+                    return (
+                        publicacion.IdPerfil === props.idPerfil && publicacion.IdTipo === props.idTipo
+                    );
+                });
+                setPublicaciones(publicacionesFiltradas);
+            } catch (error) {
+                console.error('Error al obtener publicaciones:', error);
+            }
+        }
+
+        fetchPublicaciones();
+    }, [props.idPerfil, props.idTipo, userState.IdPerfil, contextUpdateCounter]); // Agrega contextUpdateCounter a las dependencias
 
     const agregarPublicacion = async (nuevaPublicacion: Publicacion): Promise<void> => {
-        const result = await PostPublicacion(nuevaPublicacion);
-        if (result === true) {
-            // Agregar nueva publicación al estado local
-            const nuevasPublicaciones = [...objetoEjemplo, nuevaPublicacion];
-            setObjetoEjemplo(nuevasPublicaciones);
+        try {
+            const result = await PostPublicacion(nuevaPublicacion);
+            if (result) {
+                const nuevasPublicaciones = [...publicaciones, nuevaPublicacion];
+                setPublicaciones(nuevasPublicaciones);
+                // Incrementa contextUpdateCounter cuando se agrega una publicación
+                setContextUpdateCounter((prevCounter) => prevCounter + 1);
+            }
+        } catch (error) {
+            console.error('Error al agregar la publicación:', error);
         }
     };
-   
 
-    const agregarComentarioAPublicacion = (publicacionId: number, comentario: Comentario): void => {
-        const updatedPublicaciones = objetoEjemplo.map(publicacion => {
-            if (publicacion.IdPublicacion === publicacionId) {
-                return {
-                    ...publicacion,
-                    Comentarios: [...publicacion.Comentarios, comentario],
-                    CantidadComentarios: publicacion.CantidadComentarios + 1 // Incrementa la cantidad de comentarios
-                };
-            }
-            return publicacion;
-        });
+    const agregarComentarioAPublicacion = async (publicacionId: number, comentario: Comentario): Promise<void> => {
+        try {
+            await enviarcomentario(publicacionId, comentario);
+            const updatedPublicaciones = publicaciones.map((publicacion) => {
+                if (publicacion.IdPublicacion === publicacionId) {
+                    return {
+                        ...publicacion,
+                        Comentarios: [...publicacion.Comentarios, comentario],
+                        CantidadComentarios: publicacion.CantidadComentarios + 1,
+                    };
+                }
+                return publicacion;
+            });
+            setPublicaciones(updatedPublicaciones);
+            // Incrementa contextUpdateCounter cuando se agrega un comentario
+            setContextUpdateCounter((prevCounter) => prevCounter + 1);
+        } catch (error) {
+            console.error('Error al agregar el comentario:', error);
+        }
+    };
 
-        setObjetoEjemplo(updatedPublicaciones);
+    const darLikeAPublicacion = async (publicacionId: number, isLike: number, idPerfil: number): Promise<void> => {
+        try {
+            console.log('publicacionId:', publicacionId, 'like:', isLike, 'idPerfil:', idPerfil, );
+            await Postlike(publicacionId, isLike, idPerfil);
+            const updatedPublicaciones = publicaciones.map((publicacion) => {
+                if (publicacion.IdPublicacion === publicacionId) {
+                    return {
+                        ...publicacion,
+                        Megustas: isLike === 0 ? publicacion.Megustas + 1 : publicacion.Megustas - 1,
+                        UserLikes: isLike === 0 ? 1 : 0,
+                    };
+                }
+                return publicacion;
+            });
+            setPublicaciones(updatedPublicaciones);
+            // Incrementa contextUpdateCounter cuando se da like a una publicación
+            setContextUpdateCounter((prevCounter) => prevCounter + 1);
+        } catch (error) {
+            console.error('Error al dar like a la publicación:', error);
+        }
+    };
+
+    const listarPublicaciones = async (idPerfil: number, texto: string): Promise<Publicacion[]> => {
+        try {
+            const resultado = await getPublicacionesHashtag(idPerfil, texto); 
+            setPublicaciones(resultado);
+            return resultado; 
+        } catch (error) {
+            console.error('Error al listar publicaciones:', error);
+            throw error; 
+        }
     };
 
     const contextValue: PublicacionesContextType = {
-        publicaciones: objetoEjemplo,
+        publicaciones,
         agregarPublicacion,
         agregarComentarioAPublicacion,
+        darLikeAPublicacion,
+        listarPublicaciones,
     };
 
     return (

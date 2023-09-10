@@ -1,7 +1,6 @@
-import { Publicacion } from "../models";
+import { Publicacion,  services } from "../models";
 
-// const baseUrl = 'http://localhost:5239/api/';
-const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
+const baseUrl = services.local
 
 export const PostPublicacion = async (Publicacion: Publicacion) => {
 
@@ -14,6 +13,7 @@ export const PostPublicacion = async (Publicacion: Publicacion) => {
                 s_content: Publicacion.Contenido,
                 fk_tbl_user: Publicacion.IdPerfil,
                 fk_tbl_type_publication: Publicacion.IdTipo,
+                s_hashtags: Publicacion.hashtags,
             },
         ],
         imagenes: Publicacion.base64.map((imagen, index) => ({
@@ -36,6 +36,7 @@ export const PostPublicacion = async (Publicacion: Publicacion) => {
     const url = baseUrl + 'Pubication/Create_Publication';
 
     const body = JSON.stringify(datosPublicacion);
+    console.log(body);
 
     try {
         const response = await fetch(url, {

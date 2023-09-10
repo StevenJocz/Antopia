@@ -1,5 +1,6 @@
 import { lazy, useEffect } from 'react';
 import { PublicacionesProvider } from '../../../../Context/PublicacionesContext';
+import { Slider } from '../../../../components/Slider';
 
 const Card = lazy(() => import('../../../../components/Card/Card'));
 const NuevoPost = lazy(() => import('../../../../components/NuevoPost/NuevoPost'));
@@ -8,15 +9,16 @@ const CriaHormigas = () => {
     useEffect(() => {
         const mainContainer = document.getElementById('Layout-main');
         if (mainContainer) {
-          mainContainer.scrollTop = 0;
+            mainContainer.scrollTop = 0;
         }
-      }, []);
+    }, []);
     return (
         <div>
-            <PublicacionesProvider idTipo={1} idPerfil={null}>
-                <NuevoPost />
+            <PublicacionesProvider idTipo={2} idPerfil={null}>
+                <NuevoPost  tipo={2}/>
                 <h2>Cria de Hormigas</h2>
-                <Card idTipo={1} idPerfil={null}/>
+                <Slider idTipo={1} />
+                <Card />
             </PublicacionesProvider>
 
         </div>

@@ -10,7 +10,7 @@ import { PostRegistrarUser } from '../../services';
 
 
 const Registro = () => {
-    const [numeroPaso, setnumeroPaso] = useState(1);
+    const [numeroPaso, setnumeroPaso] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
     const [msg, setMsg] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -212,8 +212,6 @@ const Registro = () => {
         }
     };
 
-   
-
     const handleFondoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const filesFondo = event.target.files;
 
@@ -338,7 +336,7 @@ const Registro = () => {
                             {numeroPaso === 3 && (
                                 <>
                                     <div className='configuracion-Perfil'>
-                                        <div className='configuracion-portada'>
+                                        <div className='configuracion-portada registro-portada configuracion-registro-portada'>
                                             <img src={fondo || NoImagen} alt="" />
                                             <div className='configuracion-portada-bg' onClick={handleFondoClick}>
                                                 <p> Clic para seleccionar una imagen de portada</p>

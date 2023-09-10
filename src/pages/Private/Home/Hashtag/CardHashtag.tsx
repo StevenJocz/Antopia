@@ -1,32 +1,34 @@
-import { useState, useCallback, lazy } from 'react';
-import './Card.css';
+
+import { useState, useCallback, lazy, useEffect } from 'react';
+import '../../../../components/Card/Card.css';
 import { IonIcon } from '@ionic/react';
-import { chatboxOutline, addCircleOutline} from 'ionicons/icons';
-import { CardComentarios } from '../CardComentarios';
-import { Acciones } from '../Acciones';
+import { chatboxOutline, addCircleOutline } from 'ionicons/icons';
+import { CardComentarios } from '../../../../components/CardComentarios';
+import { Acciones } from '../../../../components/Acciones';
 import { format, } from 'date-fns';
-import IconAnt from '../../assets/imagenes/IconAnts.png';
-import IconHormiguero from '../../assets/imagenes/hormiguero.png';
-import Home from '../../assets/imagenes/eco-home.png';
-import { usePublicaciones } from '../../Context/PublicacionesContext';
-import { Comentario } from '../../models';
+import IconAnt from '../../../../assets/imagenes/IconAnts.png';
+import IconHormiguero from '../../../../assets/imagenes/hormiguero.png';
+import Home from '../../../../assets/imagenes/eco-home.png';
+import { usePublicaciones } from '../../../../Context/PublicacionesContext';
+import { Comentario, Publicacion } from '../../../../models';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AppStore } from '../../redux/store';
-import { ModalImagenes } from '../ModalImagenes';
-import Like from '../Like/Like';
-import { Level } from '../Level';
+import { AppStore } from '../../../../redux/store';
+import { ModalImagenes } from '../../../../components/ModalImagenes';
+import Like from '../../../../components/Like/Like';
+const VideosYoutube = lazy(() => import('../../../../components/Logout/VideosYoutube'));
 
-const VideosYoutube = lazy(() => import('../Logout/VideosYoutube'));
+interface Props {
+    texto: string;
+}
 
-
-const Card = () => {
+const CardHashtag : React.FC<Props> = (props) =>{
 
     const [verComentarios, setVerComentarios] = useState(false);
     const [verAcciones, setVerAcciones] = useState<{ [key: number]: boolean }>({});
     const [objetoComentarios, setObjetoComentarios] = useState<Comentario[]>([]);
     const [idPublicacion, setIdPublicacion] = useState(0);
-    const { publicaciones} = usePublicaciones();
+    const { listarPublicaciones} = usePublicaciones();
     const [leermasStates, setLeermasStates] = useState<{ [key: number]: boolean }>({});
     const userState = useSelector((store: AppStore) => store.user);
     const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
@@ -48,10 +50,30 @@ const Card = () => {
         }));
     };
 
+    const fetchPublicaciones = async () => {
+        try {
+            await listarPublicaciones(userState.IdPerfil, props.texto)
+            .then((resultado) => {
+                setPublicacionesOrdenadas(resultado);
+            })
+            .catch((error) => {
+                console.error('Error al obtener publicaciones:', error);
+                setPublicacionesOrdenadas([]); // Manejo de errores
+            });
+        } catch (error) {
+            console.error('Error al obtener publicaciones:', error);
+            return [];
+        }
+    };
+    
+    const [publicacionesOrdenadas, setPublicacionesOrdenadas] = useState<Publicacion[]>([]);
 
-    const publicacionesOrdenadas = [...publicaciones].sort(
-        (a, b) => new Date(b.FechaPublicacion).getTime() - new Date(a.FechaPublicacion).getTime()
-    );
+    useEffect(() => {
+
+        fetchPublicaciones()
+            
+    }, [userState.IdPerfil, props.texto]);
+
 
     const toggleComentarios = useCallback(
         (comentarios: Comentario[], idPublicacion: number) => {
@@ -68,6 +90,8 @@ const Card = () => {
             [idPublicacion]: !prevStates[idPublicacion]
         }));
     };
+
+   
 
     const calculateGridColumns = (imagenCount: number) => {
         // Si solo hay una imagen, usar una sola columna, de lo contrario, usar dos
@@ -94,7 +118,6 @@ const Card = () => {
                                         <Link to={`/Home/Perfil/${publicacion.IdPerfil}/${publicacion.urlPerfil}`}>
                                             <h3>{publicacion.NombrePerfil}</h3>
                                         </Link>
-                                        <Level  idlevel={publicacion.Level}/>
                                         {publicacion.IdPerfil != userState.IdPerfil && (
                                             <p className='siguiendo'>{publicacion.Siguiendo === 1 ? "Siguiendo" : ""}</p>
                                         )}
@@ -105,6 +128,7 @@ const Card = () => {
                             </div>
                             <div className="header_calificacion">
                                 <Like idPublicacion={publicacion.IdPublicacion} idperfil={userState.IdPerfil} UserLikes={publicacion.UserLikes} />
+                                
                                 <p>
                                     {publicacion.Megustas} me gustas /{" "}
                                     <span onClick={() => toggleComentarios(publicacion.Comentarios, publicacion.IdPublicacion)}>
@@ -121,7 +145,7 @@ const Card = () => {
                                         const hashtag = word.substring(1);
                                         return (
                                             <span className='hashtag' key={index}>
-                                                <Link to={`Hashtag/${hashtag}`}>
+                                                <Link to={`/Home/Hashtag/${hashtag}`}>
                                                     #{hashtag}
                                                 </Link>{' '}
                                             </span>
@@ -206,4 +230,4 @@ const Card = () => {
     );
 };
 
-export default Card;
+export default CardHashtag;

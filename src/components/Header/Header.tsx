@@ -15,11 +15,18 @@ const Header = () => {
     const [verChat, setChat] = useState(false);
     const [verBuscardor, setBuscardor] = useState(false);
     const [verNotificaciones, setNotificaciones] = useState(false);
+    const [inputBuscardor, setInputBuscardor] = useState('');
 
     const handleMiPerfil = () => {
 
         setMiPerfil(!miPerfil);
     };
+
+    const handleInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const input = event.target;
+        setInputBuscardor(input.value);
+        setBuscardor(!verBuscardor);
+    }
 
     const divMiPerfil = useRef<HTMLDivElement>(null);
     const divBuscardor = useRef<HTMLDivElement>(null);
@@ -46,10 +53,6 @@ const Header = () => {
         setChat(!verChat);
     }
 
-    const handleBuscardor = () => {
-        setBuscardor(!verBuscardor);
-    }
-
     const handleNotificaciones = () => {
         setNotificaciones(!verNotificaciones);
     }
@@ -58,7 +61,12 @@ const Header = () => {
     return (
         <div className='Header'>
             <div className='Header-buscador'>
-                <input type="text" placeholder='Buscar en Antopia' onClick={handleBuscardor} />
+                <input
+                    type="text"
+                    placeholder='Buscar en Antopia'
+                    onChange={handleInputValue}
+                    
+                />
                 <IonIcon className='Header-buscador-icono' icon={searchOutline} />
 
             </div>
@@ -79,7 +87,7 @@ const Header = () => {
             </div>
             <div className={`Buscardor-Contenedor ${verBuscardor ? "active" : ""}`} ref={divBuscardor} >
                 {verBuscardor && (
-                    <Buscardor />
+                    <Buscardor texto={inputBuscardor} />
                 )}
             </div>
 

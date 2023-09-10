@@ -14,7 +14,7 @@ const Diario: React.FC<Props> = (props) => {
     const [verRegistrarDiario, setRegistrarDiario] = useState(false);
     const [tipo, setTipo] = useState(false);
     const { getDiariosPorIdPerfil } = useDiarioContext();
-    const [mostrarRegistrar, setMostrarRegistrar] = useState(false);
+    const [mostrarReDiario, setMostrarReDiario] = useState(false);
     const userState = useSelector((store: AppStore) => store.user);
 
     const [selectedDiarioId, setSelectedDiarioId] = useState<number>(1);
@@ -31,11 +31,14 @@ const Diario: React.FC<Props> = (props) => {
     const diariosPorIdPerfil = getDiariosPorIdPerfil(props.idPerfil);
 
     useEffect(() => {
+    
         if (props.idPerfil === userState.IdPerfil) {
-            setMostrarRegistrar(true);
+            setMostrarReDiario(true);
         } else {
-            setMostrarRegistrar(false);
+            setMostrarReDiario(false);
         }
+        console.log( mostrarReDiario);
+        
     }, [props.idPerfil, userState.IdPerfil]);
 
 
@@ -43,8 +46,8 @@ const Diario: React.FC<Props> = (props) => {
         <div className='Diario'>
             <div className='Diario-nav'>
                 <ul>
-                    {mostrarRegistrar && (
-                        <li className='LiBoton' onClick={() => mostrarRegistrarDiario(true)}><button>Crear nuevo diario</button></li>
+                    {mostrarReDiario && (
+                        <li className='' onClick={() => mostrarRegistrarDiario(true)}><button>Crear nuevo diario</button></li>
                     )}
 
                     {diariosPorIdPerfil.map((diario, index) => (
@@ -53,7 +56,7 @@ const Diario: React.FC<Props> = (props) => {
                 </ul>
             </div>
             <div className='Diario-content'>
-                {mostrarRegistrar && (
+                {mostrarReDiario && (
                     <div className='Diario-content-boton'>
                         <button onClick={() => mostrarRegistrarDiario(false)} >Agregar registro al diario</button>
                     </div>

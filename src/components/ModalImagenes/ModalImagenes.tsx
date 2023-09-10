@@ -18,6 +18,7 @@ const ModalImagenes: React.FC<ImageModalProps> = ({ imageUrls, currentIndex, onC
     onClose();
   };
 
+
   const goToPreviousImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : imageUrls.length - 1

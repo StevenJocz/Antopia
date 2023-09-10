@@ -10,6 +10,7 @@ import { Comentario } from '../../models';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import { Link } from 'react-router-dom';
+import comentar from '../../assets/imagenes/comentar.png';
 
 
 interface Props {
@@ -25,9 +26,9 @@ const CardComentarios: React.FC<Props> = (props) => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [selectedImageNames, setSelectedImageNames] = useState('');
     const { agregarComentarioAPublicacion } = usePublicaciones();
     const userState = useSelector((store: AppStore) => store.user);
+    const [imagen, setImage] = useState('');
 
 
     const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,12 +61,21 @@ const CardComentarios: React.FC<Props> = (props) => {
     };
 
     const handleImageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+        const files = event.target.files;
 
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
+        if (files && files[0]) {
+            const imageUrl = URL.createObjectURL(files[0]);
             setSelectedImage(imageUrl);
-            setSelectedImageNames(file.name);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target) {
+                    const base64Image = e.target.result as string;
+                    setImage(base64Image);
+                }
+            };
+
+            reader.readAsDataURL(files[0]);
         }
     };
 
@@ -105,14 +115,14 @@ const CardComentarios: React.FC<Props> = (props) => {
         } else {
             const now = new Date();
             const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
-
+            const IdPerfilComentarios = parseInt( userState.IdPerfil.toString(), 10);
             const nuevoComentario: Comentario = {
-                IdPerfilComentarios: userState.IdPerfil,
+                IdPerfilComentarios: IdPerfilComentarios,
                 NombrePerfilComentarios: userState.NombrePerfil,
                 ImagenPerfilComentarios: userState.ImagenPerfil,
                 urlPerfil: userState.urlPerfil,
                 Comentario: textareaValue,
-                imagenComentario: selectedImageNames,
+                imagenComentario: imagen,
                 FechaComentario: formattedDate,
                 megustaComentarios: 0,
             };
@@ -134,33 +144,41 @@ const CardComentarios: React.FC<Props> = (props) => {
                     </div>
                 </div>
                 <div className='CardComentarios-content_body'>
-                    {comentarios.slice().reverse().map((comentario) => (
-                        <div key={comentario.IdPerfilComentarios} className='content_body-comentario'>
-                            <div className='content_body-comentario_perfil'>
-                                <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
-                                    <img src={comentario.ImagenPerfilComentarios} alt="" />
-                                </Link>
-                                <div>
+                    {comentarios.length === 0 && ( 
+                        <div className='sincomentarios'>
+                            <h3> ¡Tu opinión es valiosa! Sé el primero en compartir tus pensamientos sobre esta publicación. </h3>
+                            <img src={comentar} alt="" />
+                        </div> 
+                        
+                    )}
+                        {comentarios.slice().reverse().map((comentario) => (
+                            <div key={comentario.IdPerfilComentarios} className='content_body-comentario'>
+                                <div className='content_body-comentario_perfil'>
                                     <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
-                                        <h3>{comentario.NombrePerfilComentarios}</h3>
+                                        <img src={comentario.ImagenPerfilComentarios} alt="" />
                                     </Link>
-                                    <p>{format(new Date(comentario.FechaComentario), "d 'de' MMMM 'a las' HH:mm")}</p>
+                                    <div>
+                                        <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
+                                            <h3>{comentario.NombrePerfilComentarios}</h3>
+                                        </Link>
+                                        <p>{format(new Date(comentario.FechaComentario), "d 'de' MMMM 'a las' HH:mm")}</p>
+                                    </div>
+                                    <div className="content_body-comentario_perfil_calificacion">
+                                        <IonIcon className='iconoMeGusta' icon={heart} />
+                                        <p>{comentario.megustaComentarios} me gustas</p>
+                                        <IonIcon className='iconoPlus' icon={addCircleOutline} />
+                                    </div>
                                 </div>
-                                <div className="content_body-comentario_perfil_calificacion">
-                                    <IonIcon className='iconoMeGusta' icon={heart} />
-                                    <p>{comentario.megustaComentarios} me gustas</p>
-                                    <IonIcon className='iconoPlus' icon={addCircleOutline} />
+                                <div className='content_body-comentario_comentar'>
+                                    <p>{comentario.Comentario}</p>
+    
+                                    {comentario?.imagenComentario != ''  && (
+                                        <img src={comentario.imagenComentario} alt="" />
+                                    )}
                                 </div>
                             </div>
-                            <div className='content_body-comentario_comentar'>
-                                <p>{comentario.Comentario}</p>
-
-                                {comentario?.imagenComentario != ''  && (
-                                    <img src={comentario.imagenComentario} alt="" />
-                                )}
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    
                 </div>
                 <div className='Comentar'>
                     <div className='Comentar-perfil'>

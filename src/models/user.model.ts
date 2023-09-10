@@ -20,7 +20,11 @@ export interface InfoPerfil {
   ImagenPerfil: string;
   Nivel: number;
   Frase: string;
-  PerfilImagenes:  PerfilImagenes;
+  CantidadPublicaciones: number;
+  Seguidores: number;
+  Siguiendo: number;
+  Level: number;
+  PerfilImagenes: string[];
 }
 
 export interface PerfilImagenes {}

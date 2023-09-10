@@ -1,5 +1,6 @@
-// const baseUrl = 'http://localhost:5239/api/';
-const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
+import { services } from "../models";
+
+const baseUrl = services.local;
 const characterUrl = baseUrl + 'Login/login';
 
 // Esta función exportada, getIniciar, se encarga de enviar una solicitud POST a la URL characterUrl para iniciar sesión.

@@ -1,5 +1,5 @@
-// const baseUrl = 'http://localhost:5239/api/';
-const baseUrl = 'https://antopiaapi.azurewebsites.net/api/';
+import { services } from "../models";
+const baseUrl = services.local;
 
 interface userData {
     id: number;
@@ -40,12 +40,39 @@ export const PostRegistrarUser = async (userData: userData) => {
 };
 
 export const PostActualizarDatos = (idUser: string, tipo: string, dato: string) => {
-    const url = `${baseUrl}User/ActualizrDatos?idUser=${encodeURIComponent(idUser)}&tipo=${encodeURIComponent(tipo)}&dato=${encodeURIComponent(dato)}`;
+    const url = `${baseUrl}User/ActualizrDatos`;
+
+    const requestData = {
+        idUser: idUser,
+        tipo: tipo,
+        dato: dato
+    };
 
     return fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(requestData) 
     }).then(res => res.json());
-};
+}
+
+export const PostFollowers = (idUser: number, id_follower: number, isfollower: number) => {
+    const url = `${baseUrl}User/Followers_User`;
+
+    const requestData = {
+        id_followers: 0,
+        id_user: idUser,
+        id_follower: id_follower,
+        isfollower: isfollower
+    };
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData) 
+    }).then(res => res.json());
+}
+

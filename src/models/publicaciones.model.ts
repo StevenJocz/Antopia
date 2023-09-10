@@ -16,15 +16,35 @@ export interface Publicacion {
     NombrePerfil: string;
     urlPerfil: string;
     ImagenPerfil: string;
+    UserLikes: number;
+    Level: number;
     IdPublicacion: number;
     IdTipo: number;
     Megustas: number;
     CantidadComentarios: number;
+    Siguiendo: number;
     FechaPublicacion: string;
     Titulo: string;
     Contenido: string;
     UrlYoutube: string | null;
     ImagenesPublicacion: string[];
     base64: string[];
+    hashtags: string;
     Comentarios: Comentario[];
+}
+
+
+export interface Hashtags {
+    Hashtag: string;
+    NumeroPublicaciones: number;
+}
+
+export interface PublicacionBuscador {
+    NombrePerfil: string;
+    ImagenPerfil: string;
+    IdPublicacion: number;
+    IdTipo: number;
+    FechaPublicacion: string;
+    Titulo: string;
+    Contenido: string;
 }

@@ -1,0 +1,36 @@
+.Level {
+    position: relative;
+    width: 100px;
+    width: 20px;
+    height: 20px;
+}
+
+.Level-content {
+    width: 100px;
+    position: absolute;
+    top: 0;
+    left: 50px;
+    background-color: rgb(125, 125, 125);
+    padding: 5px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    display: none  !important ;
+}
+
+.Level:hover .Level-content {
+    display: block  !important ;
+}
+
+.Level-content p {
+    color: aliceblue;
+}
+
+.Level img {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}

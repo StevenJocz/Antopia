@@ -2,7 +2,6 @@ import { Route, useLocation } from "react-router-dom"
 import { RoutesWithNotFound } from "../../utilities"
 import { Publicaciones, Fotos, Diario } from "./PerfilContenido"
 import { DiarioProvider } from "../../Context/DiarioContext";
-import { ImageUrlsProvider } from '../../Context/FotosContext';
 
 
 const RoutePerfil = () => {
@@ -11,7 +10,6 @@ const RoutePerfil = () => {
     const idPerfil = location.pathname.split("/")[3];
     return (
         <div className="RoutePerfil">
-            <ImageUrlsProvider>
                 <DiarioProvider>
                     <RoutesWithNotFound>
                         <Route path="/:idPerfil/*" element={<Publicaciones />} />
@@ -20,7 +18,6 @@ const RoutePerfil = () => {
                         <Route path="/:idPerfil/:nombre/D" element={<div>Otro</div>} />
                     </RoutesWithNotFound>
                 </DiarioProvider>
-            </ImageUrlsProvider>
         </div>
     )
 }

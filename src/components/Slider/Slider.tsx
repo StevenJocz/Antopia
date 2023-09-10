@@ -82,7 +82,7 @@ const Slider: React.FC<Props> = (props) => {
                 className="mySwiper"
             >
                 {objecto.map((img) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={img}>
                         <img src={img} alt="" />
                     </SwiperSlide>
 

@@ -2,7 +2,6 @@ import { Route } from 'react-router-dom';
 import { RoutesWithNotFound } from '../../../utilities';
 import './Home.css'
 import { lazy} from 'react';
-import { PerfilProvider } from '../../../Context/PerfilContext';
 const Nav = lazy(() => import('../../../components/Nav/Nav'));
 const Inicio = lazy(() => import('./Inicio/Inicio'));
 const CriaHormigas = lazy(() => import('./CriaHormigas/CriaHormigas'));
@@ -11,6 +10,7 @@ const TecnicasExerimentos = lazy(() => import('./TecnicasExerimentos/TecnicasExe
 const Sidebar = lazy(() => import('../../../components/Sidebar/Sidebar'));
 const Header = lazy(() => import('../../../components/Header/Header'));
 const Perfil = lazy(() => import('../../../components/Perfil/Perfil'));
+const Hashtag = lazy(() => import('./Hashtag/Hashtag'));
 
 
 const Home: React.FC = () => {
@@ -27,15 +27,14 @@ const Home: React.FC = () => {
         <Header />
       </div>
       <main className="Layout-main" id='Layout-main'>
-        <PerfilProvider>
           <RoutesWithNotFound>
             <Route path="/" element={<Inicio />} />
             <Route path="/CriaHormigas" element={<CriaHormigas />} />
             <Route path="/ConstrucionHormigueros" element={<ConstrucionHormigueros />} />
             <Route path="/ExperimentosTecnicas" element={<TecnicasExerimentos />} />
             <Route path="/Perfil/*" element={<Perfil />} />
+            <Route path="/Hashtag/:hashtag/*" element={<Hashtag />} />
           </RoutesWithNotFound>
-        </PerfilProvider>
       </main>
     </div>
   )

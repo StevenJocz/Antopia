@@ -33,7 +33,7 @@ export const useDiarioContext = () => {
 export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     const defaultDiarioData: DiarioEntry[] = [
         {
-            idPerfil:1,
+            idPerfil:17,
             id: 1,
             diario: "Diario de Hormigas",
             registros: [
@@ -65,7 +65,7 @@ export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) =>
             ],
         },
         {
-            idPerfil: 5,
+            idPerfil: 20,
             id: 2,
             diario: "Diario de OtraEspecie",
             registros: [

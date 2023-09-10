@@ -24,6 +24,9 @@ const Configuracion: React.FC<Props> = (props) => {
     const [fotoPerfilPreview, setFotoPerfilPreview] = useState('');
     const [fondo, setfondo] = useState('');
 
+    const [fotoPerfilBase64, setFotoPerfilBase64] = useState('');
+    const [fondoBase64, setFondoBase64] = useState('');
+
     const handleActualizar = (tipo: number) => {
         if (tipo === 1) {
 
@@ -46,7 +49,7 @@ const Configuracion: React.FC<Props> = (props) => {
                 setIsLoading(false);
                 return;
             }
-            handleActualizarDatos(props.idPerfil.toString(), '2', fotoPerfilPreview);
+            handleActualizarDatos(props.idPerfil.toString(), '2', fotoPerfilBase64);
             setMsg('');
             setIsLoading(false);
         }else if (tipo === 3) {
@@ -57,7 +60,7 @@ const Configuracion: React.FC<Props> = (props) => {
                 return;
             }
             setMsg('');
-            handleActualizarDatos(props.idPerfil.toString(), '3', fondo);
+            handleActualizarDatos(props.idPerfil.toString(), '3', fondoBase64);
             setIsLoading(false);
 
         }
@@ -99,6 +102,16 @@ const Configuracion: React.FC<Props> = (props) => {
         if (files && files[0]) {
             const imageUrl = URL.createObjectURL(files[0]);
             setFotoPerfilPreview(imageUrl);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target) {
+                    const base64Image = e.target.result as string;
+                    setFotoPerfilBase64(base64Image);
+                }
+            };
+
+            reader.readAsDataURL(files[0]);
         }
     };
 
@@ -108,6 +121,16 @@ const Configuracion: React.FC<Props> = (props) => {
         if (filesFondo && filesFondo[0]) {
             const imageUrlFondo = URL.createObjectURL(filesFondo[0]);
             setfondo(imageUrlFondo);
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                if (e.target) {
+                    const base64ImageFondo = e.target.result as string;
+                    setFondoBase64(base64ImageFondo);
+                }
+            };
+            reader.readAsDataURL(filesFondo[0]);
         }
     };
 

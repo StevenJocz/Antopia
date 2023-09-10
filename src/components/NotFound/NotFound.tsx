@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Error from '../../assets/svg/404rafiki.svg'
-import { PublicRoutes } from '../../models';
+import Error from '../../assets/imagenes/404rafiki.png'
+import { PrivateRoutes } from '../../models';
 import './NotFound.css'
 
 const NotFound = () => {
@@ -11,7 +11,8 @@ const NotFound = () => {
             <div className='login__bg--Dos'></div>
             <div className="NotFound__img">
                 <img src={Error} alt="" />
-                <button><Link to={PublicRoutes.Home}>Únete</Link></button>     
+                <br />
+                <button><Link to={PrivateRoutes.User}>Volver</Link></button>     
             </div>
         </div>
     )
