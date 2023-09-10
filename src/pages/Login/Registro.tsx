@@ -173,6 +173,7 @@ const Registro = () => {
                 s_userFrontpage: fondoBase64,
                 s_frase: frase,
                 fk_tblRol: 2, 
+                fk_tbl_level: 0
             };
 
             const result = await PostRegistrarUser(userData);

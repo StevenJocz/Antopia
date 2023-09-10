@@ -14,6 +14,7 @@ interface userData {
     s_userFrontpage: string;
     s_frase: string;
     fk_tblRol: number;
+    fk_tbl_level: number;
 }
 
 export const PostRegistrarUser = async (userData: userData) => {
