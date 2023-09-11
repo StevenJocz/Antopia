@@ -10,8 +10,8 @@ import { RoutesWithNotFound } from './utilities';
 import { Home } from './pages/Private';
 import { PropagateLoader } from 'react-spinners';
 import Registro from './pages/Login/Registro';
-const Login = import('./pages/Login/Login');
-const Private = import('./pages/Private/Private');
+import  Login from './pages/Login/Login';
+import Private  from './pages/Private/Private';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
