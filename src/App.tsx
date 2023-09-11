@@ -1,5 +1,5 @@
 
-import { lazy, Suspense, useEffect, useState } from 'react';
+import {  Suspense, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 import './App.css';
