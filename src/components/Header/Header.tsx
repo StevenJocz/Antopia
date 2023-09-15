@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react';
-import { notifications, chatbubble, searchOutline } from 'ionicons/icons';
+import { notifications, chatbubble, search, filter, home } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import './Header.css'
@@ -8,6 +8,9 @@ import Buscardor from './Buscador/Buscardor';
 import Chat from './Chat/Chat';
 import Notificaciones from './Notificaciones/Notificaciones';
 import PerfilAcciones from './PerfilAcciones/PerfilAcciones';
+import { NavResponsive } from '../Nav';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/imagenes/Logoants.png'
 
 const Header = () => {
     const userState = useSelector((store: AppStore) => store.user);
@@ -15,18 +18,11 @@ const Header = () => {
     const [verChat, setChat] = useState(false);
     const [verBuscardor, setBuscardor] = useState(false);
     const [verNotificaciones, setNotificaciones] = useState(false);
-    const [inputBuscardor, setInputBuscardor] = useState('');
+    const [verMenu, setVerMenu] = useState(false);
 
     const handleMiPerfil = () => {
-
         setMiPerfil(!miPerfil);
     };
-
-    const handleInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const input = event.target;
-        setInputBuscardor(input.value);
-        setBuscardor(!verBuscardor);
-    }
 
     const divMiPerfil = useRef<HTMLDivElement>(null);
     const divBuscardor = useRef<HTMLDivElement>(null);
@@ -57,26 +53,39 @@ const Header = () => {
         setNotificaciones(!verNotificaciones);
     }
 
+    const handleVerBuscardor_ = () => {
+        setBuscardor(!verBuscardor);
+    }
+
+    const handleVerMenu = () => {
+        setVerMenu(!verMenu);
+    }
 
     return (
         <div className='Header'>
-            <div className='Header-buscador'>
-                <input
-                    type="text"
-                    placeholder='Buscar en Antopia'
-                    onChange={handleInputValue}
-                    
-                />
-                <IonIcon className='Header-buscador-icono' icon={searchOutline} />
-
+            <div className='Header-logo'>
+                <img  src={logo} alt="" />
             </div>
+            
             <div className='Header-menu'>
+                <div className='Header-menu-contect hamburg' onClick={handleVerMenu}>
+                    <IonIcon className='Header-menu-icono' icon={filter} />
+                </div>
+                <div className='Header-menu-contect hamburg'>
+                    <Link to='/Home'>
+                        <IonIcon className='Header-menu-icono' icon={home} />
+                    </Link>
+                </div>
+                <div className='Header-menu-contect' onClick={handleVerBuscardor_}>
+                    <IonIcon className='Header-menu-icono' icon={search} />
+                </div>
                 <div className='Header-menu-contect' onClick={handleChat}>
                     <IonIcon className='Header-menu-icono' icon={chatbubble} />
                 </div>
                 <div className='Header-menu-contect' onClick={handleNotificaciones}>
                     <IonIcon className='Header-menu-icono' icon={notifications} />
                 </div>
+
                 <img src={userState.ImagenPerfil} alt="" onClick={handleMiPerfil} />
 
             </div>
@@ -87,7 +96,7 @@ const Header = () => {
             </div>
             <div className={`Buscardor-Contenedor ${verBuscardor ? "active" : ""}`} ref={divBuscardor} >
                 {verBuscardor && (
-                    <Buscardor texto={inputBuscardor} />
+                    <Buscardor handleVerBuscardor={() => setBuscardor(false)} />
                 )}
             </div>
 
@@ -99,6 +108,7 @@ const Header = () => {
             <div className={`MiPerfil ${miPerfil ? "active" : ""}`} ref={divMiPerfil} >
                 {miPerfil && <PerfilAcciones />}
             </div>
+            {verMenu && <NavResponsive handleVerMenu={() => setVerMenu(false)} />}
 
         </div>
     )

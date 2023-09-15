@@ -8,15 +8,23 @@ import './Buscador.css'
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Level } from '../../Level';
+import { IonIcon } from '@ionic/react';
+import { search, closeCircleOutline } from 'ionicons/icons';
 
 interface Props {
-  texto: string;
+  handleVerBuscardor: () => void;
 }
-
-const Buscardor: React.FC<Props> = (props) => {
+const Buscardor : React.FC<Props> = (props) => {
   const [respuestaHashtags, setRespuestaHashtags] = useState([] as Hashtags[]);
   const [respuestaUser, setRespuestaUser] = useState([] as InfoPerfil[]);
   const [respuesta, setRespuesta] = useState([] as PublicacionBuscador[]);
+
+  const [inputBuscardor, setInputBuscardor] = useState('');
+
+  const handleInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const input = event.target;
+    setInputBuscardor(input.value);
+  }
 
   const contieneHashtag = (texto: string): boolean => {
     return texto.includes('#'); // Verifica si el texto contiene un '#' como carácter
@@ -27,18 +35,21 @@ const Buscardor: React.FC<Props> = (props) => {
   };
 
   useEffect(() => {
-    if (contieneHashtag(props.texto)) {
-      consultarHashtag();
-    } else if (contieneAt(props.texto)) {
-      consultarUser();
-    } else {
-      consultar();
+    if (inputBuscardor != '') {
+      if (contieneHashtag(inputBuscardor)) {
+        consultarHashtag();
+      } else if (contieneAt(inputBuscardor)) {
+        consultarUser();
+      } else {
+        consultar();
+      }
     }
-  }, [props.texto]);
+    
+  }, [inputBuscardor]);
 
   const consultarHashtag = async () => {
     try {
-      const resultado: Hashtags[] = await gethashtag(props.texto);
+      const resultado: Hashtags[] = await gethashtag(inputBuscardor);
       setRespuestaHashtags(resultado);
 
     } catch (error) {
@@ -50,7 +61,7 @@ const Buscardor: React.FC<Props> = (props) => {
 
   const consultarUser = async () => {
     try {
-      const resultado: InfoPerfil[] = await getPerfilUser(props.texto);
+      const resultado: InfoPerfil[] = await getPerfilUser(inputBuscardor);
       setRespuestaUser(resultado);
 
     } catch (error) {
@@ -62,7 +73,7 @@ const Buscardor: React.FC<Props> = (props) => {
 
   const consultar = async () => {
     try {
-      const resultado: PublicacionBuscador[] = await getPublicacionesBuscador(props.texto);
+      const resultado: PublicacionBuscador[] = await getPublicacionesBuscador(inputBuscardor);
       setRespuesta(resultado);
 
     } catch (error) {
@@ -73,16 +84,27 @@ const Buscardor: React.FC<Props> = (props) => {
   };
 
 
-
-
   return (
     <div className="Buscardor">
+      <div className='Header-buscador'>
+        <input
+          type="text"
+          placeholder='Buscar en Antopia'
+          onChange={handleInputValue}
+
+        />
+        <IonIcon className='Header-buscador-icono' icon={search} />
+
+      </div>
+      <div className='cerrarBuscador' onClick={props.handleVerBuscardor}>
+        <IonIcon className='cerrarBuscador-icono' icon={closeCircleOutline} /> 
+      </div>
       <div className="Buscardor-content">
 
-        {contieneAt(props.texto) && (
+        {contieneAt(inputBuscardor) && (
           <div>
             {respuestaUser.map((user, index) => (
-              <Link to={`/Home/Perfil/${user.IdPerfil}/${user.urlPerfil}`}>
+              <Link to={`/Home/Perfil/${user.IdPerfil}/${user.urlPerfil}`} onClick={props.handleVerBuscardor} key={user.IdPerfil}>
                 <div className='Contenedor-Usuario' key={index}>
                   <div className='Contenedor-Usuario-icono'>
                     <img src={user.ImagenPerfil} alt="" />
@@ -92,7 +114,7 @@ const Buscardor: React.FC<Props> = (props) => {
                     <p>@{user.urlPerfil}</p>
                   </div>
                   <div>
-                    <Level  idlevel={user.Level}/>
+                    <Level idlevel={user.Level} />
                   </div>
                 </div>
               </Link>
@@ -101,10 +123,10 @@ const Buscardor: React.FC<Props> = (props) => {
 
         )}
 
-        {contieneHashtag(props.texto) && (
+        {contieneHashtag(inputBuscardor) && (
           <div>
             {respuestaHashtags.map((hashtag, index) => (
-              <Link to={`Hashtag/${hashtag.Hashtag.slice(1)}`}>
+              <Link to={`Hashtag/${hashtag.Hashtag.slice(1)}`} onClick={props.handleVerBuscardor} key={hashtag.Hashtag}>
                 <div className='Contenedor-Hashtag' key={index} >
                   <div className='Contenedor-Hashtag-icono'>
                     <p>#</p>
@@ -118,11 +140,13 @@ const Buscardor: React.FC<Props> = (props) => {
             ))}
           </div>
         )}
-        {!contieneHashtag(props.texto) && !contieneAt(props.texto) && (
+        {!contieneHashtag(inputBuscardor) && !contieneAt(inputBuscardor) && inputBuscardor && (
           <div>
-            <h2>Publicaciones</h2>
+           {inputBuscardor && respuesta.length === 0 && <h2>Sin resultados</h2>}
+            {inputBuscardor && respuesta.length > 0 && <h2>Publicaciones</h2>}
+
             {respuesta.map((publicacion, index) => (
-              <div className='Contenedor-buscador-publi'>
+              <div className='Contenedor-buscador-publi' onClick={props.handleVerBuscardor} key={publicacion.IdPublicacion}>
                 <div className={`Contenedor-buscador-publicacion Card-Articulo borde-${publicacion.IdTipo === 2 ? "Uno" :
                   publicacion.IdTipo === 3 ? "dos" :
                     publicacion.IdTipo === 4 ? "tres" :

@@ -7,6 +7,7 @@ export const EmptyUserState: UserInfo = {
   NombrePerfil:  '',
   ImagenPerfil: '',
   urlPerfil:  '',
+  Level: 0,
   email: '',
   rol: Roles.Vacio,
   exp: '', 

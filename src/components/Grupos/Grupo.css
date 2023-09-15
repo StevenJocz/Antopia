@@ -1,0 +1,128 @@
+.Grupo-portada {
+    width: 130%;
+    height: 500px;
+    margin: -5% -10% -10% -10%;
+    position: relative;
+}
+
+.Grupo-info {
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(245, 150, 9);
+    width: 100%;
+    height: 180px;
+    padding: 20px 100px 20px 20px;
+}
+
+.Grupo-info h2 {
+    color: aliceblue;
+    font-size: 35px;
+}
+
+.Grupo-user {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.Grupo-user p {
+    margin-left: 10px;
+}
+
+.Grupo-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-left: -10px;
+    position: relative;
+    /* Establece las imágenes como posición relativa */
+}
+
+.Grupo-user img:first-child {
+    z-index: 6;
+    /* La primera imagen estará en la parte superior */
+}
+
+.Grupo-user img:nth-child(2) {
+    z-index: 5;
+    /* La segunda imagen estará por encima de la tercera */
+}
+
+.Grupo-user img:nth-child(3) {
+    z-index: 4;
+    /* La tercera imagen estará por encima de la cuarta */
+}
+
+.Grupo-user img:nth-child(4) {
+    z-index: 3;
+    /* La cuarta imagen estará por encima de la quinta */
+}
+
+.Grupo-user img:nth-child(5) {
+    z-index: 2;
+    /* La quinta imagen estará por encima de la sexta */
+}
+
+.Grupo-user img:last-child {
+    z-index: 1;
+    /* La sexta imagen estará en la parte inferior */
+}
+
+.Grupo-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    right: 0;
+}
+
+
+
+.Grupo-Menu {
+    width: 100%;
+    background-color: #1e2229;
+    margin-top: 13%;
+}
+
+.Grupo-Menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.Grupo-Menu ul a {
+    padding: 20px;
+    width: 33.3%;
+    cursor: pointer;
+    text-align: center;
+    color: aliceblue;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.Grupo-Menu ul a:hover {
+    color: aliceblue;
+    background-color: #2c323c;
+}
+
+
+.Grupo-Menu ul a li {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

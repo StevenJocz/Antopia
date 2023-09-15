@@ -8,7 +8,6 @@ import { imageOutline, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
 
 import diarioIcono from '../../assets/imagenes/diarioIcono.png'
 import fotoIcono from '../../assets/imagenes/fotos.png'
-import hormigueroIcono from '../../assets/imagenes/IconHhormiguero.png'
 import notificacionesIcono from '../../assets/imagenes/megafono.png'
 
 import { AppStore } from '../../redux/store';
@@ -56,10 +55,6 @@ const Perfil = () => {
             setVerEditarPerfil(false);
         }
 
-        const mainContainer = document.getElementById('Layout-main');
-        if (mainContainer) {
-            mainContainer.scrollTop = 0;
-        }
     }, [idPerfil, userState.IdPerfil, perfil]);
 
     if (perfil === null) {
@@ -76,7 +71,7 @@ const Perfil = () => {
     const back = {
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
-        backgroundPositionY: '20%',
+        backgroundPositionY: '35%',
     };
 
     const toggleConfiguracion = (tipo: number) => {
@@ -141,7 +136,6 @@ const Perfil = () => {
                     <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}`}><li><img src={notificacionesIcono} className="sidebar-icon" alt="" /> Publicaciones</li></Link>
                     <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}/Fotos`}><li> <img src={fotoIcono} className="sidebar-icon" alt="" /> Fotos</li></Link>
                     <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}/Diarios`}><li><img src={diarioIcono} className="sidebar-icon" alt="" />Diarios</li></Link>
-                    <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}/D`}><li><img src={hormigueroIcono} className="sidebar-icon" alt="" /> Colonia</li></Link>
                 </ul>
             </nav>
             <div className='Perfil-contenido'>

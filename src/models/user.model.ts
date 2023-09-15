@@ -6,6 +6,7 @@ export interface UserInfo {
   urlPerfil: string;
   ImagenPerfil: string;
   email: string;
+  Level: number;
   rol: Roles;
   exp: string; 
   iat: string;

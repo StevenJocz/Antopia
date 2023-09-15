@@ -8,13 +8,15 @@
 .Fotos-content {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between; 
+    max-width: 100%;
 }
 
 .Fotos-content img {
-    width: 23.5%;
-    height: 150px;
+    flex: 0 0 calc(20% - 5px);
+    max-width: 23.5%;
+    height: auto; 
     margin: 5px;
-
 }
 
 .Diario {
@@ -205,4 +207,17 @@
     color: #f4f4f4;
     cursor: pointer;
     margin-top: 2%;
+}
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+
+    .Fotos-content img {
+        max-width: 45%;
+        margin: 5px;
+    }
+
 }

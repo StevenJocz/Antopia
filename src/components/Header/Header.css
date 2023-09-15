@@ -1,42 +1,24 @@
 .Header {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     padding: 10px 60px 10px 80px;
     align-items: center;
     position: relative;
 }
 
-.Header-buscador {
-    position: relative;
-    margin-right: 200px
+.Header-logo {
+    display: none;
+    text-align: center;
 }
 
-.Header-buscador input {
-    width: 750px;
-    height: 40px;
-    font-size: 18px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    padding: 10px 10px 10px 40px;
-    border: 1px solid rgba(240, 248, 255, 0.437);
-    background-color: rgba(240, 248, 255, 0);
-    color: aliceblue;
-    outline: none;
-}
-
-.Header-buscador-icono {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: aliceblue;
-    font-size: 18px;
+.Header-logo img{
+    width: 120px;
 }
 
 .Header-menu {
+    width: 100%;
     display: flex;
+    justify-content: right;
 }
 
 .Header-menu .Header-menu-contect {
@@ -53,6 +35,14 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.Header-menu .hamburg {
+    display: none;
+}
+
+.Header-menu .hamburg a {
+    color: #13161c;
 }
 
 .Header-menu .Header-menu-icono {
@@ -77,13 +67,25 @@
 @media screen and (max-width: 600px) {
 
     .Header {
-        display: flex;
+        display: block;
         justify-content: right;
-        width: 100%;
+        padding: 10px;
     }
     
     .Header-buscador {
         display: none;
+    }
+
+    .Header-menu .hamburg {
+        display: flex;
+    }
+
+    .Header-menu {
+        width: 100%; 
+    }
+
+    .Header-logo {
+        display: block;
     }
 
 }

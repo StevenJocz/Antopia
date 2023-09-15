@@ -17,6 +17,8 @@ const Fotos: React.FC = () => {
         setSelectedImageIndex(index);
     };
 
+ 
+
     const closeModal = () => {
         setSelectedImageIndex(null);
     };
@@ -39,10 +41,14 @@ const Fotos: React.FC = () => {
         }
 
         fetchPerfil();
+        const mainContainer = document.getElementById('Layout-main');
+        if (mainContainer) {
+            mainContainer.scrollTop = 550;
+        }
     }, [idPerfil]);
 
     return (
-        <div className='Fotos'>
+        <div className='Fotos' id='Fotos'>
             <h2>Fotos</h2>
             <div className="Fotos-content">
                 {perfil?.PerfilImagenes.map((imageUrl, index) => (

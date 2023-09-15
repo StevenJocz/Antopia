@@ -19,6 +19,14 @@ const Diario: React.FC<Props> = (props) => {
 
     const [selectedDiarioId, setSelectedDiarioId] = useState<number>(1);
 
+
+    useEffect(() => {
+        const mainContainer = document.getElementById('Layout-main');
+        if (mainContainer) {
+            mainContainer.scrollTop = 550;
+        }
+    }, []);
+
     const mostrarRegistrarDiario = (tipo: boolean) => {
         setRegistrarDiario(true);
         setTipo(tipo);
@@ -37,13 +45,12 @@ const Diario: React.FC<Props> = (props) => {
         } else {
             setMostrarReDiario(false);
         }
-        console.log( mostrarReDiario);
         
     }, [props.idPerfil, userState.IdPerfil]);
 
 
     return (
-        <div className='Diario'>
+        <div className='Diario' id='Diario'>
             <div className='Diario-nav'>
                 <ul>
                     {mostrarReDiario && (

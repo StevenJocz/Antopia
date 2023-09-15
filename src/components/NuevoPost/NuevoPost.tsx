@@ -27,6 +27,7 @@ const NuevoPost: React.FC<Props> = (props) => {
     const [base64Images, setBase64Images] = useState<string[]>([]);
     const userState = useSelector((store: AppStore) => store.user);
 
+ 
     const mostrarPublicar = () => {
         setVerPublicar(!verPublicar);
     };
@@ -94,7 +95,7 @@ const NuevoPost: React.FC<Props> = (props) => {
 
     const handleImageInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-
+    
         if (files) {
             const imagePromises = Array.from(files).map(async (file) => {
                 return new Promise<{ url: string, base64: string }>((resolve, reject) => {
@@ -112,14 +113,18 @@ const NuevoPost: React.FC<Props> = (props) => {
                     reader.readAsDataURL(file);
                 });
             });
-
+    
             try {
                 const results = await Promise.all(imagePromises);
                 const imageUrls = results.map(result => result.url);
                 const base64ImagesArray = results.map(result => result.base64);
-
+    
                 setSelectedImages((prevImages) => [...prevImages, ...imageUrls]);
                 setBase64Images((prevBase64Images) => [...prevBase64Images, ...base64ImagesArray]);
+    
+                // Limpia los valores relacionados con YouTube
+                setYoutubeThumbnail('');
+                setYoutubeUrl('');
             } catch (error) {
                 console.error('Error al convertir imágenes a base64:', error);
             }

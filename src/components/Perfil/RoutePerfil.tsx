@@ -15,7 +15,6 @@ const RoutePerfil = () => {
                         <Route path="/:idPerfil/*" element={<Publicaciones />} />
                         <Route path="/:idPerfil/:nombre/Fotos" element={<Fotos />} />
                         <Route path="/:idPerfil/:nombre/Diarios" element={<Diario idPerfil={parseInt(idPerfil)}/>} />
-                        <Route path="/:idPerfil/:nombre/D" element={<div>Otro</div>} />
                     </RoutesWithNotFound>
                 </DiarioProvider>
         </div>
