@@ -1,5 +1,5 @@
 
-import { lazy, Suspense, useEffect, useState } from 'react';
+import {  Suspense, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 import './App.css';
@@ -10,10 +10,8 @@ import { RoutesWithNotFound } from './utilities';
 import { Home } from './pages/Private';
 import { PropagateLoader } from 'react-spinners';
 import Registro from './pages/Login/Registro';
-
-
-const Login = lazy(() => import('./pages/Login/Login'));
-const Private = lazy(() => import('./pages/Private/Private'));
+import  Login from './pages/Login/Login';
+import Private  from './pages/Private/Private';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
