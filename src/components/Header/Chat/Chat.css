@@ -107,3 +107,16 @@
     justify-content: space-between;
     margin: 10px 0;
 }
+
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+    
+    .Chat {
+        top: 120px;
+    }
+    
+}
