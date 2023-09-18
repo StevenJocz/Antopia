@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.Layout-menu ul  .bg-Icono_home {
+.Layout-menu ul .bg-Icono_home {
     background-color: #fcfdfd1f;
     border: 1px solid #ffffff7d;
 }
@@ -48,20 +48,29 @@
     border: 1px solid #ceca7a7d;
 }
 
-.Layout-menu ul   a .bg-Icono_home {
-    color:  #ffffffdf;
+.Layout-menu ul .bg-Icono_cuatro {
+    background-color: #3fd6f01f;
+    border: 1px solid #43b3c7;
 }
 
-.Layout-menu ul  a .bg-Icono_Uno {
-    color:  #06e672cd;
+.Layout-menu ul a .bg-Icono_home {
+    color: #ffffffdf;
 }
 
-.Layout-menu ul  a .bg-Icono_dos {
-    color:  #8379c1da;
+.Layout-menu ul a .bg-Icono_Uno {
+    color: #06e672cd;
 }
 
-.Layout-menu ul  a .bg-Icono_tres {
-    color:  #fffa97dc;
+.Layout-menu ul a .bg-Icono_dos {
+    color: #8379c1da;
+}
+
+.Layout-menu ul a .bg-Icono_tres {
+    color: #fffa97dc;
+}
+
+.Layout-menu ul a .bg-Icono_cuatro {
+    color: #edededdc;
 }
 
 
@@ -77,25 +86,26 @@
     margin-right: 10px;
 }
 
-.Layout-menu ul  .bg-Icono_home img {
-    background-color:  #ffffff;
+.Layout-menu ul .bg-Icono_home img {
+    background-color: #ffffff;
 }
 
-.Layout-menu .bg-Icono_Uno img{
+.Layout-menu .bg-Icono_Uno img {
     background-color: #03a45c;
 }
 
-.Layout-menu .bg-Icono_dos img{
+.Layout-menu .bg-Icono_dos img {
     background-color: #8379c1;
 }
 
-.Layout-menu .bg-Icono_tres img{
+.Layout-menu .bg-Icono_tres img {
     background-color: #ceca7a;
 }
 
-.Layout-menu ul  a {
-    text-decoration: none;
+.Layout-menu .bg-Icono_cuatro img {
+    background-color: #ffffff;
 }
 
-
-
+.Layout-menu ul a {
+    text-decoration: none;
+}

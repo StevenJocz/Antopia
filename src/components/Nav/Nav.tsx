@@ -14,6 +14,7 @@ const Nav = () => {
                 <Link to='/Home/CriaHormigas'><li className='bg-Icono_Uno'><img src={IconAnt} alt="" />Cría de Hormigas</li></Link>
                 <Link to='/Home/ConstrucionHormigueros'><li className='bg-Icono_dos'><img src={IconHormiguero} alt="" />Construcción de hormigueros</li></Link>
                 <Link to='/Home/ExperimentosTecnicas'><li className='bg-Icono_tres'><img src={IconAnt} alt="" />Experimentos y técnicas</li></Link>
+                <Link to='/Home/Colonias'><li className='bg-Icono_cuatro'><img src={IconHormiguero} alt="" />Colonias</li></Link>
             </ul>
         </nav>
     )

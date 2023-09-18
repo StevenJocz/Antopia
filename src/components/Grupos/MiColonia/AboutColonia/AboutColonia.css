@@ -1,0 +1,118 @@
+.AboutColonia__header {
+    margin-top: 5%;
+    border-bottom: 1px solid #9797974b;
+}
+
+.AboutColonia__header h3{
+    margin-bottom: 2%;
+}
+
+
+
+.AboutColonia__header_info {
+    display: flex;
+    align-items: center;
+    margin: 2.5%;
+}
+
+.AboutColonia__header_info .Icono-About {
+    font-size: 25px;
+    margin-right: 10px;
+    color: #979797;
+}
+
+.AboutColonia__header_info span {
+    font-weight: 800;
+}
+
+.AboutColonia__header_info a {
+    color: #ffffff;
+    margin-left: 10px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.AboutColonia__reglas {
+    margin-top: 3%;
+    padding-bottom: 3%;
+    border-bottom: 1px solid #9797974b;
+}
+
+.AboutColonia_reglas_info {
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+    width: 100%;
+}
+
+.AboutColonia_reglas_info-num {
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AboutColonia_reglas_info-content {
+    width: 95%;
+}
+
+.AboutColonia__soldados, .AboutColonia__Members, .AboutColonia__Reinas {
+    margin-top: 3%;
+    padding-bottom: 3%;
+    border-bottom: 1px solid #9797974b;
+}
+
+.AboutColonia__soldados_info {
+    display: flex;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.AboutColonia__soldados_info-img {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.AboutColonia__soldados_info-img img{
+    width: 100%;
+    height: 80px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.AboutColonia__soldados_info-content {
+    width: 25%;
+}
+
+.AboutColonia__soldados_info-content h4 {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.AboutColonia__soldados_info-content a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.AboutColonia__soldados_info-seguir button {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+}

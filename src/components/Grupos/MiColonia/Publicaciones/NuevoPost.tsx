@@ -1,23 +1,22 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { IonIcon } from '@ionic/react';
 import { closeCircleOutline, happyOutline, cameraOutline } from 'ionicons/icons';
-import './NuevoPost.css'
-import { Emoticones } from '../Emoticones';
+import '../../../NuevoPost/NuevoPost.css'
+import { Emoticones } from '../../../Emoticones';
 import { Link } from 'react-router-dom';
-import { Publicacion } from '../../models';
-import { usePublicaciones } from '../../Context/PublicacionesContext';
-import { format } from 'date-fns';
+import { Colonia, ColoniaCrearPublicacion} from '../../../../models';
 import { useSelector } from 'react-redux';
-import { AppStore } from '../../redux/store';
+import { AppStore } from '../../../../redux/store';
+import { PostColoniaPublicacion } from '../../../../services';
 
 interface Props {
-    tipo: number;
+    grupo: Colonia | null;
 }
 const NuevoPost: React.FC<Props> = (props) => {
     const [verPublicar, setVerPublicar] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [textareaValue, setTextareaValue] = useState('');
-    const [selectValue, setSelectValue] = useState('');
     const [hashtags, setHashtags] = useState<string>('');
 
     const [verEmoticos, setVerEmoticos] = useState(false);
@@ -26,8 +25,8 @@ const NuevoPost: React.FC<Props> = (props) => {
     const [selectedImages, setSelectedImages] = useState<string[]>([]);
     const [base64Images, setBase64Images] = useState<string[]>([]);
     const userState = useSelector((store: AppStore) => store.user);
+    const { grupo } = props;
 
- 
     const mostrarPublicar = () => {
         setVerPublicar(!verPublicar);
     };
@@ -95,7 +94,7 @@ const NuevoPost: React.FC<Props> = (props) => {
 
     const handleImageInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-    
+
         if (files) {
             const imagePromises = Array.from(files).map(async (file) => {
                 return new Promise<{ url: string, base64: string }>((resolve, reject) => {
@@ -113,15 +112,15 @@ const NuevoPost: React.FC<Props> = (props) => {
                     reader.readAsDataURL(file);
                 });
             });
-    
+
             try {
                 const results = await Promise.all(imagePromises);
                 const imageUrls = results.map(result => result.url);
                 const base64ImagesArray = results.map(result => result.base64);
-    
+
                 setSelectedImages((prevImages) => [...prevImages, ...imageUrls]);
                 setBase64Images((prevBase64Images) => [...prevBase64Images, ...base64ImagesArray]);
-    
+
                 // Limpia los valores relacionados con YouTube
                 setYoutubeThumbnail('');
                 setYoutubeUrl('');
@@ -130,12 +129,6 @@ const NuevoPost: React.FC<Props> = (props) => {
             }
         }
     };
-
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectValue(event.target.value);
-    };
-
-
 
     useEffect(() => {
         const contentBody = document.querySelector('.NuevoPost-Publicar-post') as HTMLElement;
@@ -149,14 +142,7 @@ const NuevoPost: React.FC<Props> = (props) => {
             }
         };
 
-        if (props.tipo === 2) {
-            setSelectValue("2");
-        } else if (props.tipo === 3) {
-            setSelectValue("3");
-        } else if (props.tipo === 4) {
-            setSelectValue("4");
-        }
-
+        
         updateContentBodyHeight();
 
         window.addEventListener('resize', updateContentBodyHeight);
@@ -204,55 +190,27 @@ const NuevoPost: React.FC<Props> = (props) => {
         }
     };
 
-    
-    
-
     const handleRemovePaste = () => {
         setYoutubeThumbnail('');
     };
 
-    const { agregarPublicacion } = usePublicaciones();
-    const now = new Date();
-    const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
-
-    const nuevaPublicacion: Publicacion = {
-
-        IdPerfil: userState.IdPerfil,
-        NombrePerfil: userState.NombrePerfil,
-        ImagenPerfil: userState.ImagenPerfil,
-        urlPerfil: 'alho',
-        UserLikes: 0,
-        IdPublicacion: 999,
-        Level: 1,
-        IdTipo: parseInt(selectValue),
-        Megustas: 0,
-        CantidadComentarios: 0,
-        Siguiendo: 0,
-        FechaPublicacion: formattedDate,
-        Titulo: inputValue,
-        Contenido: textareaValue,
-        UrlYoutube: youtubeUrl || '',
-        ImagenesPublicacion: [],
-        base64: [],
-        hashtags: hashtags,
-        Comentarios: [],
+    const nuevaPublicacion: ColoniaCrearPublicacion = {
+        id_colonies: grupo?.id_colonies || 0,
+        s_title: inputValue,
+        s_content: textareaValue,
+        s_hashtags: hashtags,
+        idPerfil: userState.IdPerfil,
+        video: youtubeUrl || '',
+        images: base64Images,
     };
 
-    const handleAddPublicacion = () => {
+    const handleAddPublicacion = async () => {
         if (inputValue === '') {
             alert('Ingrese un título');
         } else if (textareaValue === '') {
             alert('Ingrese un contenido');
-        } else if (selectValue === '') {
-            alert('Seleccione el tipo de publicación');
         } else {
-            const imagenesPublicacion = selectedImages.map(imageUrl => imageUrl);
-
-            agregarPublicacion({
-                ...nuevaPublicacion,
-                ImagenesPublicacion: imagenesPublicacion,
-                base64: base64Images,
-            });
+            await PostColoniaPublicacion(nuevaPublicacion);
 
             setYoutubeThumbnail('');
             setYoutubeUrl('');
@@ -261,9 +219,9 @@ const NuevoPost: React.FC<Props> = (props) => {
             setSelectedImages([]);
             setBase64Images([]);
             mostrarPublicar();
+            
         }
     };
-
 
     return (
         <>
@@ -290,36 +248,6 @@ const NuevoPost: React.FC<Props> = (props) => {
                             <div className="NuevoPost-Publicar-post-perfil">
                                 <img src={userState.ImagenPerfil} alt="" />
                                 <h4>{userState.NombrePerfil}</h4>
-                            </div>
-                            <div className='Select-publicar'>
-                                <select
-                                    name=""
-                                    value={selectValue}
-                                    onChange={handleSelectChange} //
-
-                                >
-                                    { props.tipo === 2 ? (
-                                        <option value="2">Cría de Hormigas</option>
-
-                                    ) : props.tipo === 3 ? (
-                                        <option value="3">Construcción de hormigueros</option>
-
-                                    ) : props.tipo === 4 ? (
-                                        <option value="4">Experimentos y técnicas</option>
-
-                                    ) : (
-                                        <>
-                                            <option value="">Seleccione el tipo de publicación</option>
-                                            <option value="1">General</option>
-                                            <option value="2">Cría de Hormigas</option>
-                                            <option value="3">Construcción de hormigueros</option>
-                                            <option value="4">Experimentos y técnicas</option>
-
-                                        </>
-
-                                    )}
-
-                                </select>
                             </div>
                             <input
                                 placeholder='Escribe el título de la publicación'

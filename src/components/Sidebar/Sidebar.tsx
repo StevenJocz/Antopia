@@ -31,7 +31,7 @@ const Sidebar = () => {
                     <div className="tooltip-text">Fotos</div>
                 </div>
                 <div className="tooltip-container">
-                    <Link to={`/Home/Grupo`}>
+                    <Link to={`/Home/Colonias`}>
                         <img src={hormigueroIcono} className="sidebar-icon" alt="" />
                     </Link>
                     <div className="tooltip-text">Mi Colonia</div>

@@ -1,0 +1,133 @@
+.CrearColonia {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.448);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+
+.CrearColonia-content {
+    width: 800px;
+    height: 90vh;
+    background-color: #262b34;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+
+.CrearColonia-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.CrearColonia-content::-webkit-scrollbar-thumb {
+    background-color: #262b3400;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+.CrearColonia-content::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.CrearColonia_header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.CrearColonia_header .Icono-cerrar {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.CrearColonia_formulario {
+    margin-top: 3%;
+}
+
+.CrearColonia_formulario-input input {
+    width: 100%;
+    background-color: #f4f4f4;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 2%;
+}
+
+
+.CrearColonia_formulario-input textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #f4f4f4;
+    border: none;
+    overflow-x: auto;
+    resize: none;
+    overflow-y: hidden;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+}
+
+.CrearColonia_formulario-input-imagen {
+    margin-top: 2%;
+}
+
+.Nocreate {
+    display: block;
+    text-align: center;
+}
+
+.Nocreate img {
+    width: 40%;
+    height: 300px;
+}
+
+.inputcolor {
+    margin-top: 10px;
+}
+
+.CrearColonia_formulario-input label {
+    
+    font-weight: 800;
+
+}
+.CrearColonia_formulario-input input[type="color"] {
+    padding: 0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    background-color: #262b34;
+}

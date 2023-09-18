@@ -1,11 +1,24 @@
-.Grupo-portada {
-    width: 130%;
-    height: 500px;
-    margin: -5% -10% -10% -10%;
-    position: relative;
+
+
+.MiGrupo-navegacion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
 }
 
-.Grupo-info {
+.MiGrupo-navegacion .volver-icono {
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
+.MiGrupo-portada {
+    height: 500px;
+    position: relative;
+    width: 130%;
+    margin: 0 -10% -10% -10%;
+}
+
+.MiGrupo-info {
     position: absolute;
     bottom: 0;
     background-color: rgb(245, 150, 9);
@@ -14,12 +27,12 @@
     padding: 20px 100px 20px 20px;
 }
 
-.Grupo-info h2 {
+.MiGrupo-info h2 {
     color: aliceblue;
     font-size: 35px;
 }
 
-.Grupo-user {
+.MiGrupo-user {
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -28,11 +41,11 @@
     cursor: pointer;
 }
 
-.Grupo-user p {
+.MiGrupo-user p {
     margin-left: 10px;
 }
 
-.Grupo-user img {
+.MiGrupo-user img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -45,37 +58,37 @@
     /* Establece las imágenes como posición relativa */
 }
 
-.Grupo-user img:first-child {
+.MiGrupo-user img:first-child {
     z-index: 6;
     /* La primera imagen estará en la parte superior */
 }
 
-.Grupo-user img:nth-child(2) {
+.MiGrupo-user img:nth-child(2) {
     z-index: 5;
     /* La segunda imagen estará por encima de la tercera */
 }
 
-.Grupo-user img:nth-child(3) {
+.MiGrupo-user img:nth-child(3) {
     z-index: 4;
     /* La tercera imagen estará por encima de la cuarta */
 }
 
-.Grupo-user img:nth-child(4) {
+.MiGrupo-user img:nth-child(4) {
     z-index: 3;
     /* La cuarta imagen estará por encima de la quinta */
 }
 
-.Grupo-user img:nth-child(5) {
+.MiGrupo-user img:nth-child(5) {
     z-index: 2;
     /* La quinta imagen estará por encima de la sexta */
 }
 
-.Grupo-user img:last-child {
+.MiGrupo-user img:last-child {
     z-index: 1;
     /* La sexta imagen estará en la parte inferior */
 }
 
-.Grupo-btn {
+.MiGrupo-btn {
     width: 100px;
     height: 40px;
     border-radius: 10px;
@@ -91,20 +104,20 @@
 
 
 
-.Grupo-Menu {
+.MiGrupo-Menu {
     width: 100%;
     background-color: #1e2229;
-    margin-top: 13%;
+    margin-top: 12%;
 }
 
-.Grupo-Menu ul {
+.MiGrupo-Menu ul {
     list-style: none;
     display: flex;
     justify-content: space-around;
 
 }
 
-.Grupo-Menu ul a {
+.MiGrupo-Menu ul a {
     padding: 20px;
     width: 33.3%;
     cursor: pointer;
@@ -114,13 +127,13 @@
     text-decoration: none;
 }
 
-.Grupo-Menu ul a:hover {
+.MiGrupo-Menu ul a:hover {
     color: aliceblue;
     background-color: #2c323c;
 }
 
 
-.Grupo-Menu ul a li {
+.MiGrupo-Menu ul a li {
     text-align: center;
     display: flex;
     justify-content: center;

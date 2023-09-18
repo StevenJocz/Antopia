@@ -36,7 +36,6 @@ export const PostPublicacion = async (Publicacion: Publicacion) => {
     const url = baseUrl + 'Pubication/Create_Publication';
 
     const body = JSON.stringify(datosPublicacion);
-    console.log(body);
 
     try {
         const response = await fetch(url, {

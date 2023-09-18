@@ -60,6 +60,11 @@
     border: 1px solid #ceca7a7d;
 }
 
+.NavResponsive ul .bg-Icono_cuatro {
+    background-color: #3fd6f01f;
+    border: 1px solid #43b3c7;
+}
+
 .NavResponsive ul   a .bg-Icono_home {
     color:  #ffffffdf;
 }
@@ -74,6 +79,10 @@
 
 .NavResponsive ul  a .bg-Icono_tres {
     color:  #fffa97dc;
+}
+
+.NavResponsive ul  a .bg-Icono_cuatro {
+    color:  #edededdc;
 }
 
 
@@ -103,6 +112,10 @@
 
 .NavResponsive .bg-Icono_tres img{
     background-color: #ceca7a;
+}
+
+.NavResponsive .bg-Icono_cuatro img{
+    background-color: #ffffff;
 }
 
 .NavResponsive ul  a {

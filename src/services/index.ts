@@ -1,3 +1,4 @@
+export * from './Colonia.service';
 export * from './Comments.service';
 export * from './Hashtag.service';
 export * from './Perfil.service';
