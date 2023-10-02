@@ -25,9 +25,9 @@ const Publicaciones = () => {
 
     return (
         <div>
-            <PublicacionesProvider idTipo={null} idPerfil={Number(idPerfil)}>
+            <PublicacionesProvider idTipo={0} idPerfil={Number(idPerfil)} idColonia={0} opcion={3} hashtag="">
                 {verNuevoPost && (
-                    <NuevoPost tipo={1}/>
+                    <NuevoPost tipo={1} idColonia={0}/>
                 )}
                 <h2>Publicaciones</h2>
                 <Card />

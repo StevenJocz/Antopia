@@ -228,25 +228,25 @@
     outline: none; 
 }
 
-.Comentar-input-acciones {
+.Card-Comentar-input-acciones {
     display: flex;
     justify-content: space-between;
 }
 
-.Comentar-input-acciones .iconoComentar, .Comentar-input .iconoImagen {
+.Card-Comentar-input-acciones .iconoComentar, .Comentar-input .iconoImagen {
     font-size: 25px;
     color: #b2b2b2;
     cursor: pointer;
     margin-right: 10px;
 }
 
-.Comentar-input-acciones .iconoEnviar {
+.Card-Comentar-input-acciones .iconoEnviar {
     font-size: 25px;
     color: #289eed;
     cursor: pointer;
 }
 
-.Comentar-input-acciones input {
+.Card-Comentar-input-acciones input {
     display: none;
 }
 

@@ -12,6 +12,7 @@ import { AppStore } from '../../redux/store';
 
 interface Props {
     tipo: number;
+    idColonia: number;
 }
 const NuevoPost: React.FC<Props> = (props) => {
     const [verPublicar, setVerPublicar] = useState(false);
@@ -155,6 +156,8 @@ const NuevoPost: React.FC<Props> = (props) => {
             setSelectValue("3");
         } else if (props.tipo === 4) {
             setSelectValue("4");
+        }else if (props.tipo === 5) {
+            setSelectValue("5");
         }
 
         updateContentBodyHeight();
@@ -225,6 +228,8 @@ const NuevoPost: React.FC<Props> = (props) => {
         IdPublicacion: 999,
         Level: 1,
         IdTipo: parseInt(selectValue),
+        IdColonia: props.idColonia,
+        esMiembroColonia: 0,
         Megustas: 0,
         CantidadComentarios: 0,
         Siguiendo: 0,
@@ -296,29 +301,24 @@ const NuevoPost: React.FC<Props> = (props) => {
                                     name=""
                                     value={selectValue}
                                     onChange={handleSelectChange} //
-
                                 >
                                     { props.tipo === 2 ? (
                                         <option value="2">Cría de Hormigas</option>
-
                                     ) : props.tipo === 3 ? (
                                         <option value="3">Construcción de hormigueros</option>
-
                                     ) : props.tipo === 4 ? (
                                         <option value="4">Experimentos y técnicas</option>
-
-                                    ) : (
+                                    ) : props.tipo === 5? (
+                                        <option value="5">Publica en el grupo</option>
+                                    ): (
                                         <>
                                             <option value="">Seleccione el tipo de publicación</option>
                                             <option value="1">General</option>
                                             <option value="2">Cría de Hormigas</option>
                                             <option value="3">Construcción de hormigueros</option>
                                             <option value="4">Experimentos y técnicas</option>
-
                                         </>
-
                                     )}
-
                                 </select>
                             </div>
                             <input
@@ -376,7 +376,6 @@ const NuevoPost: React.FC<Props> = (props) => {
                                     </div>
                                 </div>
                             </div>
-
                             <div className='Emoticones-content'>
                                 {verEmoticos && (
                                     <Emoticones

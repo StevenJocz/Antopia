@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PublicacionesProvider } from "../../../../Context/PublicacionesContext";
-import CardHashtag from "./CardHashtag";
+import Card from "../../../../components/Card/Card";
 
 const Hashtag = () => {
     const location = useLocation();
@@ -28,8 +28,8 @@ const Hashtag = () => {
     return (
         <div>
             <h2>#{decodedHashtag}</h2>
-            <PublicacionesProvider idTipo={null} idPerfil={null}>
-                <CardHashtag texto={'#' + decodedHashtag} />
+            <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={5} hashtag={decodedHashtag}>
+                <Card />
             </PublicacionesProvider>
         </div>
     );

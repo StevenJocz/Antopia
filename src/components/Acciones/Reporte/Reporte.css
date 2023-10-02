@@ -1,0 +1,117 @@
+.Reporte {
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.448);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+
+.Reporte-content {
+    width: 100%;
+    height: auto;
+    background-color: #262b34;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+
+
+}
+
+.Reporte-content-body {
+    width: 100%;
+    height: auto;
+}
+
+
+.Reporte-content-formulario {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Reporte-content-formulario-text {
+    width: 80%;
+    margin-right: 10%;
+}
+
+.Reporte-content-formulario-check {
+    width: 10%;
+}
+
+.option-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    position: relative;
+    top: 13.33333px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    transition: all 0.15s ease-out 0s;
+    background: #cbd1d8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.5rem;
+    outline: none;
+    position: relative;
+    z-index: 1000;
+    border-radius: 50%;
+}
+
+.option-input:hover {
+    background: #9faab7;
+}
+
+.option-input:checked {
+    background: #295884;
+}
+
+.option-input:checked::before {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    content: '✔';
+    display: inline-block;
+    font-size: 26.66667px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.option-input:checked::after {
+    -webkit-animation: click-wave 0.65s;
+    -moz-animation: click-wave 0.65s;
+    animation: click-wave 0.65s;
+    background: rgba(64, 224, 208, 0.45);
+    content: '';
+    display: block;
+    position: relative;
+    z-index: 100;
+}
+
+.Reporte-content-respuesta {
+    margin-top: 5%;
+}
+
+.Reporte-content-respuesta  h4{
+    margin-top: 3%;
+}

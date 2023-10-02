@@ -14,8 +14,8 @@ const TecnicasExerimentos = () => {
     }, []);
     return (
         <div>
-            <PublicacionesProvider idTipo={4} idPerfil={null}>
-                <NuevoPost tipo={4}/>
+            <PublicacionesProvider idTipo={4} idPerfil={0} idColonia={0} opcion={2} hashtag="">
+                <NuevoPost tipo={4} idColonia={0}/>
                 <h2>Experimentos y técnicas</h2>
                 <Slider idTipo={1} />
                 <Card />

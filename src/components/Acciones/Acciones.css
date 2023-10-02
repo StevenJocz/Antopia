@@ -1,6 +1,6 @@
 .Acciones {
     width: 300px;
-    height: 110px;
+    height: auto;
     background-color: #262b34;
     position: absolute;
     bottom: 2%;
@@ -13,33 +13,77 @@
     margin-top: 10px;
 }
 
-.Acciones_compartir  div{
+.Acciones_compartir div {
     display: flex;
 }
 
 .Acciones_compartir a {
     margin-left: 10px;
-    font-size: 19px;
+    font-size: 25px;
     margin-top: 10px;
 }
 
-.Acciones a {
+.Acciones span {
+    font-size: 18px;
     display: block;
     text-decoration: none;
     color: #ffffff;
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.Acciones p {
+    background-color: rgb(40, 157, 241);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .Acciones-icon {
+    font-size: 18px;
     margin-right: 10px;
 }
-.Acciones_cerrar {
+
+.Acciones-compartir {
     width: 100%;
-    
+    display: flex;
+    justify-content: center;
 }
 
-.Acciones_cerrar  .Icono-cerrar {
+.Acciones-compartir .Acciones-icon-compartir {
+    font-size: 35px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Acciones-compartir .Acciones-icon-facebook {
+    color: #4267B2;
+    background-color: #ffffff;
+   
+}
+
+.Acciones-compartir .Acciones-icon-whatsapp {
+    color: #fff;
+    background-color: #25D366;
+}
+
+
+.Acciones_cerrar {
+    width: 100%;
+}
+
+.Acciones_cerrar .Icono-cerrar {
     font-size: 25px;
     cursor: pointer;
     color: #ffffff;

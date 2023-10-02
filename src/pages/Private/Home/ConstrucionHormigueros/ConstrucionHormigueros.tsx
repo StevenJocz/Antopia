@@ -14,8 +14,8 @@ const ConstrucionHormigueros = () => {
       }, []);
     return (
         <div>
-            <PublicacionesProvider idTipo={3} idPerfil={null}>
-                <NuevoPost tipo={3}/>
+            <PublicacionesProvider idTipo={3} idPerfil={0} idColonia={0} opcion={2} hashtag="">
+                <NuevoPost tipo={3} idColonia={0}/>
                 <h2>Construcción hormigueros</h2>
                 <Slider idTipo={1} />
                 <Card />

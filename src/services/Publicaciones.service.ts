@@ -1,12 +1,12 @@
 // getPublicaciones.ts
-import { Publicacion, PublicacionBuscador, services } from "../models";
+import { Publicacion, PublicacionBuscador, PublicacionReportinRazon, services } from "../models";
 
 const baseUrl = services.local
 
-export const getPublicaciones = async (iduser: number): Promise<Publicacion[]> => {
+export const getPublicaciones = async (iduser: number, tipo: number, parametro: number, hashtags:string): Promise<Publicacion[]> => {
 
-    const url = `${baseUrl}Pubication/TodoPublication?iduser=${iduser}`;
-
+    const url = `${baseUrl}Pubication/TodoPublication?iduser=${iduser}&tipo=${tipo}&parametro=${parametro}&hashtags=${hashtags}`;
+    console.log(url);
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -29,6 +29,8 @@ export const getPublicaciones = async (iduser: number): Promise<Publicacion[]> =
             IdPublicacion: item.idPublicacion,
             UserLikes: item.userLike,
             IdTipo: item.idTipo,
+            IdColonia: item.idColonia,
+            esMiembroColonia: item.esMiembroColonia,
             Megustas: item.megustas,
             CantidadComentarios: item.cantidadComentarios,
             Siguiendo: item.siguiendo,
@@ -145,4 +147,66 @@ export const getPublicacionesHashtag = async (idUser: number, texto: string): Pr
         console.error('Error al obtener publicaciones:', error);
         throw error;
     }
+};
+
+
+export const getPublicacionesReportingRazon = async () => {
+
+    const url = `${baseUrl}Pubication/Publication_reporting_reason`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        const razones: PublicacionReportinRazon[] = result.map((item: any) => ({
+            idRazon: item.id_publication_reporting_reason,
+            titulo: item.s_title,
+            description: item.s_description,
+        }));
+
+        return razones;
+    } catch (error) {
+        // Manejo de errores aquí
+        console.error('Error en la solicitud:', error);
+        throw error;
+    }
+};
+
+
+export const PostPublicacionesReporting = (idRazon: number, idPublicacion: number) => {
+    const url = baseUrl + 'Pubication/PublicationReportin';
+    const body = JSON.stringify({
+
+        "fk_tbl_publication_reporting_reason": idRazon,
+        "fk_tbl_publication": idPublicacion
+    });
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body
+    }).then(res => res.json());
+};
+
+export const deletePostPublicacion = (idPublicacion: number) => {
+   
+    const url = `${baseUrl}Pubication/Delete_Publication?idPublication=${idPublicacion}`;
+
+    return fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(res => res.json());
 };

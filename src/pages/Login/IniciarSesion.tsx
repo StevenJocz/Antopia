@@ -117,7 +117,7 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
                                 <span className="bar"></span>
                                 <label>Contraseña</label>
                             </div>
-                            <p onClick={props.mostrarRecordar} className='olvido-contrseña'>¿Olvidé su contraseña?</p>
+                            <p onClick={props.mostrarRecordar} className='olvido-contrseña'>¿Olvidé mi contraseña?</p>
                             <i className='mensaje'>{msg}</i>
                             <ErrorMessage name='correoElectronico' component={() => <div className='error'>{errors.correoElectronico}</div>} />
                             <ErrorMessage name='password' component={() => <div className='error'>{errors.password}</div>} />

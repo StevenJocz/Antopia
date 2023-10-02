@@ -14,6 +14,7 @@ export const PostPublicacion = async (Publicacion: Publicacion) => {
                 fk_tbl_user: Publicacion.IdPerfil,
                 fk_tbl_type_publication: Publicacion.IdTipo,
                 s_hashtags: Publicacion.hashtags,
+                fk_tbl_colinie:Publicacion.IdColonia
             },
         ],
         imagenes: Publicacion.base64.map((imagen, index) => ({

@@ -8,6 +8,8 @@ import { AppStore } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { getUserColonias } from '../../services';
 import './Colonias.css';
+import { PublicacionesProvider } from '../../Context/PublicacionesContext';
+import Card from "../Card/Card";
 
 interface Colonia {
     id_colonies: number;
@@ -71,12 +73,15 @@ const Colonias = () => {
                         </Link>
                     </div>
                 ))}
-
+            </div>
+            <div>
+            <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={4}>
+                <Card />
+            </PublicacionesProvider>
             </div>
             {crearColonia && (
                 <CrearColonia CrearColonia={() => setCrearColonia(false)} recargarColonias={() => recargarColonias()} />
             )}
-
         </div>
     )
 }

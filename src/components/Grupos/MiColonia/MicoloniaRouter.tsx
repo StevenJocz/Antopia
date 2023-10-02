@@ -12,7 +12,7 @@ interface Props {
 
 export const MicoloniaRouter : React.FC<Props> = (props) => {
     return (
-        <div>
+        <div className="MicoloniaRouter">
             <RoutesWithNotFound>
                 <Route path="/:nombre/*" element={<MiColonia />} />
                 <Route path="/" element={<Publicaciones grupo={props.grupo} />} />

@@ -14,8 +14,8 @@ const CriaHormigas = () => {
     }, []);
     return (
         <div>
-            <PublicacionesProvider idTipo={2} idPerfil={null}>
-                <NuevoPost  tipo={2}/>
+            <PublicacionesProvider idTipo={2} idPerfil={0} idColonia={0} opcion={2} hashtag="">
+                <NuevoPost  tipo={2} idColonia={0}/>
                 <h2>Cria de Hormigas</h2>
                 <Slider idTipo={1} />
                 <Card />

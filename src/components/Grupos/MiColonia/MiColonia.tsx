@@ -20,9 +20,6 @@ const MiColonia = () => {
 
 
     const idgrupo =location.state?.idColonia || 0;
-    //const idgrupo = location.pathname.split("/")[3];
-   
-
     useEffect(() => {
         async function fetchPerfil() {
             try {
@@ -59,9 +56,7 @@ const MiColonia = () => {
             } else if (resultado.resultado == true && esMiembro == 0) {
                 setEsMiembro(1)
             }
-
         } catch (error) {
-
         }
     }
 

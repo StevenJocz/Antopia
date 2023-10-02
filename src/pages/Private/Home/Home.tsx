@@ -3,6 +3,7 @@ import { RoutesWithNotFound } from '../../../utilities';
 import './Home.css'
 import { lazy} from 'react';
 import ColoniaRouter from '../../../components/Grupos/ColoniaRouter';
+import { Publicacion } from './Publicacion';
 const Nav = lazy(() => import('../../../components/Nav/Nav'));
 const Inicio = lazy(() => import('./Inicio/Inicio'));
 const CriaHormigas = lazy(() => import('./CriaHormigas/CriaHormigas'));
@@ -34,6 +35,7 @@ const Home: React.FC = () => {
             <Route path="/ConstrucionHormigueros" element={<ConstrucionHormigueros />} />
             <Route path="/ExperimentosTecnicas" element={<TecnicasExerimentos />} />
             <Route path="/Perfil/*" element={<Perfil />} />
+            <Route path="/Publicacion/:id/*" element={<Publicacion/>} />
             <Route path="/Colonias/*" element={<ColoniaRouter />} />
             <Route path="/Hashtag/:hashtag/*" element={<Hashtag />} />
           </RoutesWithNotFound>

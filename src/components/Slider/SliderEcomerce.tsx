@@ -1,6 +1,6 @@
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Keyboard, Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -8,24 +8,17 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 
-import './Slider.css'
-import { Keyboard, Pagination, Navigation } from 'swiper/modules';
 
-interface Props {
-    idTipo: number | null;
-}
-
-const Slider: React.FC<Props> = (props) => {
+export const SliderEcomerce = () => {
 
     const imagenes = [
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen1.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen2.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen3.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen4.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen5.jpg",
+        "https://antopiaapi.azurewebsites.net/ImagenesEcomerce/imagen1.jpg",
+        "https://antopiaapi.azurewebsites.net/ImagenesEcomerce/imagen2.jpg",
+        "https://antopiaapi.azurewebsites.net/ImagenesEcomerce/imagen3.jpg",
+        "https://antopiaapi.azurewebsites.net/ImagenesEcomerce/imagen4.jpg",
+        "https://antopiaapi.azurewebsites.net/ImagenesEcomerce/imagen5.jpg",
 
     ]
-    console.log(props.idTipo)
 
     return (
         <div className='Swiper'>
@@ -38,8 +31,12 @@ const Slider: React.FC<Props> = (props) => {
                 pagination={{
                     clickable: true,
                 }}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
                 navigation={true}
-                modules={[Keyboard, Pagination, Navigation]}
+                modules={[Keyboard, Autoplay, Pagination, Navigation]}
                 className="mySwiper"
             >
                 {imagenes.map((img) => (
@@ -53,5 +50,3 @@ const Slider: React.FC<Props> = (props) => {
         </div>
     )
 }
-
-export default Slider

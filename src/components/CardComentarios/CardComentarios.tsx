@@ -194,7 +194,7 @@ const CardComentarios: React.FC<Props> = (props) => {
                             id="miTextarea"
                             className="auto-adjust-textarea"
                         />
-                        <div className='Comentar-input-acciones'>
+                        <div className='Card-Comentar-input-acciones'>
                             <div>
                                 <IonIcon onClick={mostrarEmoticos} className='iconoComentar' icon={happyOutline} />
                                 <IonIcon className='iconoImagen' icon={cameraOutline} onClick={handleCameraIconClick} />

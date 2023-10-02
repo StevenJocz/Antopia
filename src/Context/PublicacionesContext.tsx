@@ -23,6 +23,7 @@ interface PublicacionesContextType {
     agregarComentarioAPublicacion: (publicacionId: number, comentario: Comentario) => void;
     darLikeAPublicacion: (publicacionId: number, isLike: number, idPerfil: number) => Promise<void>;
     listarPublicaciones: (idPerfil: number, texto: string) => Promise<Publicacion[]>;
+    eliminarPublicacion: (publicacionId: number)=> void;
 }
 
 const PublicacionesContext = createContext<PublicacionesContextType | undefined>(undefined);
@@ -37,41 +38,67 @@ export const usePublicaciones = (): PublicacionesContextType => {
 
 interface PublicacionesProviderProps {
     children: React.ReactNode;
-    idPerfil: number | null;
-    idTipo: number | null;
+    idPerfil: number;
+    idTipo: number;
+    idColonia: number;
+    opcion: number;
+    hashtag: string;
 }
 
 export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (props) => {
     const userState = useSelector((store: AppStore) => store.user);
     const [publicaciones, setPublicaciones] = useState<Publicacion[]>([]);
-    const [contextUpdateCounter, setContextUpdateCounter] = useState<number>(0); // Nuevo estado
+    const [contextUpdateCounter, setContextUpdateCounter] = useState<number>(0);
 
     useEffect(() => {
         async function fetchPublicaciones() {
             try {
-                const resultado = await getPublicaciones(userState.IdPerfil);
-                const publicacionesFiltradas = resultado.filter((publicacion) => {
-                    if (props.idPerfil === null && props.idTipo === null) {
-                        return true;
-                    }
-                    if (props.idPerfil === null && props.idTipo !== null) {
-                        return publicacion.IdTipo === props.idTipo;
-                    }
-                    if (props.idTipo === null && props.idPerfil !== null) {
-                        return publicacion.IdPerfil === props.idPerfil;
-                    }
-                    return (
-                        publicacion.IdPerfil === props.idPerfil && publicacion.IdTipo === props.idTipo
-                    );
-                });
-                setPublicaciones(publicacionesFiltradas);
+
+                if (props.opcion === 1) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, props.opcion, 1, 'o');
+                    setPublicaciones(resultado);
+                }
+                else if (props.opcion === 2) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, 2, props.idTipo, 'o');
+                    setPublicaciones(resultado);
+                }
+                else if (props.opcion === 3) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, 3, props.idPerfil, 'o');
+                    setPublicaciones(resultado);
+                }
+                else if (props.opcion === 4 && props.idColonia == 0) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, 4, props.idTipo, 'o');
+                    const publicacionesFiltradas = resultado.filter((publicacion) => {
+                        return publicacion.esMiembroColonia == 1;
+                    });
+                    setPublicaciones(publicacionesFiltradas);
+                }
+                
+                else if (props.opcion === 4 && props.idColonia !== 0) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, 4, props.idTipo, 'o');
+                    const publicacionesFiltradas = resultado.filter((publicacion) => {
+                        return publicacion.IdColonia === props.idColonia;
+                    });
+                    console.log('entro aca')
+                    setPublicaciones(publicacionesFiltradas);
+                }
+                else if (props.opcion === 5) {
+                    const resultado = await getPublicaciones(userState.IdPerfil, 5, props.idTipo, props.hashtag);
+                    setPublicaciones(resultado);
+                }
+                else if (props.opcion === 6) {
+                    console.log('entro aqui');
+                    const resultado = await getPublicaciones(userState.IdPerfil, 6, props.idColonia, props.hashtag);
+                    setPublicaciones(resultado);
+                }
+                
             } catch (error) {
                 console.error('Error al obtener publicaciones:', error);
             }
         }
 
         fetchPublicaciones();
-    }, [props.idPerfil, props.idTipo, userState.IdPerfil, contextUpdateCounter]); // Agrega contextUpdateCounter a las dependencias
+    }, [props.idPerfil, props.idTipo, props.idColonia, userState.IdPerfil, contextUpdateCounter]);
 
     const agregarPublicacion = async (nuevaPublicacion: Publicacion): Promise<void> => {
         try {
@@ -141,12 +168,18 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
         }
     };
 
+    const eliminarPublicacion = (publicacionId: number): void => {
+        const nuevasPublicaciones = publicaciones.filter((publicacion) => publicacion.IdPublicacion !== publicacionId);
+        setPublicaciones(nuevasPublicaciones);
+    };
+
     const contextValue: PublicacionesContextType = {
         publicaciones,
         agregarPublicacion,
         agregarComentarioAPublicacion,
         darLikeAPublicacion,
         listarPublicaciones,
+        eliminarPublicacion,
     };
 
     return (

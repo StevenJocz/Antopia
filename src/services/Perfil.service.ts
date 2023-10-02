@@ -112,3 +112,38 @@ export const getFollowers = async (idUser: number) => {
         throw error;
     }
 };
+
+
+export const getRecomendaFollowers = async (idUser: number) => {
+    const url = `${baseUrl}User/ConsultarNotFollowers?user=${idUser}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        
+        const user: InfoPerfil[] = result.map((item: any) => ({
+            IdPerfil: item.id,
+            NombrePerfil: item.s_user_name,
+            urlPerfil: item.s_userProfile,
+            ImagenPerfil: item.s_userPhoto,
+            Level: item.fk_tbl_level,
+
+        }));
+
+        return user;
+    } catch (error) {
+        // Manejo de errores aquí
+        console.error('Error al obtener el usuario:', error);
+        throw error;
+    }
+};

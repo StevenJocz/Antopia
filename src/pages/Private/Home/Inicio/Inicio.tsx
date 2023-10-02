@@ -14,8 +14,8 @@ const Inicio: React.FC = () => {
     }, []);
     return (
         <div>
-            <PublicacionesProvider idTipo={null} idPerfil={null}>
-                <NuevoPost tipo={1} />
+            <PublicacionesProvider idTipo={1} idPerfil={0} idColonia={0} opcion={1} hashtag="">
+                <NuevoPost tipo={1}  idColonia={0}/>
                 <h2>Reciente</h2>
                 <Slider idTipo={1} />
                 <Card />

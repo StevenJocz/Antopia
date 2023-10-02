@@ -1,4 +1,4 @@
-import { ColoniaCrearPublicacion, services } from "../models";
+import { services } from "../models";
 
 const baseUrl = services.local;
 
@@ -112,52 +112,3 @@ export const getBuscarColonia = async (palabra: string) => {
 };
 
 
-export const PostColoniaPublicacion = async (Publicacion: ColoniaCrearPublicacion) => {
-
-    const datosPublicacion = {
-        publicaciones: [
-            {
-                "fk_tbl_colonies": Publicacion.id_colonies,
-                "s_title": Publicacion.s_title,
-                "s_content": Publicacion.s_content,
-                "s_hashtags": Publicacion.s_hashtags,
-                "fk_tbl_user": Publicacion.idPerfil,
-            },
-        ],
-        imagenes: Publicacion.images.map((imagen) => ({
-            "s_location": imagen
-        })),
-        videos: Publicacion.video ? [
-            {
-                "s_url": Publicacion.video
-            }
-        ] : [],
-    };
-
-    const url = baseUrl + 'Colonia/Create_Publication_Colonia';
-
-    const body = JSON.stringify(datosPublicacion);
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body
-        });
-
-        const result = await response.json();
-        if (result.resultado === false) {
-            return false;
-
-        } else {
-            return true;
-
-        }
-    } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al registrar usuario:', error);
-        throw error;
-    }
-};

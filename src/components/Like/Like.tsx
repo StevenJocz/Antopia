@@ -21,9 +21,9 @@ const Like: React.FC<Props> = (props) => {
     return (
         <div>
             {like === 1? (
-                <IonIcon className='iconoMeGusta like' icon={heart} onClick={() => handlelike()}/>
+                <IonIcon className='iconoMeGusta like icono' icon={heart} onClick={() => handlelike()}/>
                 ) : (
-                <IonIcon className='iconoMeGusta' icon={heart} onClick={() => handlelike()} />
+                <IonIcon className='iconoMeGusta icono' icon={heart} onClick={() => handlelike()} />
             )}
         </div>
     )

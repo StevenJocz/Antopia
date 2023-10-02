@@ -1,9 +1,10 @@
-import { useState, useCallback, lazy } from 'react';
+import { useState, useCallback} from 'react';
 import './Card.css';
 import { IonIcon } from '@ionic/react';
-import { chatboxOutline, addCircleOutline } from 'ionicons/icons';
+import { chatbubbleOutline, shareOutline, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
 import { CardComentarios } from '../CardComentarios';
 import { Acciones } from '../Acciones';
+import  AccionesDos  from '../Acciones/AccionesDos';
 import { format, } from 'date-fns';
 import IconAnt from '../../assets/imagenes/IconAnts.png';
 import IconHormiguero from '../../assets/imagenes/hormiguero.png';
@@ -16,14 +17,15 @@ import { AppStore } from '../../redux/store';
 import { ModalImagenes } from '../ModalImagenes';
 import Like from '../Like/Like';
 import { Level } from '../Level';
+import VideosYoutube from '../Logout/VideosYoutube';
 
-const VideosYoutube = lazy(() => import('../Logout/VideosYoutube'));
 
 
 const Card = () => {
 
     const [verComentarios, setVerComentarios] = useState(false);
     const [verAcciones, setVerAcciones] = useState<{ [key: number]: boolean }>({});
+    const [verAccionesDos, setVerAccionesDos] = useState<{ [key: number]: boolean }>({});
     const [objetoComentarios, setObjetoComentarios] = useState<Comentario[]>([]);
     const [idPublicacion, setIdPublicacion] = useState(0);
     const { publicaciones } = usePublicaciones();
@@ -67,10 +69,30 @@ const Card = () => {
             ...prevStates,
             [idPublicacion]: !prevStates[idPublicacion]
         }));
+
+        if (verAccionesDos[idPublicacion]) {
+            setVerAccionesDos(prevStates => ({
+                ...prevStates,
+                [idPublicacion]: false
+            }));
+        }
+    };
+
+
+    const handleAccionesDos = (idPublicacion: number) => {
+        setVerAccionesDos(prevStates => ({
+            ...prevStates,
+            [idPublicacion]: !prevStates[idPublicacion]
+        }));
+        if (verAcciones[idPublicacion]) {
+            setVerAcciones(prevStates => ({
+                ...prevStates,
+                [idPublicacion]: false
+            }));
+        }
     };
 
     const calculateGridColumns = (imagenCount: number) => {
-        // Si solo hay una imagen, usar una sola columna, de lo contrario, usar dos
         return imagenCount === 1 ? '1fr' : 'repeat(2, 1fr)';
     };
 
@@ -99,18 +121,8 @@ const Card = () => {
                                             <p className='siguiendo'>Siguiendo</p>
                                         )}
                                     </div>
-
                                     <p>{format(new Date(publicacion.FechaPublicacion), "dd 'de' MMMM 'a las' HH:mm")}</p>
                                 </div>
-                            </div>
-                            <div className="header_calificacion">
-                                <Like idPublicacion={publicacion.IdPublicacion} idperfil={userState.IdPerfil} UserLikes={publicacion.UserLikes} />
-                                <p>
-                                    {publicacion.Megustas} me gustas /{" "}
-                                    <span onClick={() => toggleComentarios(publicacion.Comentarios, publicacion.IdPublicacion)}>
-                                        ({publicacion.CantidadComentarios} comentarios)
-                                    </span>
-                                </p>
                             </div>
                         </div>
                         <div className='Card-Articulo_content'>
@@ -150,43 +162,53 @@ const Card = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="Card-Articulo_footer">
-                            <div className='footer_action'>
-                                <div>
-                                    <button onClick={() => toggleComentarios(publicacion.Comentarios, publicacion.IdPublicacion)}>
-                                        <IonIcon icon={chatboxOutline} /> Comentar
-                                    </button>
-                                </div>
-                                <div onClick={() => handleAcciones(publicacion.IdPublicacion)}>
-                                    <IonIcon className='iconoPlus' icon={addCircleOutline} />
-                                </div>
-                            </div>
-                        </div>
                         {verAcciones[publicacion.IdPublicacion] && (
-                            <Acciones mostrarAcciones={() => handleAcciones(publicacion.IdPublicacion)} />
+                            <Acciones mostrarAcciones={() => handleAcciones(publicacion.IdPublicacion)}  
+                            titulo={publicacion.Titulo} idPublicacion={publicacion.IdPublicacion} />
+                        )}
+                        {verAccionesDos[publicacion.IdPublicacion] && (
+                            <AccionesDos mostrarAccionesDos={() => handleAccionesDos(publicacion.IdPublicacion)}  
+                                idUser={publicacion.IdPerfil}  idPublicacion={publicacion.IdPublicacion}/>
                         )}
                     </article>
-                    <div
-                        className={`Card-content_footer footer-borde-${publicacion.IdTipo === 2 ? "Uno" :
-                            publicacion.IdTipo === 3 ? "dos" :
-                                publicacion.IdTipo === 4 ? "tres" :
-                                    "home"}`}
+                    <div className={`Card-content_footer footer-borde-${publicacion.IdTipo === 2 ? "Uno" :
+                        publicacion.IdTipo === 3 ? "dos" :
+                            publicacion.IdTipo === 4 ? "tres" :
+                                "home"}`}
                     >
-                        <img
-                            src={
-                                publicacion.IdTipo === 2 ? IconAnt :
-                                    publicacion.IdTipo === 3 ? IconHormiguero :
-                                        publicacion.IdTipo === 4 ? IconAnt :
-                                            Home
-                            }
-                            alt=""
-                        />
-                        <a href="">
-                            {publicacion.IdTipo === 2 ? "Cría de Hormigas" :
-                                publicacion.IdTipo === 3 ? "Construcción de hormigueros" :
-                                    publicacion.IdTipo === 4 ? "Experimentos y técnicas" :
-                                        "General"}
-                        </a>
+                        <div className='Cardstile'>
+                            <img
+                                src={
+                                    publicacion.IdTipo === 2 ? IconAnt :
+                                        publicacion.IdTipo === 3 ? IconHormiguero :
+                                            publicacion.IdTipo === 4 ? IconAnt :
+                                                Home
+                                }
+                                alt=""
+                            />
+                            <a href="">
+                                {publicacion.IdTipo === 2 ? "Cría de Hormigas" :
+                                    publicacion.IdTipo === 3 ? "Construcción de hormigueros" :
+                                        publicacion.IdTipo === 4 ? "Experimentos y técnicas" :
+                                            publicacion.IdTipo === 5 ? "Colonia" :
+                                                "General"}
+                            </a>
+                        </div>
+                        <div className='footer_action'>
+                            <div className="content-icono" onClick={() => toggleComentarios(publicacion.Comentarios, publicacion.IdPublicacion)}>
+                                <IonIcon className='footer_comentario-icono icono' icon={chatbubbleOutline} />
+                                <p> {publicacion.CantidadComentarios}</p>
+                            </div>
+                            <div className="content-icono">
+                                <Like idPublicacion={publicacion.IdPublicacion} idperfil={userState.IdPerfil} UserLikes={publicacion.UserLikes} />
+                                <p> {publicacion.Megustas}</p>
+                            </div>
+                            <IonIcon className='footer_share-icono icono' icon={shareOutline} onClick={() => handleAcciones(publicacion.IdPublicacion)} />
+                            <IonIcon className='footer_action-icono icono' icon={ellipsisHorizontalCircleOutline} onClick={() => handleAccionesDos(publicacion.IdPublicacion)} />
+
+                        </div>
+                    </div>
+                    <div>
                     </div>
                 </div>
             ))}

@@ -14,6 +14,7 @@
 .MiGrupo-portada {
     height: 500px;
     position: relative;
+    background-color: rgba(158, 158, 158, 0.197);
     width: 130%;
     margin: 0 -10% -10% -10%;
 }
@@ -21,7 +22,7 @@
 .MiGrupo-info {
     position: absolute;
     bottom: 0;
-    background-color: rgb(245, 150, 9);
+    background-color: rgba(83, 83, 83, 0.334);
     width: 100%;
     height: 180px;
     padding: 20px 100px 20px 20px;

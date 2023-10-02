@@ -18,7 +18,7 @@ const BotonSubmit: React.FC<BotonSubmitProps> = ({ isLoading = false, texto = ''
         guardar: '#fff',
         enviar: '#6259ca',
         editar: '#00ff00',
-        eliminar: '#f1388b',
+        eliminar: '#e7362f95;',
         modal: '#fd7e14',
         // Puedes agregar más colores si lo deseas
     };

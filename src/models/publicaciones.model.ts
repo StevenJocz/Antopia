@@ -20,6 +20,8 @@ export interface Publicacion {
     Level: number;
     IdPublicacion: number;
     IdTipo: number;
+    IdColonia: number;
+    esMiembroColonia: number;
     Megustas: number;
     CantidadComentarios: number;
     Siguiendo: number;
@@ -47,4 +49,11 @@ export interface PublicacionBuscador {
     FechaPublicacion: string;
     Titulo: string;
     Contenido: string;
+}
+
+
+export interface PublicacionReportinRazon {
+    idRazon: string;
+    titulo: string;
+    description: string;
 }
