@@ -75,7 +75,7 @@ const Colonias = () => {
                 ))}
             </div>
             <div>
-            <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={4}>
+            <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={4} hashtag='0'>
                 <Card />
             </PublicacionesProvider>
             </div>
