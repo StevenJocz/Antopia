@@ -15,22 +15,21 @@ interface Props {
     idTipo: number | null;
 }
 
-const Slider: React.FC<Props> = (props) => {
+const Slider: React.FC<Props> = () => {
 
     const imagenes = [
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen1.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen2.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen3.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen4.jpg",
-        "https://antopiaapi.azurewebsites.net/ImagesSlider/imagen5.jpg",
+        "http://localhost:5239/ImagesSlider/imagen1.jpg",
+        "http://localhost:5239/ImagesSlider/imagen2.jpg",
+        "http://localhost:5239/ImagesSlider/imagen3.jpg",
+        "http://localhost:5239/ImagesSlider/imagen4.jpg",
+        "http://localhost:5239/ImagesSlider/imagen5.jpg",
 
     ]
-    console.log(props.idTipo)
 
     return (
         <div className='Swiper'>
             <Swiper
-                slidesPerView={3}
+                slidesPerView={2}
                 spaceBetween={10}
                 keyboard={{
                     enabled: true,

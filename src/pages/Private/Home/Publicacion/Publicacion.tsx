@@ -30,19 +30,19 @@ const Publicaciones = () => {
     const primeraPublicacion = publicacion && publicacion.length > 0 ? publicacion[0] : null;
 
     // Definir los valores de Open Graph en función de la primera publicación
-    const ogTitle = primeraPublicacion ? primeraPublicacion.Titulo : 'Título de Open Graph de la Publicación';
-    const ogDescription = primeraPublicacion ? primeraPublicacion.Contenido : 'Descripción de Open Graph de la Publicación';
-    const ogImage = primeraPublicacion ? primeraPublicacion.ImagenesPublicacion : 'URL_de_la_imagen.jpg';
+    const ogTitle = primeraPublicacion ? primeraPublicacion.Titulo : "";
+    const ogDescription = primeraPublicacion ? primeraPublicacion.Contenido : "";
+    const ogImage = primeraPublicacion ? primeraPublicacion.ImagenesPublicacion[0] : "";
     const ogUrl = window.location.href; // URL actual
 
     return (
         <div>
             <Helmet>
-                <title>Título de la página</title>
+                <title>Antopia | {ogTitle}</title>
                 <meta name="description" content="Descripción de la página" />
                 <meta property="og:title" content={ogTitle} />
                 <meta property="og:description" content={ogDescription} />
-                <meta property="og:image" content={ogImage[0]} />
+                <meta property="og:image" content={ogImage} />
                 <meta property="og:url" content={ogUrl} />
             </Helmet>
             <PublicacionesProvider idTipo={0} idPerfil={0} idColonia={parseInt(idPublicacion)} opcion={6} hashtag="0">

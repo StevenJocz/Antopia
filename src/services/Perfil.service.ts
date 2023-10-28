@@ -1,25 +1,21 @@
-import { InfoPerfil, services } from "../models";
+import axios from 'axios';
+import { InfoPerfil, services, NotificacionUser } from "../models";
 
 const baseUrl = services.local
 
-export const getPerfil = async (idUser: number, idUserConsulta : number) => {
+export const getPerfil = async (idUser: number, idUserConsulta: number) => {
     const url = `${baseUrl}User/Datos_User?idUser=${idUser}&idUserConsulta=${idUserConsulta}`;
+    const token = localStorage.getItem('token');
 
     try {
-        const response = await fetch(url, {
-            method: 'GET', 
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        
-        const user: InfoPerfil[] = result.map((item: any) => ({
+        const user: InfoPerfil[] = response.data.map((item: any) => ({
             IdPerfil: item.idPerfil,
             NombrePerfil: item.nombrePerfil,
             urlPerfil: item.urlPerfil,
@@ -29,6 +25,7 @@ export const getPerfil = async (idUser: number, idUserConsulta : number) => {
             Frase: item.frase,
             CantidadPublicaciones: item.cantidadPublicaciones,
             Seguidores: item.seguidores,
+            TotalSeguiendo: item.totalSeguiendo,
             Siguiendo: item.seguiendo,
             Level: item.level,
             PerfilImagenes: item.perfilImagenes
@@ -36,8 +33,6 @@ export const getPerfil = async (idUser: number, idUserConsulta : number) => {
 
         return user;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al obtener el usuario:', error);
         throw error;
     }
 };
@@ -46,22 +41,17 @@ export const getPerfil = async (idUser: number, idUserConsulta : number) => {
 export const getPerfilUser = async (texto: string) => {
     const keyword = texto.replace('@', '');
     const url = `${baseUrl}User/ConsultarUsuarioPorProfile?keyword=${keyword}`;
+    const token = localStorage.getItem('token');
 
     try {
-        const response = await fetch(url, {
-            method: 'GET', 
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        
-        const user: InfoPerfil[] = result.map((item: any) => ({
+        const user: InfoPerfil[] = response.data.map((item: any) => ({
             IdPerfil: item.id,
             NombrePerfil: item.s_user_name,
             urlPerfil: item.s_userProfile,
@@ -72,31 +62,24 @@ export const getPerfilUser = async (texto: string) => {
 
         return user;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al obtener el usuario:', error);
         throw error;
     }
 };
 
 
-export const getFollowers = async (idUser: number) => {
-    const url = `${baseUrl}User/ConsultarFollowers?user=${idUser}`;
+export const getFollowers = async (accion: number, idUser: number) => {
+    const url = `${baseUrl}User/ConsultarFollowers?accion=${accion}&user=${idUser}`;
+    const token = localStorage.getItem('token');
 
     try {
-        const response = await fetch(url, {
-            method: 'GET', 
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        
-        const user: InfoPerfil[] = result.map((item: any) => ({
+        const user: InfoPerfil[] = response.data.map((item: any) => ({
             IdPerfil: item.id,
             NombrePerfil: item.s_user_name,
             urlPerfil: item.s_userProfile,
@@ -107,8 +90,6 @@ export const getFollowers = async (idUser: number) => {
 
         return user;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al obtener el usuario:', error);
         throw error;
     }
 };
@@ -117,21 +98,17 @@ export const getFollowers = async (idUser: number) => {
 export const getRecomendaFollowers = async (idUser: number) => {
     const url = `${baseUrl}User/ConsultarNotFollowers?user=${idUser}`;
 
+    const token = localStorage.getItem('token');
+
     try {
-        const response = await fetch(url, {
-            method: 'GET', 
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        
-        const user: InfoPerfil[] = result.map((item: any) => ({
+        const user: InfoPerfil[] = response.data.map((item: any) => ({
             IdPerfil: item.id,
             NombrePerfil: item.s_user_name,
             urlPerfil: item.s_userProfile,
@@ -142,8 +119,81 @@ export const getRecomendaFollowers = async (idUser: number) => {
 
         return user;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al obtener el usuario:', error);
         throw error;
+    }
+};
+
+export const getNotificaciones = async (idUser: number) => {
+
+    const url = `${baseUrl}Notificaciones/ListarNotificacionesUser?idUser=${idUser}`;
+
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const Notificaciones: NotificacionUser[] = response.data.map((item: any) => ({
+            idNotification: item.idNotification,
+            typeNotification: item.typeNotification,
+            idPublicacion: item.idPublicacion,
+            tituloPublicacion: item.tituloPublicacion,
+            idUser: item.idUser,
+            fotoUser: item.fotoUser,
+            nombreUser: item.nombreUser,
+            contenido: item.contenido,
+            state: item.state,
+            fechaCreacion: item.fechaCreacion,
+            urlPerfil: item.urlPerfil
+        }));
+
+        return Notificaciones;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const CambiarEstadoNotificacion = async (idNotification: number) => { 
+    const url = baseUrl + 'Notificaciones/CambiarEstadoNotificacion';
+    const token = localStorage.getItem('token');
+    const data = {
+        "id_notification": idNotification
+    };
+
+    try {
+        const response = await axios.post(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getHayNotificacion = async (idUser: number) => {
+
+    const url = `${baseUrl}Notificaciones/Notificaciones?idUser=${idUser}`;
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+
+        return response.data;
+    } catch (error) {
+        
     }
 };

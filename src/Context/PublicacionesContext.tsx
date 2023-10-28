@@ -2,20 +2,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../redux/store';
-import { getPublicaciones, getPublicacionesHashtag} from '../services/Publicaciones.service';
-import { PostPublicacion, enviarcomentario, Postlike } from '../services';
-import { Publicacion } from '../models';
+import { getPublicaciones, getPublicacionesHashtag } from '../services/Publicaciones.service';
+import { PostPublicacion, enviarcomentario, Postlike, PostlikeComentario, PostlikeComentarioRespuesta, enviarRespuestaComentario } from '../services';
+import { Publicacion, Comentario } from '../models';
 
-interface Comentario {
-    IdPerfilComentarios: number;
-    NombrePerfilComentarios: string;
-    ImagenPerfilComentarios: string;
-    Comentario: string;
-    urlPerfil: string;
-    imagenComentario: string;
-    FechaComentario: string;
-    megustaComentarios: number;
-}
 
 interface PublicacionesContextType {
     publicaciones: Publicacion[];
@@ -23,7 +13,11 @@ interface PublicacionesContextType {
     agregarComentarioAPublicacion: (publicacionId: number, comentario: Comentario) => void;
     darLikeAPublicacion: (publicacionId: number, isLike: number, idPerfil: number) => Promise<void>;
     listarPublicaciones: (idPerfil: number, texto: string) => Promise<Publicacion[]>;
-    eliminarPublicacion: (publicacionId: number)=> void;
+    listarComentariosDePublicacion: (publicacionId: number) => Comentario[] | undefined;
+    eliminarPublicacion: (publicacionId: number) => void;
+    darLikeAComentario: (publicacionId: number, comentarioId: number, isLike: number, idPerfil: number) => Promise<void>;
+    darLikeAComentarioRespuesta: (publicacionId: number, comentarioId: number, comentarioRespuestaId: number, isLike: number, idPerfil: number) => Promise<void>;
+    agregarRespuestaAComentario :(publicacionId: number, comentarioId: number, respuesta: Comentario)=> Promise<void>
 }
 
 const PublicacionesContext = createContext<PublicacionesContextType | undefined>(undefined);
@@ -73,13 +67,12 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
                     });
                     setPublicaciones(publicacionesFiltradas);
                 }
-                
+
                 else if (props.opcion === 4 && props.idColonia !== 0) {
                     const resultado = await getPublicaciones(userState.IdPerfil, 4, props.idTipo, 'o');
                     const publicacionesFiltradas = resultado.filter((publicacion) => {
                         return publicacion.IdColonia === props.idColonia;
                     });
-                    console.log('entro aca')
                     setPublicaciones(publicacionesFiltradas);
                 }
                 else if (props.opcion === 5) {
@@ -87,12 +80,12 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
                     setPublicaciones(resultado);
                 }
                 else if (props.opcion === 6) {
-                    console.log('entro aqui');
                     const resultado = await getPublicaciones(userState.IdPerfil, 6, props.idColonia, props.hashtag);
                     setPublicaciones(resultado);
                 }
-                
+
             } catch (error) {
+                setPublicaciones([]);
                 console.error('Error al obtener publicaciones:', error);
             }
         }
@@ -135,9 +128,42 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
         }
     };
 
+    const agregarRespuestaAComentario = async (publicacionId: number, comentarioId: number, respuesta: Comentario): Promise<void> => {
+        try {
+            await enviarRespuestaComentario(comentarioId, respuesta);
+            // Lógica para agregar una respuesta a un comentario
+            const updatedPublicaciones = publicaciones.map((publicacion) => {
+                if (publicacion.IdPublicacion === publicacionId) {
+                    const updatedComentarios = publicacion.Comentarios.map((comentario) => {
+                        if (comentario.IdComentarios === comentarioId) {
+                            // Agregar la respuesta al comentario
+                            const updatedRespuestas = [...comentario.comentariosRespuesta, respuesta];
+                            return {
+                                ...comentario,
+                                Respuestas: updatedRespuestas,
+                            };
+                        }
+                        return comentario;
+                    });
+
+                    return {
+                        ...publicacion,
+                        Comentarios: updatedComentarios,
+                    };
+                }
+                return publicacion;
+            });
+
+            setPublicaciones(updatedPublicaciones);
+            setContextUpdateCounter((prevCounter) => prevCounter + 1);
+        } catch (error) {
+            console.error('Error al agregar respuesta al comentario:', error);
+        }
+    };
+
+
     const darLikeAPublicacion = async (publicacionId: number, isLike: number, idPerfil: number): Promise<void> => {
         try {
-            console.log('publicacionId:', publicacionId, 'like:', isLike, 'idPerfil:', idPerfil, );
             await Postlike(publicacionId, isLike, idPerfil);
             const updatedPublicaciones = publicaciones.map((publicacion) => {
                 if (publicacion.IdPublicacion === publicacionId) {
@@ -157,15 +183,100 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
         }
     };
 
+    const darLikeAComentario = async (publicacionId: number, comentarioId: number, isLike: number, idPerfil: number): Promise<void> => {
+        try {
+            // Lógica para dar like a un comentario
+            await PostlikeComentario(comentarioId, isLike, idPerfil);
+
+            // Actualizar el estado de las publicaciones con el nuevo like al comentario
+            const updatedPublicaciones = publicaciones.map((publicacion) => {
+                if (publicacion.IdPublicacion === publicacionId) {
+                    const updatedComentarios = publicacion.Comentarios.map((comentario) => {
+                        if (comentario.IdComentarios === comentarioId) {
+                            return {
+                                ...comentario,
+                                UserLikes: isLike === 0 ? 1 : 0,
+                                megustaComentarios: isLike === 0 ? comentario.megustaComentarios + 1 : comentario.megustaComentarios - 1,
+                            };
+                        }
+                        return comentario;
+                    });
+
+                    return {
+                        ...publicacion,
+                        Comentarios: updatedComentarios,
+                    };
+                }
+                return publicacion;
+            });
+            setPublicaciones(updatedPublicaciones);
+            // Incrementa contextUpdateCounter cuando se da like a un comentario
+            setContextUpdateCounter((prevCounter) => prevCounter + 1);
+        } catch (error) {
+            console.error('Error al dar like al comentario:', error);
+        }
+    };
+
+    const darLikeAComentarioRespuesta = async (publicacionId: number, comentarioId: number, comentarioRespuestaId: number, isLike: number, idPerfil: number): Promise<void> => {
+        try {
+            // Lógica para dar like a un comentario de respuesta
+            await PostlikeComentarioRespuesta(comentarioRespuestaId, isLike, idPerfil);
+
+            // Actualizar el estado de las publicaciones con el nuevo like al comentario de respuesta
+            const updatedPublicaciones = publicaciones.map((publicacion) => {
+                if (publicacion.IdPublicacion === publicacionId) {
+                    const updatedComentarios = publicacion.Comentarios.map((comentario) => {
+                        if (comentario.IdComentarios === comentarioId) {
+                            const updatedComentariosRespuesta = comentario.comentariosRespuesta.map((comentarioRespuesta) => {
+                                if (comentarioRespuesta.IdComentarios === comentarioRespuestaId) {
+                                    return {
+                                        ...comentarioRespuesta,
+                                        UserLikes: isLike === 0 ? 1 : 0,
+                                        megustaComentarios: isLike === 0 ? comentarioRespuesta.megustaComentarios + 1 : comentarioRespuesta.megustaComentarios - 1,
+                                    };
+                                }
+                                return comentarioRespuesta;
+                            });
+
+                            return {
+                                ...comentario,
+                                comentariosRespuesta: updatedComentariosRespuesta,
+                            };
+                        }
+                        return comentario;
+                    });
+
+                    return {
+                        ...publicacion,
+                        Comentarios: updatedComentarios,
+                    };
+                }
+                return publicacion;
+            });
+
+            setPublicaciones(updatedPublicaciones);
+
+            // Incrementa contextUpdateCounter cuando se da like a un comentario de respuesta
+            setContextUpdateCounter((prevCounter) => prevCounter + 1);
+        } catch (error) {
+            console.error('Error al dar like al comentario de respuesta:', error);
+        }
+    };
+
     const listarPublicaciones = async (idPerfil: number, texto: string): Promise<Publicacion[]> => {
         try {
-            const resultado = await getPublicacionesHashtag(idPerfil, texto); 
+            const resultado = await getPublicacionesHashtag(idPerfil, texto);
             setPublicaciones(resultado);
-            return resultado; 
+            return resultado;
         } catch (error) {
             console.error('Error al listar publicaciones:', error);
-            throw error; 
+            throw error;
         }
+    };
+
+    const listarComentariosDePublicacion = (publicacionId: number): Comentario[] | undefined => {
+        const publicacion = publicaciones.find((p) => p.IdPublicacion === publicacionId);
+        return publicacion ? publicacion.Comentarios : undefined;
     };
 
     const eliminarPublicacion = (publicacionId: number): void => {
@@ -180,6 +291,10 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
         darLikeAPublicacion,
         listarPublicaciones,
         eliminarPublicacion,
+        darLikeAComentario,
+        darLikeAComentarioRespuesta,
+        listarComentariosDePublicacion,
+        agregarRespuestaAComentario,
     };
 
     return (

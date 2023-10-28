@@ -23,12 +23,16 @@ export interface InfoPerfil {
   Frase: string;
   CantidadPublicaciones: number;
   Seguidores: number;
+  TotalSeguiendo: number;
   Siguiendo: number;
   Level: number;
-  PerfilImagenes: string[];
+  PerfilImagenes: PerfilImagenes[];
 }
 
-export interface PerfilImagenes {}
+export interface PerfilImagenes {
+  idPublicacion: number;
+  url: string;
+}
 
 export interface UserDTOs {
   id: number;
@@ -43,4 +47,19 @@ export interface UserDTOs {
   s_userFrontpage: string;
   fk_tblRol: number;
   fk_tbl_level: number;
+}
+
+export interface NotificacionUser { 
+    idNotification: number;
+    typeNotification: number;
+    idPublicacion: number;
+    tituloPublicacion: string;
+    idUser: number;
+    fotoUser: string;
+    nombreUser: string;
+    contenido: string;
+    state: boolean;
+    fechaCreacion: Date;
+    urlPerfil:string;
+
 }

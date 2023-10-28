@@ -12,7 +12,6 @@ const Like: React.FC<Props> = (props) => {
     const [like, setLike] = useState(props.UserLikes);
     const { darLikeAPublicacion } = usePublicaciones();
 
-
     const handlelike = async () => {
         like === 1 ? setLike(0) : setLike(1);
         await darLikeAPublicacion(props.idPublicacion, like, props.idperfil);

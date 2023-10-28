@@ -59,7 +59,7 @@
 
 .NuevoPost-Publicar-content {
     width: 600px;
-    max-height: 90vh;
+    max-height: 95vh;
     background-color: #262b34;
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -68,6 +68,7 @@
     -o-border-radius: 20px;
     padding: 20px;
     overflow: hidden;
+    position: relative;
 }
 
 

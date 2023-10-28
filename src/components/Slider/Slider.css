@@ -20,5 +20,20 @@
 }
 
 .swiper-button-prev, .swiper-button-next {
-    color: #772cef !important;
+    color: #ffffff !important;
+}
+
+.swiper-button-prev::after, .swiper-button-next::after {
+    font-size: 15px;
+    font-weight: 900;
+    background-color: #676098;
+    padding: 15px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    box-shadow: 1px -1px 11px 7px rgba(0,0,0,0.47);
+-webkit-box-shadow: 1px -1px 11px 7px rgba(0,0,0,0.47);
+-moz-box-shadow: 1px -1px 11px 7px rgba(0,0,0,0.47);
 }

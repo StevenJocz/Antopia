@@ -17,8 +17,8 @@
 
 
 .Followers-content {
-    width: 400px;
-    height: 50vh;
+    width: 500px;
+    max-height: 70vh;
     background-color: #262b34;
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -52,7 +52,7 @@
     overflow: hidden;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 40vh;
+    height: auto;
 }
 
 .Followers-body::-webkit-scrollbar {

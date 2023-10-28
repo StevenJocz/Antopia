@@ -1,15 +1,15 @@
 import { IonIcon } from '@ionic/react';
-import { notifications, chatbubble, search, filter, home } from 'ionicons/icons';
+import { notifications, search, filter, home } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import './Header.css'
-import { useRef, useState } from 'react';
-import Buscardor from './Buscador/Buscardor';
+import { useEffect, useRef, useState } from 'react';
 import Chat from './Chat/Chat';
 import Notificaciones from './Notificaciones/Notificaciones';
 import PerfilAcciones from './PerfilAcciones/PerfilAcciones';
 import { NavResponsive } from '../Nav';
 import { Link } from 'react-router-dom';
+import { getHayNotificacion } from '../../services';
 import logo from '../../assets/imagenes/Logoants.png'
 
 const Header = () => {
@@ -17,7 +17,8 @@ const Header = () => {
     const [miPerfil, setMiPerfil] = useState(false);
     const [verChat, setChat] = useState(false);
     const [verBuscardor, setBuscardor] = useState(false);
-    const [verNotificaciones, setNotificaciones] = useState(false);
+    const [verNotificaciones, setVerNotificaciones] = useState(false);
+    const [notificaciones, setNotificaciones] = useState(false);
     const [verMenu, setVerMenu] = useState(false);
 
     const handleMiPerfil = () => {
@@ -37,7 +38,7 @@ const Header = () => {
             setBuscardor(false);
         }
         if (divNotificaciones.current && verNotificaciones && !((divNotificaciones.current as HTMLDivElement).contains(event.target as Node))) {
-            setNotificaciones(false);
+            setVerNotificaciones(false);
         }
         if (divChat.current && verChat && !((divChat.current as HTMLDivElement).contains(event.target as Node))) {
             setChat(false);
@@ -45,17 +46,32 @@ const Header = () => {
     };
     document.addEventListener('mousedown', closeOpenMenus)
 
-    const handleChat = () => {
-        setChat(!verChat);
-    }
+    // const handleChat = () => {
+    //     setChat(!verChat);
+    // }
+
+    useEffect(() => {
+        consultarNotificacion()
+        const intervalId = setInterval(consultarNotificacion, 60000); // cada 3 minutos
+        return () => clearInterval(intervalId);
+    }, []);
+
+
+    const consultarNotificacion = async () => {
+        try {
+            const resultado = await getHayNotificacion(userState.IdPerfil);
+            setNotificaciones(resultado.resultado);
+
+        } catch (error) {
+
+        }
+    };
 
     const handleNotificaciones = () => {
-        setNotificaciones(!verNotificaciones);
+        setNotificaciones(false);
+        setVerNotificaciones(!verNotificaciones);
     }
 
-    const handleVerBuscardor_ = () => {
-        setBuscardor(!verBuscardor);
-    }
 
     const handleVerMenu = () => {
         setVerMenu(!verMenu);
@@ -64,9 +80,9 @@ const Header = () => {
     return (
         <div className='Header'>
             <div className='Header-logo'>
-                <img  src={logo} alt="" />
+                <img src={logo} alt="" />
             </div>
-            
+
             <div className='Header-menu'>
                 <div className='Header-menu-contect hamburg' onClick={handleVerMenu}>
                     <IonIcon className='Header-menu-icono' icon={filter} />
@@ -76,14 +92,21 @@ const Header = () => {
                         <IonIcon className='Header-menu-icono' icon={home} />
                     </Link>
                 </div>
-                <div className='Header-menu-contect' onClick={handleVerBuscardor_}>
-                    <IonIcon className='Header-menu-icono' icon={search} />
+                <div className='Header-menu-contect' >
+                    <Link to='/Home/Buscar'>
+                        <IonIcon className='Header-menu-icono' icon={search} />
+                    </Link>
+
                 </div>
-                <div className='Header-menu-contect' onClick={handleChat}>
+                {/* <div className='Header-menu-contect' onClick={handleChat}>
                     <IonIcon className='Header-menu-icono' icon={chatbubble} />
-                </div>
-                <div className='Header-menu-contect' onClick={handleNotificaciones}>
+                </div> */}
+                <div className='Header-menu-contect Header-menu-contect-notificacion' onClick={handleNotificaciones}>
                     <IonIcon className='Header-menu-icono' icon={notifications} />
+                    {notificaciones && (
+                        <span></span>
+                    )}
+
                 </div>
 
                 <img src={userState.ImagenPerfil} alt="" onClick={handleMiPerfil} />
@@ -94,15 +117,9 @@ const Header = () => {
                     <Chat />
                 )}
             </div>
-            <div className={`Buscardor-Contenedor ${verBuscardor ? "active" : ""}`} ref={divBuscardor} >
-                {verBuscardor && (
-                    <Buscardor handleVerBuscardor={() => setBuscardor(false)} />
-                )}
-            </div>
-
             <div className={`Notificaciones-Contenedor ${verNotificaciones ? "active" : ""}`} ref={divNotificaciones} >
                 {verNotificaciones && (
-                    <Notificaciones />
+                    <Notificaciones mostrarNotificaciones={() => setVerNotificaciones(false)} />
                 )}
             </div>
             <div className={`MiPerfil ${miPerfil ? "active" : ""}`} ref={divMiPerfil} >

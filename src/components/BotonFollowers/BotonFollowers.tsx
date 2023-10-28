@@ -17,7 +17,6 @@ const BotonFollowers : React.FC<Props> = (props) => {
         Siguiendo === 0 ? setSiguiendo(1) : setSiguiendo(0);
     };
 
-    console.log(props.idPerfil, props.idSeguidor, 0);
 
     return (
 

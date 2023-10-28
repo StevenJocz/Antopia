@@ -616,10 +616,11 @@
         background-size: cover;
         background-position-y: 10%;
         background-position-X: 20%;
-        height: auto;
+        height: 100vh;
         display: block;
         padding: 0 5%;
     }
+    
 
     .login__bg--Uno {
         display: none;
@@ -651,8 +652,16 @@
 
     }
 
+    .login__logo p {
+        color: aliceblue;
+        font-size: 18px;
+        margin-top: -10px;
+    }
+
+    
     .login__container {
         width: 100%;
+        display: none;
     }
 
     .Registro__logo img {

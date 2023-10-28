@@ -113,13 +113,13 @@ const Registro = () => {
                 return;
             }
 
-            if (frase.length < 30) {
+            if (frase.length < 10) {
                 setMsg('* ¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya y comparte una frase que refleje tu amor de manera más completa.');
                 setIsLoading(false);
                 return;
             }
 
-            if (frase.length >= 200) {
+            if (frase.length >= 150) {
                 setMsg('* Tu pasión por las hormigas es evidente, ¡pero quizás podrías resumirlo en una frase más concisa para que sea más fácil de digerir! A veces, menos es más');
                 setIsLoading(false);
                 return;

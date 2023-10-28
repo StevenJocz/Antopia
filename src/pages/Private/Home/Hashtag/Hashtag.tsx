@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PublicacionesProvider } from "../../../../Context/PublicacionesContext";
 import Card from "../../../../components/Card/Card";
+import { Helmet } from "react-helmet";
 
 const Hashtag = () => {
     const location = useLocation();
     const [decodedHashtag, setDecodedHashtag] = useState("");
+    const [forceRerender, setForceRerender] = useState(0);
 
     useEffect(() => {
         const mainContainer = document.getElementById('Layout-main');
@@ -18,15 +20,17 @@ const Hashtag = () => {
         const encodedHashtag = location.pathname.split("/")[3];
         const decodedHashtag = decodeURIComponent(encodedHashtag);
         setDecodedHashtag(decodedHashtag);
+        setForceRerender(prev => prev + 1); // Cambia la clave para forzar la renderización
     }, [location]);
 
-    // Verifica si decodedHashtag tiene un valor antes de renderizar CardHashtag
-    if (!decodedHashtag) {
-        return null; // O muestra un mensaje de carga o simplemente no renderiza nada
-    }
-
     return (
-        <div>
+        <div key={forceRerender}>
+            <Helmet>
+                <title>Antopia | #{decodedHashtag}</title>
+                <meta name="description" content={decodedHashtag} />
+                <meta property="og:title" content={decodedHashtag} />
+                <meta property="og:description" content={decodedHashtag} />
+            </Helmet>
             <h2>#{decodedHashtag}</h2>
             <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={5} hashtag={decodedHashtag}>
                 <Card />
@@ -36,4 +40,3 @@ const Hashtag = () => {
 }
 
 export default Hashtag;
-

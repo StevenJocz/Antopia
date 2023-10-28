@@ -17,7 +17,7 @@
     border-top: #6354b1 3px solid;
     display: none;
     z-index: 1000;
-    
+
 }
 
 .MiPerfil.active {
@@ -28,12 +28,14 @@
     padding: 10px;
 }
 
-.MiPerfil_Contenido a{
-   text-decoration: none;
+.MiPerfil_Contenido a {
+    text-decoration: none;
 }
+
 .MiPerfil_Contenido_Info {
     display: flex;
-    border-bottom: solid 1px #dcdcdc53;;
+    border-bottom: solid 1px #dcdcdc53;
+    ;
     padding-bottom: 10px;
     cursor: pointer;
 }
@@ -61,7 +63,7 @@
     display: block;
 }
 
-.MiPerfil_Contenido_text{
+.MiPerfil_Contenido_text {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -69,18 +71,18 @@
     padding: 10px;
 }
 
-.MiPerfil_Contenido_text:hover{
+.MiPerfil_Contenido_text:hover {
     background-color: #fffefe4d;
 }
 
-.MiPerfil_Contenido_Controles h5{
+.MiPerfil_Contenido_Controles h5 {
     font-size: 0.8em;
     color: #ffffff;
     font-weight: 400;
     margin-left: 5px;
 }
 
-.MiPerfil_Contenido_Controles ion-icon{
+.MiPerfil_Contenido_Controles ion-icon {
     font-size: 1.2em !important;
     color: #ffffff;
     font-weight: 400;

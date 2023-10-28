@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { services } from "../models";
 const baseUrl = services.local;
 
@@ -19,7 +20,6 @@ interface userData {
 
 export const PostRegistrarUser = async (userData: userData) => {
     const url = baseUrl + 'User/Create_User';
-    console.log(userData);
     const body = JSON.stringify(userData);
 
 
@@ -55,26 +55,31 @@ export const PostActualizarDatos = (idUser: string, tipo: string, dato: string) 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(requestData) 
+        body: JSON.stringify(requestData)
     }).then(res => res.json());
 }
 
-export const PostFollowers = (idUser: number, id_follower: number, isfollower: number) => {
+export const PostFollowers = async(idUser: number, id_follower: number, isfollower: number) => {
     const url = `${baseUrl}User/Followers_User`;
+    const token = localStorage.getItem('token');
 
-    const requestData = {
+    const data = {
         id_followers: 0,
         id_user: idUser,
         id_follower: id_follower,
         isfollower: isfollower
     };
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData) 
-    }).then(res => res.json());
+    try {
+        const response = await axios.post(url, data,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
 

@@ -11,6 +11,7 @@ import { closeCircleOutline} from 'ionicons/icons';
 interface Props {
     mostrarFollowers: () => void;
     idUser: number;
+    accion: number;
 }
 
 const Followers: React.FC<Props> = (props) => {
@@ -22,7 +23,7 @@ const Followers: React.FC<Props> = (props) => {
 
     const consultarFollowers = async () => {
         try {
-            const resultado: InfoPerfil[] = await getFollowers(props.idUser);
+            const resultado: InfoPerfil[] = await getFollowers(props.accion,props.idUser);
             setRespuestaFollowers(resultado);
 
         } catch (error) {
@@ -36,7 +37,8 @@ const Followers: React.FC<Props> = (props) => {
         <div className='Followers'>
             <div className='Followers-content'>
                 <div className='Followers-title'>
-                    <h3> Seguidores</h3>
+                    {props.accion === 1 ? (<h3> Seguidores</h3>): (<h3> Seguiendo</h3>) }
+                    
                     <div className='Followers-title_cerrar'>
                         <IonIcon className='Icono-cerrar' onClick={props.mostrarFollowers} icon={closeCircleOutline} />
                     </div>

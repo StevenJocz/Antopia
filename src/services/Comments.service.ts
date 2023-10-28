@@ -1,11 +1,12 @@
+import axios from 'axios';
 import { Comentario } from "../models";
 import { services } from "../models";
 
-const baseUrl = services.local + 'Pubication/Add_Comentarios';
+const baseUrl = services.local;
 
 export const enviarcomentario = async (publicacionId: number, comentarioItem: Comentario) => { 
-    const url = baseUrl;
-
+    const url = baseUrl + 'Pubication/Add_Comentarios';
+    const token = localStorage.getItem('token');
     const data = {
         id_publication_comments: 0,
         fk_tbl_publication: publicacionId,
@@ -16,24 +17,39 @@ export const enviarcomentario = async (publicacionId: number, comentarioItem: Co
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
+        const response = await axios.post(url, data, {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
-
-        if (!response.ok) {
-            const errorData = await response.json(); // Captura y muestra el cuerpo de la respuesta de la API
-            console.error('Error al enviar el comentario a la API:', errorData);
-            throw new Error('La solicitud a la API no fue exitosa.');
-        }
-
-        const responseData = await response.json();
-        return responseData;
+        return response.data;
     } catch (error) {
-        console.error('Error en la función enviarcomentario:', error);
+        throw error;
+    }
+};
+
+
+export const enviarRespuestaComentario = async (comentarioId: number, comentarioItem: Comentario) => { 
+    const url = baseUrl + 'Pubication/Add_Respuesta_Comentarios';
+    const token = localStorage.getItem('token');
+    const data = {
+        id_publication_comments_answer: 0,
+        fk_tbl_publication_comments: comentarioId,
+        fk_tbl_user: comentarioItem.IdPerfilComentarios,
+        s_answer: comentarioItem.Comentario,
+        dt_creation: new Date().toISOString(),
+    };
+
+    try {
+        const response = await axios.post(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
         throw error;
     }
 };

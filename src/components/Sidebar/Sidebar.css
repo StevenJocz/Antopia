@@ -1,87 +1,16 @@
-.sidebar-menu {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 5%;
-    justify-content: center;
-}
-
-.sidebar-menu img {
-    width: 50px;
-    background-color: aliceblue;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
-    margin-right: 20px;
-}
-
-/* Estilos para el contenedor del tooltip */
-.tooltip-container {
-    position: relative;
-    display: inline-block;
-}
-
-/* Estilos para el texto de descripción del tooltip */
-.tooltip-text {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    bottom: -50%;
-    /* Muestra el tooltip arriba de la imagen */
-    left: 40%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    z-index: 1;
-    transition: visibility 0s, opacity 0.2s ease-in-out;
-}
-
-/* Mostrar el tooltip cuando se hace hover sobre el contenedor */
-.tooltip-container:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
-
 
 .sidebar-content {
     width: 100%;
-    height: 160px;
-    background-color: rgba(60, 60, 60, 0.373);
+    height: auto;
+    background-color:  #424b5a60;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    margin-top: 7%;
-    padding: 10px;
+    margin-top: 10px;
+    padding: 15px;
     overflow: hidden;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
-.sidebar-content::-webkit-scrollbar {
-    width: 5px;
-}
-
-.sidebar-content::-webkit-scrollbar-thumb {
-    background-color: #262b3400;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-}
-
-.sidebar-content::-webkit-scrollbar-track {
-    background-color: #262b3400;
 }
 
 .sidebar-content h3 {
@@ -92,84 +21,31 @@
     height: auto;
 }
 
-.siderbar-ecomerce-encabezado-recomendado {
-    display: flex;
-    justify-content: right;
-    font-size: 10px;
+.siderbar-donacion {
+    height: 160px;
+    padding: 10px;
+    position: relative;
 }
 
-
-.siderbar-ecomerce-encabezado div {
-    display: flex;
-    align-items: center;
-}
-
-.siderbar-ecomerce-encabezado div h2 {
+.siderbar-donacion h4{
     color: #fff;
-    margin-left: 10px;
-    font-size: 20px;
-
+    font-size: 22px;
 }
 
-.siderbar-ecomerce-encabezado div img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+.siderbar-donacion p {
+    color: #ffffffaf;
+    font-weight: 600;
 }
 
-.siderbar-ecomerce-encabezado p {
-    color: #ffffffa1;
-}
-
-.sidebar-content-follow {
-    margin-top: 5%;
-    display: flex;
-    align-items: center;
-}
-
-.sidebar-content-follow .sidebar-content-follow-img img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-}
-
-.sidebar-content-follow .sidebar-content-follow-text {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 10px;
-}
-
-.sidebar-content-follow .sidebar-content-follow-text a {
-   text-decoration: none;
-}
-
-.sidebar-content-follow .sidebar-content-follow-text .sidebar-content-follow-text-info h3 {
-    font-size: 15px;
-}
-
-.sidebar-content-follow .sidebar-content-follow-text .sidebar-content-follow-text-info p {
-    color: #838282;
-    font-size: 12px;
-}
-
-.sidebar-content-follow .sidebar-content-follow-text button {
-    margin-left: 30px;
-    width: 70px;
-    height: 30px;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
-    margin-top: -7px;
+.siderbar-donacion button {
+    padding: 8px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
 }

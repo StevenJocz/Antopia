@@ -1,40 +1,41 @@
-.RoutePerfil{
+.RoutePerfil {
     width: 100%;
 }
+
 .Fotos {
     margin-top: 3%;
 }
 
 .Fotos-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
     max-width: 100%;
 }
 
 .Fotos-content img {
-    flex: 0 0 calc(20% - 5px);
-    max-width: 23.5%;
-    height: auto; 
-    margin: 5px;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .Diario {
     margin-top: 3%;
-    display: flex;
     width: 100%;
 }
 
 .Diario-nav {
-    width: 30%;
+    width: 100%;
 }
 
- .Diario-nav ul {
+.Diario-nav ul {
     list-style: none;
 }
 
 
-.Diario-nav  li {
+.Diario-nav li {
     text-decoration: none;
     color: aliceblue;
     background-color: #fcfdfd1f;
@@ -49,28 +50,18 @@
     cursor: pointer;
 }
 
-.Diario-nav .LiBoton {
-    background-color: #3426f4;
-    border: 1px solid #3426f47d;
+.Diario-nav .li-Registrar-Diario {
+    background-color: #5903a4a9;
+    border: 2px solid #32044c7d;
     cursor: pointer;
 }
 
-.Diario-nav .LiBoton:hover {
-    background-color: #3426f4be;
-}
-
-.Diario-nav li button {
-    background-color: #00000000;
-    border: none;
-    color: aliceblue;
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;
-
-}
-
 .Diario-content {
-    width: 70%;
-    margin-left: 20px;
+    width: 100%;
+}
+
+.Diarios-creados {
+    display: flex;
 }
 
 .Diario-content-publicado {
@@ -84,31 +75,182 @@
     -o-border-radius: 10px;
 }
 
+.Diario-content h2 {
+    margin-top: 5%;
+    text-align: center;
+}
+
 .Diario-content h3 {
     margin-top: 3%;
 }
 
-.Diario-content .Diario-content-boton {
-    width: 100%;
-    display: flex;
-    justify-content: right;
-
+.Diario-content p {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
-.Diario-content .Diario-content-boton button {
-    background-color: #268df4;
-    border: 1px solid #3426f47d;
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;
-    padding: 5px;
-    cursor: pointer;
+.Diario-content-p {
+    margin-bottom: 0.5em;
+    /* Ajusta este valor según tu preferencia */
+}
+
+.Diario-content-publicado-imagenes {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    margin-top: 16px;
+}
+
+.Diario-content-publicado-imagenes img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
     border-radius: 10px;
+    cursor: pointer;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    margin: 3% 0;
+}
+
+.ExtraImagesInfo {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ExtraImagesInfo p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Las tres primeras imágenes */
+.imagen-1 {
+    grid-column: span 1;
+    grid-row: span 3;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.imagen-2 {
+    grid-column: span 1;
+    grid-row: span 2;
+    height: 100% !important;
+    object-fit: cover;
+    width: 100%;
+}
+
+.imagen-3 {
+    grid-column: span 1;
+    grid-row: span 1;
+    width: 50%;
+}
+
+/* La cuarta imagen */
+.imagen-4 {
+    grid-column: span 1;
+    grid-row: span 1;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.imagen-5 {
+    grid-column: span 2;
+    grid-row: span 1;
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+/* Resto de las imágenes */
+.Diario-content-publicado-imagenes img:not(.imagen-1):not(.imagen-2):not(.imagen-3):not(.imagen-4):not(.imagen-5) {
+    grid-column: span 1;
+    grid-row: span 1;
+    width: 50%;
+}
+
+
+.Diario-content .Diario-content-boton {
+    width: 100%;
+    display: flex;
+
+}
+
+.Diario-content .Diario-content-boton ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    border: 1px solid #ffffff7d;
+    border-radius:  10px;
+    -webkit-border-radius:  10px;
+    -moz-border-radius:  10px;
+    -ms-border-radius:  10px;
+    -o-border-radius:  10px;
+    margin: 5% 0 2% 0;
+}
+
+.Diario-content .Diario-content-boton ul li {
+    width: auto;
+    color: aliceblue;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+}
+
+.Diario-content .Diario-content-boton .Agregar-Registro {
+    width:100%;
+    background-color: #3fd6f01f;
+    border: 1px solid #43b3c7;
+    color: rgb(255, 255, 255);
+    border-radius: 0 10px 10px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    -ms-border-radius: 0 10px 10px 0;
+    -o-border-radius: 0 10px 10px 0;
+}
+
+.Diario-content .Diario-content-boton .Agregar-Registro:hover {
+    background-color: #3fd5f052;
+    border: 1px solid #43b3c7;
+}
+
+.Diario-content-boton-icono {
+    margin-right: 5px;
+    font-size: 22px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    padding: 7px;
+}
+
+.Diario-content-boton  .iconoComentar:hover {
+    background-color: rgba(160, 172, 172, 0.364);
+}
+
+
+.Diario-content-boton .iconoMeGusta:hover{
+    background-color: rgba(249, 24, 129, 0.364);
+}
+
+.Diario-content-boton .like{
+    color: rgb(249, 24, 128);
 }
 
 
@@ -126,11 +268,13 @@
     align-items: center;
     overflow: hidden;
     user-select: none;
+    z-index: 1001;
 }
 
 
 .RegistrarDiario-content {
     width: 600px;
+    max-height: 80vh;
     background-color: #262b34;
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -139,6 +283,8 @@
     -o-border-radius: 20px;
     padding: 20px;
     position: relative;
+    overflow: hidden;
+    
 
 }
 
@@ -154,17 +300,17 @@
     font-size: 22px;
 }
 
-.Formulario-registroDiario .Formulario-content {
+.Formulario-registroDiario {
     margin-top: 3%;
 }
 
-.Formulario-registroDiario .Formulario-content label,
-.Formulario-registroDiario .Formulario-content input {
+.Formulario-registroDiario label,
+.Formulario-registroDiario input {
     display: block;
     margin-bottom: 10px;
 }
 
-.Formulario-registroDiario .Formulario-content input {
+.Formulario-registroDiario input {
     background-color: #f4f4f4;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -174,26 +320,10 @@
     padding: 10px;
     width: 100%;
     overflow: hidden;
-    outline: none; 
+    outline: none;
 }
 
-.Formulario-registroDiario .Formulario-content textarea {
-    width: 100%;
-    height: 200px;
-    background-color: #f4f4f4;
-    border: none;
-    overflow-x: auto;
-    resize: none;
-    overflow-y: hidden;
-    outline: none;
-    font-size: 18px;
-    padding: 10px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
+
 
 .Formulario-registroDiario .Formulario-footer button {
     width: 100%;
@@ -207,6 +337,72 @@
     color: #f4f4f4;
     cursor: pointer;
     margin-top: 2%;
+}
+
+.Diario-comentarios {
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Diario-comentarios::-webkit-scrollbar {
+    width: 5px;
+}
+
+.Diario-comentarios::-webkit-scrollbar-thumb {
+    background-color: #fbfbfb;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+.Diario-comentarios::-webkit-scrollbar-track {
+    background-color: #262b34;
+}
+.Diario-comentarios-encabezado {
+    margin:0 0 5% 0;
+}
+
+.Diario-comentarios .comentarios_Perfil {
+    display: flex;
+    margin-bottom: 5%;
+}
+
+.Diario-comentarios .comentarios {
+    margin-top: 5%;
+}
+
+.Diario-comentarios .comentarios_Perfil a {
+    text-decoration: none;
+    color: #fffefe;
+    font-size: 18px;
+}
+
+.Diario-comentarios .comentarios_Perfil div {
+    color: #cacaca;
+    background-color: #6c7a9449;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 100%;
+}
+
+.Diario-comentarios .comentarios_Perfil img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-right: 10px;
 }
 
 @media screen and (max-width: 1024px) {}

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { clearLocalStorage } from '../../utilities/localStorage.utility';
+// import { clearLocalStorage } from '../../utilities/localStorage.utility';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import logo from '../../assets/imagenes/hormigaLogo.png';
-import { PrivateRoutes, PublicRoutes, Roles} from '../../models';
-import { UserKey, createUser, resetUser } from '../../redux/states/user';
+import { PrivateRoutes, /*PublicRoutes,*/ Roles} from '../../models';
+import {/*UserKey,*/ createUser, /*resetUser, TokenKey*/ } from '../../redux/states/user';
 import { getIniciar } from '../../services';
 import { BotonSubmit } from '../../components/Boton';
 import { Base64 } from "js-base64";
@@ -28,10 +28,20 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     clearLocalStorage(UserKey);
+    //     clearLocalStorage(TokenKey);
+    //     dispatch(resetUser());
+    //     navigate(`../${PublicRoutes.Home}`, { replace: true });
+    // }, []);
+
     useEffect(() => {
-        clearLocalStorage(UserKey);
-        dispatch(resetUser());
-        navigate(`/${PublicRoutes.Home}`, { replace: true });
+        // Verificar si el usuario tiene un token en localStorage
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        if (token && user) {
+            navigate(`/${PrivateRoutes.User}`, { replace: true });
+        }
     }, []);
 
     const login = async (values: LoginFormValues) => {
@@ -45,11 +55,10 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
 
             } else {
 
-                
+                localStorage.setItem('token', result.token);
                 const token = result.token.split(".")[1];
                 const decodedValue = Base64.decode(token);
                 const obj = JSON.parse(decodedValue);
-                console.log(obj)
 
                 const userRole = Roles.USER;
 

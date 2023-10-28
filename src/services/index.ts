@@ -1,5 +1,6 @@
 export * from './Colonia.service';
 export * from './Comments.service';
+export * from './Diary.service';
 export * from './Hashtag.service';
 export * from './Perfil.service';
 export * from './PostPublicacion.service';

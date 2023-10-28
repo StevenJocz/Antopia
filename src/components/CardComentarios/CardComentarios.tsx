@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './CardComentarios.css'
 import { IonIcon } from '@ionic/react';
-import { closeCircleOutline, happyOutline, addCircleOutline, heart, cameraOutline, paperPlaneOutline } from 'ionicons/icons';
+import { closeCircleOutline, happyOutline, chatbubbleOutline, cameraOutline, paperPlaneOutline } from 'ionicons/icons';
 import { useRef, useState } from 'react';
 import { Emoticones } from '../Emoticones';
 import { format } from 'date-fns';
@@ -11,25 +11,51 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import comentar from '../../assets/imagenes/comentar.png';
-
+import LikeComentarios from '../Like/LikeComentarios';
+import ComentariosRespuesta from './ComentariosRespuesta';
 
 interface Props {
     mostrarComentarios: () => void;
     idPublicacion: number;
+    TituloPublicacion: string;
     comentarios: Comentario[];
 }
 
 const CardComentarios: React.FC<Props> = (props) => {
-    const [comentarios, setComentarios] = useState<Comentario[]>(props.comentarios);
+
+    const [comentarios, setComentarios] = useState<Comentario[]>([]);
     const [textareaValue, setTextareaValue] = useState('');
     const [verEmoticos, setVerEmoticos] = useState(false);
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const { agregarComentarioAPublicacion } = usePublicaciones();
+    const { agregarComentarioAPublicacion, listarComentariosDePublicacion } = usePublicaciones();
     const userState = useSelector((store: AppStore) => store.user);
     const [imagen, setImage] = useState('');
+    const [verAgregarRespuesta, setVerAgregarRespuesta] = useState(false);
+    const [idComentario, setIdComentario] = useState(0);
+    const respuestaRef = useRef<HTMLDivElement | null>(null);
 
+
+    
+
+    useEffect(() => {
+        const cargarComentarios = async () => {
+            try {
+                // Llama a listarComentariosDePublicacion para obtener los comentarios de la publicación actual.
+                const comentariosDePublicacion = await listarComentariosDePublicacion(props.idPublicacion);
+
+                // Si se obtienen comentarios, actúaliza el estado con los comentarios.
+                if (comentariosDePublicacion) {
+                    setComentarios(comentariosDePublicacion);
+                }
+            } catch (error) {
+                console.error('Error al cargar comentarios:', error);
+            }
+        };
+
+        cargarComentarios();
+    }, [props.idPublicacion, listarComentariosDePublicacion]);
 
     const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const textarea = event.target;
@@ -42,13 +68,27 @@ const CardComentarios: React.FC<Props> = (props) => {
         setVerEmoticos(!verEmoticos);
     };
 
+    const handleVerAgregarRespuesta = (idComentario: number) => {
+        if (idComentario !== idComentario) {
+            setVerAgregarRespuesta(false);
+        } else {
+            setVerAgregarRespuesta(true);
+            setIdComentario(idComentario);
+    
+            // Hacer scroll al elemento ComentariosRespuesta
+            if (respuestaRef.current) {
+                respuestaRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    };
+
     const handleEmojiSelect = (emoji: string) => {
         setSelectedEmoji(emoji);
         setTextareaValue(textareaValue + emoji);
         console.log(selectedEmoji);
         setVerEmoticos(false);
     };
-    
+
 
     const handleCameraIconClick = () => {
         if (inputRef.current) {
@@ -62,11 +102,9 @@ const CardComentarios: React.FC<Props> = (props) => {
 
     const handleImageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-
         if (files && files[0]) {
             const imageUrl = URL.createObjectURL(files[0]);
             setSelectedImage(imageUrl);
-
             const reader = new FileReader();
             reader.onload = (e) => {
                 if (e.target) {
@@ -74,7 +112,6 @@ const CardComentarios: React.FC<Props> = (props) => {
                     setImage(base64Image);
                 }
             };
-
             reader.readAsDataURL(files[0]);
         }
     };
@@ -90,6 +127,8 @@ const CardComentarios: React.FC<Props> = (props) => {
                 contentBody.style.height = `calc(67vh - ${inputHeight}px)`;
             }
         };
+
+
 
         updateContentBodyHeight();
 
@@ -115,8 +154,10 @@ const CardComentarios: React.FC<Props> = (props) => {
         } else {
             const now = new Date();
             const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
-            const IdPerfilComentarios = parseInt( userState.IdPerfil.toString(), 10);
+            const IdPerfilComentarios = parseInt(userState.IdPerfil.toString(), 10);
             const nuevoComentario: Comentario = {
+                IdComentarios: 0,
+                IdResponse: 0,
                 IdPerfilComentarios: IdPerfilComentarios,
                 NombrePerfilComentarios: userState.NombrePerfil,
                 ImagenPerfilComentarios: userState.ImagenPerfil,
@@ -125,6 +166,8 @@ const CardComentarios: React.FC<Props> = (props) => {
                 imagenComentario: imagen,
                 FechaComentario: formattedDate,
                 megustaComentarios: 0,
+                UserLikes: 0,
+                comentariosRespuesta: [],
             };
 
             setComentarios([...comentarios, nuevoComentario]);
@@ -138,47 +181,112 @@ const CardComentarios: React.FC<Props> = (props) => {
         <div className='CardComentarios'>
             <div className='CardComentarios-content'>
                 <div className='CardComentarios-content_header'>
-                    <h2>Comentarios</h2>
+                    <h2>{props.TituloPublicacion}</h2>
                     <div className='CardComentarios-content_header_cerrar'>
                         <IonIcon className='Icono-cerrar' onClick={props.mostrarComentarios} icon={closeCircleOutline} />
                     </div>
                 </div>
                 <div className='CardComentarios-content_body'>
-                    {comentarios.length === 0 && ( 
+                    {comentarios.length === 0 && (
                         <div className='sincomentarios'>
                             <h3> ¡Tu opinión es valiosa! Sé el primero en compartir tus pensamientos sobre esta publicación. </h3>
                             <img src={comentar} alt="" />
-                        </div> 
-                        
+                        </div>
+
                     )}
-                        {comentarios.slice().reverse().map((comentario) => (
-                            <div key={comentario.IdPerfilComentarios} className='content_body-comentario'>
-                                <div className='content_body-comentario_perfil'>
+                    {comentarios.slice().reverse().map((comentario) => (
+                        <>
+                            <div key={comentario.IdComentarios} className='content_body-comentario divComentario'>
+                                {comentario.comentariosRespuesta.length != 0  &&(
+                                    <div className='hiloComentarios'></div>
+                                )}
+                                {(verAgregarRespuesta && idComentario === comentario.IdComentarios)  &&(
+                                    <div className='hiloComentarios'></div>
+                                )}
+                                <div className='content_body-comentario_perfil '>
                                     <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
                                         <img src={comentario.ImagenPerfilComentarios} alt="" />
+
                                     </Link>
-                                    <div>
+                                    <div className='content_body-comentario_content'>
                                         <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
                                             <h3>{comentario.NombrePerfilComentarios}</h3>
                                         </Link>
-                                        <p>{format(new Date(comentario.FechaComentario), "d 'de' MMMM 'a las' HH:mm")}</p>
-                                    </div>
-                                    <div className="content_body-comentario_perfil_calificacion">
-                                        <IonIcon className='iconoMeGusta' icon={heart} />
-                                        <p>{comentario.megustaComentarios} me gustas</p>
-                                        <IonIcon className='iconoPlus' icon={addCircleOutline} />
+                                        <p>{comentario.Comentario}</p>
                                     </div>
                                 </div>
-                                <div className='content_body-comentario_comentar'>
-                                    <p>{comentario.Comentario}</p>
-    
-                                    {comentario?.imagenComentario != ''  && (
+                                <div className='content_body-comentario-imagen'>
+                                    {comentario?.imagenComentario != '' && (
                                         <img src={comentario.imagenComentario} alt="" />
                                     )}
                                 </div>
+                                <div className="content_body-comentario_perfil_calificacion">
+                                    <div>
+                                        <LikeComentarios
+                                            idPublicacion={props.idPublicacion}
+                                            idComentario={comentario.IdComentarios}
+                                            idRespuesta={0}
+                                            idperfil={userState.IdPerfil}
+                                            UserLikes={comentario.UserLikes}
+                                            tipo={1}
+                                        />
+                                        <p>{comentario.megustaComentarios} Me gustas</p>
+                                        <IonIcon onClick={() => handleVerAgregarRespuesta(comentario.IdComentarios)} className='iconoPlus icono' icon={chatbubbleOutline} />
+                                        <p> Responder</p>
+                                    </div>
+                                    <span className=''>{format(new Date(comentario.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                </div>
                             </div>
-                        ))}
-                    
+                            {verAgregarRespuesta && idComentario == comentario.IdComentarios && (
+                                <div className='respuestaComentario'>
+                                    {comentario.comentariosRespuesta.length !== 0 && <div className='hiliRespuesta'></div>}
+                                    <ComentariosRespuesta
+                                        ref={respuestaRef}
+                                        mostrarRespuestaComentario={() => setVerAgregarRespuesta(false)}
+                                        idComentario={idComentario}
+                                        idPublicacion={props.idPublicacion}
+                                    />
+                                </div>
+                            )}
+                            {comentario.comentariosRespuesta.slice().reverse().map((respuesta, index) => (
+                                <div className='respuestaComentario' key={respuesta.IdResponse}>
+                                    {index !== comentario.comentariosRespuesta.length - 1 && <div className='hiliRespuesta'></div>}
+                                    <div key={respuesta.IdResponse} className='content_body-comentario-Response'>
+
+                                        <div className='content_body-comentario_perfil-Response'>
+                                            <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
+
+                                                <img src={respuesta.ImagenPerfilComentarios} alt="" />
+                                            </Link>
+                                            <div className='content_body-comentario_content-Response'>
+                                                <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
+                                                    <h3>{respuesta.NombrePerfilComentarios}</h3>
+                                                </Link>
+                                                <p>{respuesta.Comentario}</p>
+                                            </div>
+
+                                        </div>
+                                        <div className="content_body-comentario_perfil_calificacion calificacion-response">
+                                            <div>
+                                                <LikeComentarios
+                                                    idPublicacion={props.idPublicacion}
+                                                    idComentario={respuesta.IdComentarios}
+                                                    idRespuesta={respuesta.IdResponse}
+                                                    idperfil={userState.IdPerfil}
+                                                    UserLikes={respuesta.UserLikes}
+                                                    tipo={2}
+                                                />
+                                                <p>{respuesta.megustaComentarios} Me gustas</p>
+                                            </div>
+                                            <span className=''>{format(new Date(respuesta.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                        </>
+                    ))}
+
                 </div>
                 <div className='Comentar'>
                     <div className='Comentar-perfil'>

@@ -1,6 +1,8 @@
 
 
 export interface Comentario {
+    IdComentarios: number;
+    IdResponse: number;
     IdPerfilComentarios: number;
     FechaComentario: string;
     NombrePerfilComentarios: string;
@@ -9,6 +11,8 @@ export interface Comentario {
     imagenComentario: string;
     megustaComentarios: number;
     urlPerfil: string;
+    UserLikes: number;
+    comentariosRespuesta: Comentario[];
 }
 
 export interface Publicacion {

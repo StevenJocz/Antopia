@@ -1,23 +1,20 @@
-import React, { createContext, useContext, useState, PropsWithChildren } from 'react';
-
-interface RegistroEntry {
-    fecha: string;
-    contenido: string;
-}
-
-interface DiarioEntry {
-    idPerfil: number;
-    id: number;
-    diario: string;
-    registros: RegistroEntry[];
-}
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { PostAddRegistroDiario, PostRegistrarDiario, PostlikeDiary, enviarcomentarioDiario, getUserDiarios } from '../services';
+import { Diarios, DiarioRegistro, DiarioComentarios } from '../models';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../redux/store';
 
 interface DiarioContextProps {
-    diarioData: DiarioEntry[];
-    agregarDiario: (nuevoDiario: DiarioEntry) => void;
-    agregarRegistro: (idDiario: number, nuevoRegistro: RegistroEntry) => void;
-    getDiariosPorIdPerfil: (idPerfil: number) => DiarioEntry[];
-    lastDiarioId: number;
+    diarioData: Diarios[];
+    agregarDiario: (nuevoDiario: Diarios) => Promise<void>;
+    agregarRegistro: (idDiario: number, nuevoRegistro: DiarioRegistro) => Promise<void>;
+    darLikeDiary: (DiaryId: number, isLike: number, idPerfil: number) => Promise<void>;
+    agregarComentarioDiario: (DiaryId: number, comentario: DiarioComentarios) => void;
+}
+
+interface Props {
+    children: React.ReactNode;
+    idPerfil: number
 }
 
 const DiarioContext = createContext<DiarioContextProps | undefined>(undefined);
@@ -30,90 +27,113 @@ export const useDiarioContext = () => {
     return context;
 };
 
-export const DiarioProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-    const defaultDiarioData: DiarioEntry[] = [
-        {
-            idPerfil:17,
-            id: 1,
-            diario: "Diario de Hormigas",
-            registros: [
-                {
-                    fecha: "2023-08-23",
-                    contenido: "Hoy he comenzado a observar el comportamiento de mis hormigas en su nuevo hábitat. Después de introducirlas en el terrario, parecían estar explorando activamente...",
-                },
-                {
-                    fecha: "2023-08-17",
-                    contenido: "Las hormigas han establecido un sendero definido hacia las migas de pan que coloqué ayer. Parece que están utilizando feromonas para marcar el camino..."
-                },
-                {
-                    fecha: "2023-08-18",
-                    contenido: "Hoy he introducido una pequeña cantidad de azúcar en el terrario para ver cómo reaccionan las hormigas. Inmediatamente, las hormigas obreras descubrieron..."
-                },
-                {
-                    fecha: "2023-08-19",
-                    contenido: "He notado una distinción entre las hormigas obreras en función de su tamaño y comportamiento. Algunas hormigas más grandes están transportando las migas..."
-                },
-                {
-                    fecha: "2023-08-20",
-                    contenido: "Las hormigas han ampliado sus excavaciones en el sustrato y han creado un sistema de túneles más elaborado. Están trayendo materiales del exterior..."
-                },
-                {
-                    fecha: "2023-08-21",
-                    contenido: "Hoy he observado una interacción interesante entre las hormigas y una intrusa araña que entró en el terrario. Las hormigas obreras se unieron rápidamente..."
+export const DiarioProvider: React.FC<Props> = (props) => {
+    const userState = useSelector((store: AppStore) => store.user);
+    const [diarioData, setDiarioData] = useState<Diarios[]>([]);
+
+    useEffect(() => {
+        async function fetchDiarios() {
+            try {
+                const diarios = await getUserDiarios(props.idPerfil, userState.IdPerfil);
+                setDiarioData(diarios);
+            } catch (error) {
+                setDiarioData([]);
+                console.error('Error al obtener los diarios:', error);
+            }
+        }
+
+        fetchDiarios();
+    }, [props.idPerfil]);
+
+    const agregarDiario = async (nuevoDiario: Diarios) => {
+
+        try {
+            const result = await PostRegistrarDiario(nuevoDiario.idPerfil, nuevoDiario.diario);
+            if (result) {
+                const NuevoDiario = [...diarioData, nuevoDiario];
+                setDiarioData(NuevoDiario);
+            }else {
+
+            }
+        } catch (error) {
+            console.error('Error al agregar el nuevo diario:', error);
+            
+        }
+    };
+    
+    const agregarRegistro = async (idDiario: number, nuevoRegistro: DiarioRegistro) => {
+        try {
+            const result = await PostAddRegistroDiario(nuevoRegistro);
+            if (result) {
+
+                const updatedPublicaciones = diarioData.map((diario) => {
+                    if (diario.id == idDiario) {
+                        return {
+                            ...diario,
+                            registros: [...diario.registros, nuevoRegistro]
+                        };
+                    }
+                    return diario;
+                });
+
+                setDiarioData(updatedPublicaciones);
+            }
+        } catch (error) {
+            console.error('Error al agregar el registro del diario:', error);
+        }
+    };
+
+    const darLikeDiary = async (DiaryId: number, isLike: number, idPerfil: number): Promise<void> => {
+        try {
+            await PostlikeDiary(DiaryId, isLike, idPerfil);
+            const updatedPublicaciones = diarioData.map((diario) => {
+                if (diario.id === DiaryId) {
+                    return {
+                        ...diario,
+                        Megustas: isLike === 0 ? diario.Megustas + 1 : diario.Megustas - 1,
+                        UserLikes: isLike === 0 ? 1 : 0,
+                    };
                 }
+                return diario;
+            });
+            setDiarioData(updatedPublicaciones);
 
-            ],
-        },
-        {
-            idPerfil: 20,
-            id: 2,
-            diario: "Diario de OtraEspecie",
-            registros: [
-                {
-                    fecha: "2023-08-23",
-                    contenido: "Hoy he comenzado a observar el comportamiento de una nueva especie en su hábitat. Estoy emocionado por aprender más sobre sus interacciones y hábitos...",
-                },
-                {
-                    fecha: "2023-08-24",
-                    contenido: "Las criaturas han mostrado un comportamiento inusual hoy. Parecen estar recolectando objetos brillantes y llevándolos a su nido."
+        } catch (error) {
+            console.error('Error al dar like a la publicación:', error);
+        }
+    };
+
+    const agregarComentarioDiario = async (IdDiario: number, comentario: DiarioComentarios): Promise<void> => {
+        try {
+            await enviarcomentarioDiario(IdDiario, comentario);
+            const updatedPublicaciones = diarioData.map((diario) => {
+                if (diario.id === IdDiario) {
+                    return {
+                        ...diario,
+                        comentariosDiario: [...diario.comentariosDiario, comentario],
+                        comentarios: diario.comentarios + 1,
+                    };
                 }
-            ],
-        },
-    ];
-
-    const [diarioData, setDiarioData] = useState<DiarioEntry[]>(defaultDiarioData);
-    const [lastDiarioId, setLastDiarioId] = useState<number>(defaultDiarioData.length);
-
-    const agregarDiario = (nuevoDiario: DiarioEntry) => {
-        setDiarioData(prevDiarios => [...prevDiarios, nuevoDiario]);
-        setLastDiarioId(lastDiarioId + 1);
+                return diario;
+            });
+            setDiarioData(updatedPublicaciones);
+        } catch (error) {
+            console.error('Error al agregar el comentario:', error);
+        }
     };
 
-    const agregarRegistro = (idDiario: number, nuevoRegistro: RegistroEntry) => {
-        setDiarioData(prevDiarios =>
-            prevDiarios.map(diario =>
-                diario.id === idDiario
-                    ? { ...diario, registros: [...diario.registros, nuevoRegistro] }
-                    : diario
-            )
-        );
-    };
-
-    const getDiariosPorIdPerfil = (idPerfil: number): DiarioEntry[] => {
-        return diarioData.filter(diario => diario.idPerfil === idPerfil);
-    };
 
     const contextValue: DiarioContextProps = {
         diarioData,
         agregarDiario,
         agregarRegistro,
-        getDiariosPorIdPerfil,
-        lastDiarioId
+        darLikeDiary,
+        agregarComentarioDiario
     };
 
     return (
         <DiarioContext.Provider value={contextValue}>
-            {children}
+            {props.children}
         </DiarioContext.Provider>
     );
 };

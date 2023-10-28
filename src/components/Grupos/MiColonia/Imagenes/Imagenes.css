@@ -1,0 +1,23 @@
+.Imagenes {
+    margin-top: 3%;
+}
+
+.Imagenes h2 {
+    margin-bottom: 3%;
+}
+
+
+.Imagenes-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    max-width: 100%;
+}
+
+.Imagenes-content img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}

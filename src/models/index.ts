@@ -1,3 +1,4 @@
+export * from './Diary.model';
 export * from './fotos.model';
 export * from './grupo.model';
 export * from './publicaciones.model';

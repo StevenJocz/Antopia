@@ -63,8 +63,7 @@ const Colonias = () => {
                 {listColonia.map(colonia => (
                     <div className="Colonias-menu-content" key={colonia.id_colonies}>
                         <Link
-                            to={`/Home/Colonias/${colonia.s_name.replace(/\s/g, '')}`}
-                            state={{idColonia: colonia.id_colonies }}
+                            to={`/Home/Colonias/${colonia.id_colonies}/${colonia.s_name.replace(/\s/g, '')}`}
                         >
                             <img src={colonia.s_photo} alt={colonia.s_name} />
                             <div className="Colonias-menu-content-info" style={{ backgroundColor: colonia.colors }}>

@@ -1,8 +1,6 @@
 .Buscardor {
-    position: absolute;
-    top: 10px;
-    left: 80px;
-    z-index: 1000;
+    width: 100%;
+    height: auto;
 }
 
 .Buscardor-Contenedor.active {
@@ -11,20 +9,20 @@
 
 
 .Header-buscador {
-    position: relative;
-    margin-right: 200px;
+    margin-bottom: 10%;
     width: 100%;
+    position: relative;
 }
 
 .Header-buscador input {
     width: 100%;
     height: 40px;
     font-size: 18px;
-    border-radius: 10px 10px 0 0;
-    -webkit-border-radius: 10px 10px 0 0;
-    -moz-border-radius: 10px 10px 0 0;
-    -ms-border-radius: 10px 10px 0 0;
-    -o-border-radius: 10px 10px 0 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
     padding: 10px 10px 10px 40px;
     border: 1px solid rgba(240, 248, 255, 0.437);
     background-color: rgba(240, 248, 255, 0);
@@ -52,21 +50,9 @@
     font-size: 25px;
 }
 
-
 .Buscardor-content {
-    width: 753px;
-    max-height: 87vh;
-    background-color: #262b34;
-    border-radius:0 0 10px 10px;
-    -webkit-border-radius:0 0 10px 10px;
-    -moz-border-radius:0 0 10px 10px;
-    -ms-border-radius:0 0 10px 10px;
-    -o-border-radius:0 0 10px 10px;
-    padding: 20px;
-    border: 1px solid #ffffff57;
-    overflow: hidden;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    width: 100%;
+    margin-bottom: 5%;
 }
 
 .Buscardor-content::-webkit-scrollbar {
@@ -143,7 +129,7 @@
 
 .Contenedor-buscador-Usuario-info {
     color: aliceblue;
-    
+
 }
 
 .Contenedor-buscador-Usuario-info h4 {
@@ -174,7 +160,7 @@
     display: flex;
 }
 
-.Contenedor-buscador-publicacion-user  img{
+.Contenedor-buscador-publicacion-user img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -185,7 +171,7 @@
     margin-top: 10px;
 }
 
-.Contenedor-buscador-publicacion-info h3{
+.Contenedor-buscador-publicacion-info h3 {
     margin-bottom: 10px;
 }
 
@@ -201,6 +187,7 @@
         left: 0;
         z-index: 1000;
     }
+
     .Buscardor-content {
         max-width: 400px;
         max-height: 90vh;
@@ -214,6 +201,6 @@
         max-width: 370px;
         background-color: #262b34;
     }
-    
+
 
 }

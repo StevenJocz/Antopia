@@ -1,0 +1,70 @@
+.Sugerencia {
+    width: 100%;
+    height: auto;
+    background-color: #424b5a60;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-top: 10px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.Sugerencia h3 {
+    color: #d1d1d1c8;
+}
+
+
+.Sugerencia-content {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+}
+
+.Sugerencia-content-img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Sugerencia-content-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+
+}
+
+.Sugerencia-content-text a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.Sugerencia-content-text-info h3 {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.Sugerencia-content-text-info p {
+    color: #b8b7b7;
+    font-size: 12px;
+}
+
+.Sugerencia-content-text button {
+    margin-left: 30px;
+    width: 70px;
+    height: 30px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    margin-top: -7px;
+    cursor: pointer;
+}

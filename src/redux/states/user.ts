@@ -17,6 +17,7 @@ export const EmptyUserState: UserInfo = {
 };
 
 export const UserKey = 'user';
+export const TokenKey = 'token';
 
 export const userSlice = createSlice({
   name: 'user',

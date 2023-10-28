@@ -1,9 +1,11 @@
+import axios from 'axios';
 import { Publicacion,  services } from "../models";
 
 const baseUrl = services.local
 
 export const PostPublicacion = async (Publicacion: Publicacion) => {
-
+    const url = baseUrl + 'Pubication/Create_Publication';
+    const token = localStorage.getItem('token');
     const datosPublicacion = {
         publicaciones: [
             {
@@ -34,30 +36,19 @@ export const PostPublicacion = async (Publicacion: Publicacion) => {
         ] : [],
     };
 
-    const url = baseUrl + 'Pubication/Create_Publication';
+    
 
-    const body = JSON.stringify(datosPublicacion);
+    const data = JSON.stringify(datosPublicacion);
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
+        const response = await axios.post(url, data, {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
-
-        const result = await response.json();
-        if (result.resultado === false) {
-            return false;
-
-        }else { 
-            return true;
-        
-        }
+        return response.data;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error al registrar usuario:', error);
         throw error;
     }
 };

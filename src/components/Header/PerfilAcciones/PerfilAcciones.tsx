@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react'
-import { personOutline, helpCircleOutline, settingsOutline } from 'ionicons/icons';
+import { personOutline, helpCircleOutline, /*settingsOutline*/} from 'ionicons/icons';
 import { AppStore } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 import './PerfilAcciones.css'
@@ -28,10 +28,10 @@ const PerfilAcciones = () => {
                         <h5> Mi Perfil</h5>
                     </Link>
                 </div>
-                <div className='MiPerfil_Contenido_text'>
+                {/* <div className='MiPerfil_Contenido_text'>
                     <IonIcon icon={settingsOutline} />
                     <h5>Configuración</h5>
-                </div>
+                </div> */}
                 <div className='MiPerfil_Contenido_text'>
                     <IonIcon icon={helpCircleOutline} />
                     <h5>Ayuda</h5>

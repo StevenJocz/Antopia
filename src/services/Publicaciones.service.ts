@@ -1,31 +1,26 @@
-// getPublicaciones.ts
+
+import axios from 'axios';
 import { Publicacion, PublicacionBuscador, PublicacionReportinRazon, services } from "../models";
 
 const baseUrl = services.local
 
-export const getPublicaciones = async (iduser: number, tipo: number, parametro: number, hashtags:string): Promise<Publicacion[]> => {
-
+export const getPublicaciones = async (iduser: number, tipo: number, parametro: number, hashtags: string): Promise<Publicacion[]> => {
+    const token = localStorage.getItem('token');
     const url = `${baseUrl}Pubication/TodoPublication?iduser=${iduser}&tipo=${tipo}&parametro=${parametro}&hashtags=${hashtags}`;
-    console.log(url);
+
     try {
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
-
-        if (!response.ok) {
-            throw new Error(`Error al obtener publicaciones: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        const objetoMapeado: Publicacion[] = result.map((item: any) => ({
+        const objetoMapeado: Publicacion[] = response.data.map((item: any) => ({
             IdPerfil: item.idPerfil,
             NombrePerfil: item.nombrePerfil,
             urlPerfil: item.urlPerfil,
             ImagenPerfil: item.imagenPerfil,
-            Level: item. level,
+            Level: item.level,
             IdPublicacion: item.idPublicacion,
             UserLikes: item.userLike,
             IdTipo: item.idTipo,
@@ -40,6 +35,7 @@ export const getPublicaciones = async (iduser: number, tipo: number, parametro: 
             UrlYoutube: item.urlYoutube,
             ImagenesPublicacion: item.imagenesPublicacion,
             Comentarios: item.comentarios.map((comentarioItem: any) => ({
+                IdComentarios: comentarioItem.idComentarios,
                 IdPerfilComentarios: comentarioItem.idPerfilComentarios,
                 FechaComentario: comentarioItem.fechaComentario,
                 NombrePerfilComentarios: comentarioItem.nombrePerfilComentarios,
@@ -48,12 +44,24 @@ export const getPublicaciones = async (iduser: number, tipo: number, parametro: 
                 imagenComentario: comentarioItem.imagenComentario,
                 megustaComentarios: comentarioItem.megustaComentarios,
                 urlPerfil: comentarioItem.urlPerfil,
+                UserLikes: comentarioItem.userLike,
+                comentariosRespuesta: comentarioItem.comentariosRespuesta.map((comentarioResponseItem: any) => ({
+                    IdComentarios: comentarioResponseItem.idComentarios,
+                    IdResponse: comentarioResponseItem.idResponse,
+                    IdPerfilComentarios: comentarioResponseItem.idPerfilComentarios,
+                    FechaComentario: comentarioResponseItem.fechaComentario,
+                    NombrePerfilComentarios: comentarioResponseItem.nombrePerfilComentarios,
+                    ImagenPerfilComentarios: comentarioResponseItem.imagenPerfilComentarios,
+                    Comentario: comentarioResponseItem.comentario,
+                    megustaComentarios: comentarioResponseItem.megustaComentarios,
+                    urlPerfil: comentarioResponseItem.urlPerfil,
+                    UserLikes: comentarioResponseItem.userLike,
+                })),
             })),
         }));
 
         return objetoMapeado;
     } catch (error) {
-        console.error('Error al obtener publicaciones:', error);
         throw error;
     }
 };
@@ -62,21 +70,16 @@ export const getPublicaciones = async (iduser: number, tipo: number, parametro: 
 export const getPublicacionesBuscador = async (texto: string) => {
 
     const url = `${baseUrl}Pubication/buscarPublicaciones?searchTerm=${texto}`;
+    const token = localStorage.getItem('token');
     try {
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-
-        const pubicacion: PublicacionBuscador[] = result.map((item: any) => ({
+        const pubicacion: PublicacionBuscador[] = response.data.map((item: any) => ({
             NombrePerfil: item.nombrePerfil,
             ImagenPerfil: item.imagenPerfil,
             IdPublicacion: item.idPublicacion,
@@ -88,33 +91,25 @@ export const getPublicacionesBuscador = async (texto: string) => {
 
         return pubicacion;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error en la solicitud:', error);
         throw error;
     }
 };
 
 
 export const getPublicacionesHashtag = async (idUser: number, texto: string): Promise<Publicacion[]> => {
-
-   
+    const token = localStorage.getItem('token');
     const encodedText = encodeURIComponent(texto);
     const url = `${baseUrl}Pubication/TodoPublicationHashtags?idUser=${idUser}&hashtags=${encodedText}`;
-    
+
     try {
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error al obtener publicaciones: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        const objetoMapeado: Publicacion[] = result.map((item: any) => ({
+        const objetoMapeado: Publicacion[] = response.data.map((item: any) => ({
             IdPerfil: item.idPerfil,
             NombrePerfil: item.nombrePerfil,
             urlPerfil: item.urlPerfil,
@@ -144,30 +139,22 @@ export const getPublicacionesHashtag = async (idUser: number, texto: string): Pr
 
         return objetoMapeado;
     } catch (error) {
-        console.error('Error al obtener publicaciones:', error);
         throw error;
     }
 };
 
 
 export const getPublicacionesReportingRazon = async () => {
-
+    const token = localStorage.getItem('token');
     const url = `${baseUrl}Pubication/Publication_reporting_reason`;
     try {
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
-
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-
-        const razones: PublicacionReportinRazon[] = result.map((item: any) => ({
+        const razones: PublicacionReportinRazon[] = response.data.map((item: any) => ({
             idRazon: item.id_publication_reporting_reason,
             titulo: item.s_title,
             description: item.s_description,
@@ -175,38 +162,46 @@ export const getPublicacionesReportingRazon = async () => {
 
         return razones;
     } catch (error) {
-        // Manejo de errores aquí
-        console.error('Error en la solicitud:', error);
         throw error;
     }
 };
 
 
-export const PostPublicacionesReporting = (idRazon: number, idPublicacion: number) => {
+export const PostPublicacionesReporting = async (idRazon: number, idPublicacion: number) => {
     const url = baseUrl + 'Pubication/PublicationReportin';
-    const body = JSON.stringify({
+    const token = localStorage.getItem('token');
+    const data = JSON.stringify({
 
         "fk_tbl_publication_reporting_reason": idRazon,
         "fk_tbl_publication": idPublicacion
     });
 
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body
-    }).then(res => res.json());
+    try {
+        const response = await axios.post(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
-export const deletePostPublicacion = (idPublicacion: number) => {
-   
+export const deletePostPublicacion = async(idPublicacion: number) => {
+    const token = localStorage.getItem('token');
     const url = `${baseUrl}Pubication/Delete_Publication?idPublication=${idPublicacion}`;
 
-    return fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    }).then(res => res.json());
+    try {
+        const response = await axios.delete(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };

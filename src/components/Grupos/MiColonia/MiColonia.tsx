@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { Colonia } from '../../../models';
 import { MicoloniaRouter } from './MicoloniaRouter';
 import { PostUnirmeColonia } from '../../../services';
+import { Helmet } from 'react-helmet';
 
 const MiColonia = () => {
 
@@ -19,7 +20,7 @@ const MiColonia = () => {
     const location = useLocation();
 
 
-    const idgrupo =location.state?.idColonia || 0;
+    const idgrupo = location.pathname.split("/")[3];
     useEffect(() => {
         async function fetchPerfil() {
             try {
@@ -27,7 +28,7 @@ const MiColonia = () => {
                 if (fetchedPerfiles.length > 0) {
                     setGrupo(fetchedPerfiles[0]);
                     setEsMiembro(fetchedPerfiles[0]?.esmember || 0);
-                    
+
                 } else {
                     setGrupo(null);
                 }
@@ -61,39 +62,49 @@ const MiColonia = () => {
     }
 
     return (
-        <div className='MiGrupo'>
-            <div className='MiGrupo-navegacion'>
-                <Link to={`/Home/Colonias`} >
-                    <IonIcon className='volver-icono' icon={arrowBack} />
-                </Link>
-                <h2>{grupo?.s_name}</h2>
-            </div>
-
-            <div className="MiGrupo-portada" style={back}>
-                <div className="MiGrupo-info" style={{ backgroundColor: grupo?.s_colors }}>
+        <>
+            <Helmet>
+                <title>Antopia | Colonia </title>
+            </Helmet>
+            <div className='MiGrupo'>
+                <div className='MiGrupo-navegacion'>
+                    <Link to={`/Home/Colonias`} >
+                        <IonIcon className='volver-icono' icon={arrowBack} />
+                        <p>Volver</p>
+                    </Link>
                     <h2>{grupo?.s_name}</h2>
-                    <p>{grupo?.s_description}</p>
-                    <div className='MiGrupo-user'>
-                        {grupo?.userMembers.map((miembro) => (
-                            <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} />
-                        ))}
-                        <p> {grupo?.cantidadMembers} {grupo?.cantidadMembers === 1 ? 'Miembro' : 'Miembros'}</p>
-                        <button className='MiGrupo-btn' onClick={handleUnirmeColonia}>{esMiembro == 1 ? 'Abandonar' : 'Unirme'}</button>
+                </div>
+
+                <div className="MiGrupo-portada" style={back}>
+                    <div className="MiGrupo-info" style={{ backgroundColor: grupo?.s_colors }}>
+                        <h2>{grupo?.s_name}</h2>
+                        <p>{grupo?.s_description}</p>
+                        <div className='MiGrupo-user'>
+                            {grupo?.userMembers.map((miembro) => (
+                                <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} />
+                            ))}
+                            <p> {grupo?.cantidadMembers} {grupo?.cantidadMembers === 1 ? 'Miembro' : 'Miembros'}</p>
+                            <button className='MiGrupo-btn' onClick={handleUnirmeColonia}>{esMiembro == 1 ? 'Abandonar' : 'Unirme'}</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className='MiGrupo-Menu'>
-                <ul>
-                    <Link to={`/Home/Colonias/${grupo?.s_name.replace(/\s/g, '')}/`}><li>Conversación</li></Link>
-                    <Link to={`/Home/Colonias/${grupo?.s_name.replace(/\s/g, '')}/fotos`}><li>Imagenes</li></Link>
-                    <Link to={`/Home/Colonias/${grupo?.s_name.replace(/\s/g, '')}/about`}><li>Acerca de</li></Link>
-                </ul>
-            </div>
-            <div>
-                <MicoloniaRouter grupo={grupo} />
-            </div>
+                <div className='MiGrupo-Menu'>
+                    <ul>
+                        <Link to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/`}><li>Conversación</li></Link>
+                        <Link
+                            to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/fotos`}
+                           
+                        ><li>Imagenes</li>
+                        </Link>
+                        <Link to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/about`}><li>Acerca de</li></Link>
+                    </ul>
+                </div>
+                <div>
+                    <MicoloniaRouter grupo={grupo} />
+                </div>
 
-        </div>
+            </div>
+        </>
     )
 }
 

@@ -2,6 +2,7 @@ import { RoutePerfil } from '.';
 import { Link, useLocation } from 'react-router-dom';
 import { getPerfil } from '../../services/Perfil.service';
 import { useEffect, useState } from 'react';
+import Helmet from 'react-helmet';
 
 import { IonIcon } from "@ionic/react";
 import { imageOutline, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
@@ -27,6 +28,7 @@ const Perfil = () => {
     const [verConfiguracion, setVerConfiguracion] = useState(false);
     const [followers, setFollowers] = useState(false);
     const [tipo, setTipo] = useState(0);
+    const [accion, setAccion] = useState(0);
     const [perfil, setPerfil] = useState<InfoPerfil | null>(null);
     const location = useLocation();
     const idPerfil = location.pathname.split("/")[3];
@@ -79,13 +81,26 @@ const Perfil = () => {
         setVerConfiguracion(true);
     };
 
-    const toggleFollowers = () => {
+    const toggleFollowers = (accion: number) => {
+        setAccion(accion);
         setFollowers(!followers);
+        
     };
 
 
+    const ogTitle = perfil.NombrePerfil;
+    const ogDescription = perfil.Frase;
+    const ogImage = perfil.ImagenPerfil;
+
     return (
         <div className="Perfil">
+            <Helmet>
+                <title>Antopia | {ogTitle}</title>
+                <meta name="description" content="Descripción de la página" />
+                <meta property="og:title" content={ogTitle} />
+                <meta property="og:description" content={ogDescription} />
+                <meta property="og:image" content={ogImage[0]} />
+            </Helmet>
             <div className='Perfil-portada' style={back}>
                 {verEditarPerfil && (
                     <div className='Cambio__Perfil-portada' onClick={() => toggleConfiguracion(3)}>
@@ -114,9 +129,6 @@ const Perfil = () => {
                             <h2>{perfil.NombrePerfil}</h2>
                             <Level idlevel={perfil.Level} />
                         </div>
-                        {!verEditarPerfil && (
-                            <BotonFollowers idPerfil={parseInt(idPerfil)} idSeguidor={userState.IdPerfil} Siguiendo={perfil.Siguiendo} />
-                        )}
                     </div>
                     <div className='Perfil-Info-frase'>
                         <p>{perfil.Frase}</p>
@@ -124,13 +136,17 @@ const Perfil = () => {
                             <IonIcon className='Perfil-Info-frase-icono' onClick={() => toggleConfiguracion(1)} icon={ellipsisHorizontalCircleOutline} />
                         )}
                     </div>
-                    <div className='Perfil-Info-Datos'>
-                        <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
-                        <p className='Perfil-Info-Datos-seguidores' onClick={toggleFollowers}><span>{perfil.Seguidores}</span> seguidores</p>
-                    </div>
-
                 </div>
             </div>
+            <div className='Perfil-Info-Datos'>
+                        <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
+                        <p className='Perfil-Info-Datos-seguidores' onClick={() =>toggleFollowers(1)}><span>{perfil.Seguidores}</span> seguidores</p>
+                        <p className='Perfil-Info-Datos-seguidores'onClick={() =>toggleFollowers(2)}><span>{perfil.TotalSeguiendo}</span> Siguiendo</p>
+                        {!verEditarPerfil && (
+                            <BotonFollowers idPerfil={parseInt(idPerfil)} idSeguidor={userState.IdPerfil} Siguiendo={perfil.Siguiendo} />
+                        )}
+                    </div>
+                    
             <nav>
                 <ul>
                     <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}`}><li><img src={notificacionesIcono} className="sidebar-icon" alt="" /> Publicaciones</li></Link>
@@ -151,7 +167,7 @@ const Perfil = () => {
                 />
             )}
             {followers && (
-                <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)}/>
+                <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)} accion={accion}/>
             )}
 
         </div>
