@@ -1,0 +1,32 @@
+.Noticas  {
+    margin-bottom: 50%;
+}
+
+.Noticas  h2 {
+    text-align: center;
+}
+
+.Noticas  div {
+   display: flex;
+   justify-content: center;
+   margin: 10px 0;
+}
+
+.Noticas div  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+
+.Noticas span {
+    font-weight: 700;
+}
+
+.Noticas p {
+    font-size: 18px;
+    margin-bottom: 15px;
+}

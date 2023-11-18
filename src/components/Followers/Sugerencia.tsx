@@ -30,13 +30,6 @@ const Sugerencia = () => {
         }
     };
 
-    const imagenExiste = (url: string) => {
-        const img = new Image();
-        img.src = url;
-        return img.complete || img.width > 0;
-    };
-
-    const imagenPredeterminada = 'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg';
     return (
         <div className="Sugerencia">
             <h3>A quién seguir</h3>
@@ -45,7 +38,7 @@ const Sugerencia = () => {
                     <div className="Sugerencia-content-img">
                         <Link to={`/Home/Perfil/${user.IdPerfil}/${user.urlPerfil}`}>
                             <img
-                                src={imagenExiste(user.ImagenPerfil) ? user.ImagenPerfil : imagenPredeterminada}
+                                src={user.ImagenPerfil}
                                 alt=""
                             />
                         </Link>

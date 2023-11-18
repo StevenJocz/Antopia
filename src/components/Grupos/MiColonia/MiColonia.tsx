@@ -11,6 +11,8 @@ import { Colonia } from '../../../models';
 import { MicoloniaRouter } from './MicoloniaRouter';
 import { PostUnirmeColonia } from '../../../services';
 import { Helmet } from 'react-helmet';
+import { PublicacionesProvider } from '../../../Context/PublicacionesContext';
+import { NuevoPost } from '../../NuevoPost';
 
 const MiColonia = () => {
 
@@ -61,31 +63,49 @@ const MiColonia = () => {
         }
     }
 
+    // Obtener las primeras 8 imágenes
+    const primerasOchoImagenes = grupo?.userMembers.slice(0, 6) || [];
+
+    // Obtener el número de imágenes restantes
+    const imagenesRestantes = grupo?.userMembers.slice(6) || [];
+
     return (
         <>
             <Helmet>
                 <title>Antopia | Colonia </title>
             </Helmet>
             <div className='MiGrupo'>
-                <div className='MiGrupo-navegacion'>
-                    <Link to={`/Home/Colonias`} >
-                        <IonIcon className='volver-icono' icon={arrowBack} />
-                        <p>Volver</p>
-                    </Link>
-                    <h2>{grupo?.s_name}</h2>
-                </div>
-
                 <div className="MiGrupo-portada" style={back}>
+                    <div className='MiGrupo-navegacion'>
+                        <Link to={`/Home/Colonias`} >
+                            <IonIcon className='volver-icono' icon={arrowBack} />
+                            <p>Volver</p>
+                        </Link>
+                    </div>
+                    <div className='MiGrupo-puntos'>
+                        <p>{grupo?.points} <span>puntos</span></p>
+                    </div>
                     <div className="MiGrupo-info" style={{ backgroundColor: grupo?.s_colors }}>
                         <h2>{grupo?.s_name}</h2>
                         <p>{grupo?.s_description}</p>
-                        <div className='MiGrupo-user'>
-                            {grupo?.userMembers.map((miembro) => (
-                                <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} />
-                            ))}
-                            <p> {grupo?.cantidadMembers} {grupo?.cantidadMembers === 1 ? 'Miembro' : 'Miembros'}</p>
-                            <button className='MiGrupo-btn' onClick={handleUnirmeColonia}>{esMiembro == 1 ? 'Abandonar' : 'Unirme'}</button>
+                        <div className='MiGrupo-info-content'>
+                            <div className='MiGrupo-user'>
+                                {primerasOchoImagenes.map((miembro) => (
+                                    <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} />
+                                ))}
+                                {imagenesRestantes.length > 0 && (
+                                    <p> + {imagenesRestantes.length} {imagenesRestantes.length === 1 ? 'miembro' : 'miembros'}</p>
+                                )}
+                            </div>
+
+                            <div className='Compartir-Grupo'>
+                                <button className='MiGrupo-btn' onClick={handleUnirmeColonia}>{esMiembro == 1 ? 'Abandonar' : 'Unirme'}</button>
+                                <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={1} hashtag="">
+                                    <NuevoPost tipo={6} idColonia={parseInt(idgrupo)} />
+                                </PublicacionesProvider>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div className='MiGrupo-Menu'>
@@ -93,7 +113,6 @@ const MiColonia = () => {
                         <Link to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/`}><li>Conversación</li></Link>
                         <Link
                             to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/fotos`}
-                           
                         ><li>Imagenes</li>
                         </Link>
                         <Link to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/about`}><li>Acerca de</li></Link>

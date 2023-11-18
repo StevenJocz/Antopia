@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 // import { clearLocalStorage } from '../../utilities/localStorage.utility';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import logo from '../../assets/imagenes/hormigaLogo.png';
-import { PrivateRoutes, /*PublicRoutes,*/ Roles} from '../../models';
+import { PrivateRoutes, /*PublicRoutes,*/ Roles } from '../../models';
 import {/*UserKey,*/ createUser, /*resetUser, TokenKey*/ } from '../../redux/states/user';
 import { getIniciar } from '../../services';
 import { BotonSubmit } from '../../components/Boton';
 import { Base64 } from "js-base64";
-
+import { IonIcon } from '@ionic/react';
+import { eyeOutline, eyeOffOutline} from 'ionicons/icons';
 
 interface LoginFormValues {
     correoElectronico: string;
@@ -24,16 +25,11 @@ interface IniciarProps {
 const IniciarSesion: React.FC<IniciarProps> = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [msg, setMsg] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     clearLocalStorage(UserKey);
-    //     clearLocalStorage(TokenKey);
-    //     dispatch(resetUser());
-    //     navigate(`../${PublicRoutes.Home}`, { replace: true });
-    // }, []);
 
     useEffect(() => {
         // Verificar si el usuario tiene un token en localStorage
@@ -49,7 +45,7 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
             setIsLoading(true);
             const { correoElectronico, password } = values;
 
-            const result = await getIniciar(correoElectronico, password);
+            const result = await getIniciar(correoElectronico.toLowerCase(), password);
             if (result.resultado === false) {
                 setMsg(result.msg);
 
@@ -117,7 +113,7 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
                             </div>
                             <div className="login__container__group">
                                 <Field
-                                    type='password'
+                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     placeholder='*******'
                                     className={errors.password ? 'Input_Border_Red' : ''}
@@ -125,6 +121,13 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
                                 <label>Contraseña</label>
+                                <span
+                                    className="eye-icon" 
+                                    onClick={() => setShowPassword(!showPassword)} 
+                                >
+                                    {showPassword ?   <IonIcon className='eye-iconS' icon={eyeOffOutline} /> :<IonIcon className='eye-iconS' icon={eyeOutline} />} 
+                                </span>
+
                             </div>
                             <p onClick={props.mostrarRecordar} className='olvido-contrseña'>¿Olvidé mi contraseña?</p>
                             <i className='mensaje'>{msg}</i>

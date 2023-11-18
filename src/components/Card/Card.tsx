@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import './Card.css';
 import { IonIcon } from '@ionic/react';
 import { chatbubbleOutline, shareOutline, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
-import { CardComentarios } from '../CardComentarios';
+
 import { Acciones } from '../Acciones';
 import AccionesDos from '../Acciones/AccionesDos';
 import { format, } from 'date-fns';
@@ -10,7 +10,6 @@ import IconAnt from '../../assets/imagenes/IconAnts.png';
 import IconHormiguero from '../../assets/imagenes/hormiguero.png';
 import Home from '../../assets/imagenes/eco-home.png';
 import { usePublicaciones } from '../../Context/PublicacionesContext';
-import { Comentario } from '../../models';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
@@ -20,16 +19,15 @@ import VideosYoutube from '../Logout/VideosYoutube';
 import { Recomendados } from '../Tiendas';
 import { Tendencias } from '../Tendencias';
 import { PreviewPerfil } from '../Perfil/PreviewPerfil';
+import { Slider } from '../Slider';
+import { TopColonias } from '../Grupos/TopColonias';
 
 
 const Card = () => {
 
-    const [verComentarios, setVerComentarios] = useState(false);
+
     const [verAcciones, setVerAcciones] = useState<{ [key: number]: boolean }>({});
     const [verAccionesDos, setVerAccionesDos] = useState<{ [key: number]: boolean }>({});
-    const [objetoComentarios, setObjetoComentarios] = useState<Comentario[]>([]);
-    const [idPublicacion, setIdPublicacion] = useState(0);
-    const [tituloPublicacion, setTituloPublicacion] = useState('');
     const [idPublicacionImagenes, setIdPublicacionImagenes] = useState(0);
     const { publicaciones } = usePublicaciones();
     const [leermasStates, setLeermasStates] = useState<{ [key: number]: boolean }>({});
@@ -77,15 +75,7 @@ const Card = () => {
         (a, b) => new Date(b.FechaPublicacion).getTime() - new Date(a.FechaPublicacion).getTime()
     );
 
-    const toggleComentarios = useCallback(
-        (comentarios: Comentario[], idPublicacion: number, TituloPublicacion: string) => {
-            setObjetoComentarios(comentarios);
-            setIdPublicacion(idPublicacion);
-            setTituloPublicacion(TituloPublicacion);
-            setVerComentarios(true);
-        },
-        []
-    );
+
 
     const handleAcciones = (idPublicacion: number) => {
         setVerAcciones(prevStates => ({
@@ -125,14 +115,13 @@ const Card = () => {
             const modulo = index / 4 % 4;
             switch (modulo) {
                 case 0:
-                    return <Recomendados key={`recomendados-${index}`} />;
+                    return <Slider idTipo={1} />;
                 case 1:
-                    return <img className='imgen-barner' src="https://quillants.co/wp-content/uploads/2018/06/banner-950x122-1.jpg" alt="" key={`tendencias-${index}`} />;
-
+                    return <Recomendados key={`recomendados-${index}`} />;
                 case 2:
-                    return <Tendencias key={`tendencias-${index}`} />;
+                    return <TopColonias />
                 case 3:
-                    return <img className='imgen-barner' src=" https://anthouse.es/img/cms/img%20seo/terrario-para-hormigas-casero.png" alt="" key={`tendencias-${index}`} />;
+                    return <Tendencias key={`tendencias-${index}`} />;
 
                 default:
                     return null;
@@ -144,8 +133,8 @@ const Card = () => {
     return (
         <div className="Card">
             {publicacionesOrdenadas.map((publicacion, index) => (
-                <div key={publicacion.IdPublicacion}>  
-                {renderRecomendados(index)}
+                <div key={publicacion.IdPublicacion}>
+                    {renderRecomendados(index)}
 
                     <div className="Card-content" >
                         <article
@@ -217,6 +206,20 @@ const Card = () => {
                                         <VideosYoutube videoUrl={publicacion.UrlYoutube} />
                                     </div>
                                 )}
+                                {publicacion.InfoColonia.length > 0 && (
+                                    <div className="InfoColonia">
+                                        {publicacion.InfoColonia.map((info, infoIndex) => (
+                                            <Link to={`/Home/Colonias/${info.id_colonies}/${encodeURIComponent(info.s_name.toLowerCase().replace(/ /g, '-'))}`}>
+                                                <div className='Card-Articulo_content-colonia' key={infoIndex}>
+                                                    <img src={info.s_photo} alt="" />
+                                                    <div style={{ backgroundColor: info?.points.toString() }}>
+                                                        <p>{info.s_name}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                             {verAcciones[publicacion.IdPublicacion] && (
                                 <Acciones mostrarAcciones={() => handleAcciones(publicacion.IdPublicacion)}
@@ -251,37 +254,41 @@ const Card = () => {
                                 </p>
                             </div>
                             <div className='footer_action'>
-                                <div className="content-icono" onClick={() => toggleComentarios(publicacion.Comentarios, publicacion.IdPublicacion, publicacion.Titulo)}>
-                                    <IonIcon className='footer_comentario-icono icono' icon={chatbubbleOutline} />
-                                    <p> {publicacion.CantidadComentarios}</p>
-                                </div>
+                                <Link to={`/Home/Publicacion/${publicacion.IdPublicacion}/${encodeURIComponent(publicacion.Titulo.toLowerCase().replace(/ /g, '-'))}`}>
+                                    <div className="content-icono" >
+
+
+                                        <IonIcon className='footer_comentario-icono icono' icon={chatbubbleOutline} />
+                                        <p> {publicacion.CantidadComentarios}</p>
+
+                                    </div>
+                                </Link>
                                 <div className="content-icono">
                                     <Like idPublicacion={publicacion.IdPublicacion} idperfil={userState.IdPerfil} UserLikes={publicacion.UserLikes} />
                                     <p> {publicacion.Megustas}</p>
                                 </div>
                                 <IonIcon className='footer_share-icono icono' icon={shareOutline} onClick={() => handleAcciones(publicacion.IdPublicacion)} />
-                                <IonIcon className='footer_action-icono icono' icon={ellipsisHorizontalCircleOutline} onClick={() => handleAccionesDos(publicacion.IdPublicacion)}   />
+                                <IonIcon className='footer_action-icono icono' icon={ellipsisHorizontalCircleOutline} onClick={() => handleAccionesDos(publicacion.IdPublicacion)} />
 
                             </div>
                         </div>
                         <div>
                         </div>
-                        {isHovered[publicacion.IdPublicacion]  && <PreviewPerfil idPerfil={publicacion.IdPerfil} idPublicacion={publicacion.IdPublicacion} urlPerfil={publicacion.urlPerfil} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} />}
+                        {isHovered[publicacion.IdPublicacion] && <PreviewPerfil idPerfil={publicacion.IdPerfil} idPublicacion={publicacion.IdPublicacion} urlPerfil={publicacion.urlPerfil} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} />}
                     </div>
-                </div>
+                </div >
             ))}
-            {verComentarios && (
-                <CardComentarios mostrarComentarios={() => setVerComentarios(false)} comentarios={objetoComentarios} idPublicacion={idPublicacion} TituloPublicacion={tituloPublicacion} />
-            )}
-            {selectedImageIndex !== null && (
-                <ModalImagenes
-                    imageUrls={selectedImage}
-                    currentIndex={selectedImageIndex}
-                    onClose={closeModal}
-                    idPublicacion={idPublicacionImagenes}
-                />
-            )}
-        </div>
+            {
+                selectedImageIndex !== null && (
+                    <ModalImagenes
+                        imageUrls={selectedImage}
+                        currentIndex={selectedImageIndex}
+                        onClose={closeModal}
+                        idPublicacion={idPublicacionImagenes}
+                    />
+                )
+            }
+        </div >
     );
 };
 

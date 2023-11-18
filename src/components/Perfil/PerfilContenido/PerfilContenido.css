@@ -411,9 +411,20 @@
 
 @media screen and (max-width: 600px) {
 
+    .Fotos-content {
+        height: auto;
+        margin-bottom: 50%;
+    }
+
     .Fotos-content img {
-        max-width: 45%;
+        max-width: 100%;
         margin: 5px;
     }
+
+    .Diario-content {
+        margin-bottom: 50%;
+        height: auto;
+    }
+    
 
 }

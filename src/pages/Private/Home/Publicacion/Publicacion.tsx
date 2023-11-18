@@ -5,6 +5,7 @@ import Card from "../../../../components/Card/Card"
 import { getPublicaciones } from "../../../../services";
 import { useEffect, useState } from "react";
 import { Publicacion } from "../../../../models";
+import { CardComentarios } from "../../../../components/CardComentarios";
 
 
 const Publicaciones = () => {
@@ -36,7 +37,7 @@ const Publicaciones = () => {
     const ogUrl = window.location.href; // URL actual
 
     return (
-        <div>
+        <div className="Publicaciones">
             <Helmet>
                 <title>Antopia | {ogTitle}</title>
                 <meta name="description" content="Descripción de la página" />
@@ -47,6 +48,7 @@ const Publicaciones = () => {
             </Helmet>
             <PublicacionesProvider idTipo={0} idPerfil={0} idColonia={parseInt(idPublicacion)} opcion={6} hashtag="0">
                 <Card />
+                <CardComentarios  idPublicacion={parseInt(idPublicacion)} />
             </PublicacionesProvider>
         </div>
     )

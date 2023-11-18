@@ -290,7 +290,7 @@
 
     .Perfil nav ul {
         list-style: none;
-        display: block;
+        display: flex;
         align-items: normal;
     }
 
@@ -302,6 +302,22 @@
         display: block;
     }
 
+    .Perfil-Info-Datos {
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
+        height: 80px;
+        margin-top: 3%;
+        position: relative;
+    }
 
+    .Perfil-Info-Datos  p{
+        text-align: center;
+    }
 
+    .Perfil-Info-Datos button {
+        position: absolute;
+        bottom: 0;
+
+    }
 }

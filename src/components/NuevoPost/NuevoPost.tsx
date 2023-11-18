@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { IonIcon } from '@ionic/react';
-import { closeCircleOutline, happyOutline, cameraOutline } from 'ionicons/icons';
+import { closeCircleOutline, happyOutline, cameraOutline, shareOutline } from 'ionicons/icons';
+
 import './NuevoPost.css'
 import { Emoticones } from '../Emoticones';
 import { Link } from 'react-router-dom';
-import { Publicacion } from '../../models';
+import { Colonia, Publicacion } from '../../models';
 import { usePublicaciones } from '../../Context/PublicacionesContext';
 import { format } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
+import { getMiColonia } from '../../services';
 
 interface Props {
     tipo: number;
@@ -16,10 +18,12 @@ interface Props {
 }
 const NuevoPost: React.FC<Props> = (props) => {
     const [verPublicar, setVerPublicar] = useState(false);
+    const [verPublicarDos, setVerPublicarDos] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [textareaValue, setTextareaValue] = useState('');
     const [selectValue, setSelectValue] = useState('');
     const [hashtags, setHashtags] = useState<string>('');
+    const [grupo, setGrupo] = useState<Colonia | null>(null);
 
     const [verEmoticos, setVerEmoticos] = useState(false);
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -28,9 +32,13 @@ const NuevoPost: React.FC<Props> = (props) => {
     const [base64Images, setBase64Images] = useState<string[]>([]);
     const userState = useSelector((store: AppStore) => store.user);
 
- 
+
     const mostrarPublicar = () => {
         setVerPublicar(!verPublicar);
+    };
+
+    const mostrarPublicarDos = () => {
+        setVerPublicarDos(!verPublicarDos);
     };
 
     const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -90,13 +98,30 @@ const NuevoPost: React.FC<Props> = (props) => {
     useEffect(() => {
         const nuevosHashtags = capturarHashtags(textareaValue);
         setHashtags(nuevosHashtags);
+
+        if (props.tipo == 6) {
+            async function fetchPerfil() {
+                try {
+                    const fetchedPerfiles = await getMiColonia(Number(props.idColonia), userState.IdPerfil);
+                    if (fetchedPerfiles.length > 0) {
+                        setGrupo(fetchedPerfiles[0]);
+                    } else {
+                        setGrupo(null);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener el grupo:', error);
+                }
+            }
+            fetchPerfil();
+        }
+
     }, [textareaValue]);
 
 
 
     const handleImageInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-    
+
         if (files) {
             const imagePromises = Array.from(files).map(async (file) => {
                 return new Promise<{ url: string, base64: string }>((resolve, reject) => {
@@ -114,15 +139,15 @@ const NuevoPost: React.FC<Props> = (props) => {
                     reader.readAsDataURL(file);
                 });
             });
-    
+
             try {
                 const results = await Promise.all(imagePromises);
                 const imageUrls = results.map(result => result.url);
                 const base64ImagesArray = results.map(result => result.base64);
-    
+
                 setSelectedImages((prevImages) => [...prevImages, ...imageUrls]);
                 setBase64Images((prevBase64Images) => [...prevBase64Images, ...base64ImagesArray]);
-    
+
                 // Limpia los valores relacionados con YouTube
                 setYoutubeThumbnail('');
                 setYoutubeUrl('');
@@ -156,8 +181,10 @@ const NuevoPost: React.FC<Props> = (props) => {
             setSelectValue("3");
         } else if (props.tipo === 4) {
             setSelectValue("4");
-        }else if (props.tipo === 5) {
+        } else if (props.tipo === 5) {
             setSelectValue("5");
+        }else if (props.tipo === 6) {
+            setSelectValue("6");
         }
 
         updateContentBodyHeight();
@@ -207,8 +234,8 @@ const NuevoPost: React.FC<Props> = (props) => {
         }
     };
 
-    
-    
+
+
 
     const handleRemovePaste = () => {
         setYoutubeThumbnail('');
@@ -241,6 +268,7 @@ const NuevoPost: React.FC<Props> = (props) => {
         base64: [],
         hashtags: hashtags,
         Comentarios: [],
+        InfoColonia: [],
     };
 
     const handleAddPublicacion = () => {
@@ -265,28 +293,41 @@ const NuevoPost: React.FC<Props> = (props) => {
             setTextareaValue('');
             setSelectedImages([]);
             setBase64Images([]);
-            mostrarPublicar();
+
+            if (props.tipo == 6) {
+                mostrarPublicarDos();
+            }else{
+                mostrarPublicar();
+            }
+            
         }
     };
 
 
     return (
         <>
-            <div className="NuevoPost">
-                <div className="NuevoPost-perfil">
-                    <Link to={`/Home/Perfil/${userState.IdPerfil}/${userState.urlPerfil}`}>
-                        <img src={userState.ImagenPerfil} alt="" />
-                    </Link>
+            {props.tipo === 6 ? (
+                <div>
+                    <button className='MiGrupo-btn' onClick={mostrarPublicarDos}> <IonIcon icon={shareOutline} />Compartir</button>
                 </div>
-                <div className='NuevoPost-div' onClick={mostrarPublicar}>
-                    <p>¿Qué quieres publicar?</p>
+            ) : (
+                <div className="NuevoPost">
+                    <div className="NuevoPost-perfil">
+                        <Link to={`/Home/Perfil/${userState.IdPerfil}/${userState.urlPerfil}`}>
+                            <img src={userState.ImagenPerfil} alt="" />
+                        </Link>
+                    </div>
+                    <div className='NuevoPost-div' onClick={mostrarPublicar}>
+                        <p>¿Qué quieres publicar?</p>
+                    </div>
                 </div>
-            </div>
+            )}
+
             {verPublicar && (
                 <div className='NuevoPost-Publicar'>
                     <div className='NuevoPost-Publicar-content'>
                         <div className='CardComentarios-content_header'>
-                            <h2>Crear publicación</h2>
+                            <h2>Realiazar publicación</h2>
                             <div className='CardComentarios-content_header_cerrar'>
                                 <IonIcon className='Icono-cerrar' onClick={mostrarPublicar} icon={closeCircleOutline} />
                             </div>
@@ -302,15 +343,15 @@ const NuevoPost: React.FC<Props> = (props) => {
                                     value={selectValue}
                                     onChange={handleSelectChange} //
                                 >
-                                    { props.tipo === 2 ? (
+                                    {props.tipo === 2 ? (
                                         <option value="2">Cría de Hormigas</option>
                                     ) : props.tipo === 3 ? (
                                         <option value="3">Construcción de hormigueros</option>
                                     ) : props.tipo === 4 ? (
                                         <option value="4">Experimentos y técnicas</option>
-                                    ) : props.tipo === 5? (
+                                    ) : props.tipo === 5 ? (
                                         <option value="5">Publica en el grupo</option>
-                                    ): (
+                                    ) : (
                                         <>
                                             <option value="">Seleccione el tipo de publicación</option>
                                             <option value="1">General</option>
@@ -386,6 +427,76 @@ const NuevoPost: React.FC<Props> = (props) => {
                             </div>
                             <div className='NuevoPost-Publicar-buton'>
                                 <button onClick={handleAddPublicacion}>Publicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {verPublicarDos && (
+                <div className='NuevoPost-Publicar'>
+                    <div className='NuevoPost-Publicar-content'>
+                        <div className='CardComentarios-content_header'>
+                            <h2>Compartir Colonia</h2>
+                            <div className='CardComentarios-content_header_cerrar'>
+                                <IonIcon className='Icono-cerrar' onClick={mostrarPublicarDos} icon={closeCircleOutline} />
+                            </div>
+                        </div>
+                        <div className='NuevoPost-Publicar-post'>
+                            <div className="NuevoPost-Publicar-post-perfil">
+                                <img src={userState.ImagenPerfil} alt="" />
+                                <h4>{userState.NombrePerfil}</h4>
+                            </div>
+                            <div className='Select-publicar'>
+                                <select
+                                    name=""
+                                    value={selectValue}
+                                    onChange={handleSelectChange} //
+                                >
+                                    <option value="6">Compartir colonia</option>
+                                </select>
+                            </div>
+                            <input
+                                placeholder='Escribe el título de la publicación'
+                                name=""
+                                value={inputValue}
+                                onChange={handleInputValue}
+                            />
+                            <div className="NuevoPost-Publicar-post-Publicacion NuevoPost-compartir-colonia">
+                                <div className="NuevoPost-Publicar-post-Publicacion-textarea">
+                                    <textarea
+                                        placeholder='Escribe aquí tu publicación'
+                                        name=""
+                                        value={textareaValue}
+                                        onChange={handleTextareaInput}
+                                        className="auto-adjust"
+                                    />
+                                </div>
+                                <div className='Comentar-vista-imagenes'>
+                                    <div className='NuevoPost-compartirGrupo'>
+                                        <div className='NuevoPost-compartirGrupo-content'>
+                                            <img src={grupo?.s_photo} alt="" />
+                                            <div style={{ backgroundColor: grupo?.s_colors }}>
+                                                <p>{grupo?.s_name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='Comentar-input-acciones'>
+                                    <div>
+                                        <IonIcon onClick={mostrarEmoticos} className='iconos' icon={happyOutline} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='Emoticones-content'>
+                                {verEmoticos && (
+                                    <Emoticones
+                                        mostrarEmoticos={() => setVerEmoticos(!verEmoticos)}
+                                        onEmojiSelect={handleEmojiSelect}
+                                    />
+                                )}
+                            </div>
+                            <div className='NuevoPost-Publicar-buton'>
+                                <button onClick={handleAddPublicacion}>Compartir</button>
                             </div>
                         </div>
                     </div>

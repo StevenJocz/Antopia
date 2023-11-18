@@ -14,7 +14,7 @@ const Nav = () => {
     const userState = useSelector((store: AppStore) => store.user);
     return (
         <nav className="Layout-menu">
-            <img src={logo} alt="" />
+            <img src={logo} alt="Antopia" />
             <ul>
                 <Link to='/Home'><li className='bg-Icono_home'><img src={Home} alt="" />Inicio</li></Link>
                 <Link to='/Home/CriaHormigas'><li className='bg-Icono_Uno'><img src={IconAnt} alt="" />Cría de Hormigas</li></Link>

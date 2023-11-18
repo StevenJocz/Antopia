@@ -12,19 +12,16 @@ import 'swiper/css/navigation';
 export const SliderEcomerce = () => {
 
     const imagenes = [
-        "http://localhost:5239/ImagenesEcomerce/imagen1.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen2.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen3.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen4.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen5.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen2.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen3.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen4.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen5.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen2.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen3.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen4.jpg",
-        "http://localhost:5239/ImagenesEcomerce/imagen5.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen1.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
+        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
 
     ]
 

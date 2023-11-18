@@ -5,14 +5,18 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 380px;
-    z-index: 1000;
+    width: 90%;
+    padding: 30px;
+    z-index: 10001;
 }
 
+.NavResponsive  .NavResponsive-logo {
+    width: 80%;
+    margin-top: -50px;
+}
 .cerrarNavResponsive {
     display: flex;
     justify-content: right;
-    padding: 20px;
 }
 
 .cerrarNavResponsive-icono {
@@ -24,7 +28,7 @@
     padding: 5px;
     font-size: 15px;
     font-weight: 400;
-    margin-top: 2%;
+    margin-top: -5%;
 }
 
 .NavResponsive ul li {
@@ -126,5 +130,40 @@
     padding: 20px;
 }
 
+
+
+.NavResponsive-footernav {
+    padding: 10px;
+    margin-top: 10%;
+    
+}
+
+.NavResponsive-footernav a {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #d0d0d0dc;
+    line-height: 14px;
+    text-decoration: none;
+}
+
+.NavResponsive-footernav a:hover {
+    text-decoration-line: underline;
+    -moz-text-decoration-line: underline;
+}
+
+.NavResponsive-footernav p {
+    font-size: 14px;
+    color: #d0d0d0dc;
+    line-height: 14px;
+    margin-top: 10px;
+}
+
+
+.NavResponsive-footernav .desarrollado {
+    font-size: 10px;
+    color: #a6a6a6dc;
+    line-height: 14px;
+    cursor: pointer;
+}
 
 

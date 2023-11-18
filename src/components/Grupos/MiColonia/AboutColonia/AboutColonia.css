@@ -116,3 +116,32 @@
     -o-border-radius: 10px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+
+    .AboutColonia__content {
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .AboutColonia__soldados_info-content {
+        width: 100%;
+    }
+
+    .AboutColonia__soldados_info-img img{
+        height: 60px;
+    }
+
+    .AboutColonia__soldados_info {
+        display: flex;
+        align-items: normal;
+        margin-top: 2%;
+    }
+
+}

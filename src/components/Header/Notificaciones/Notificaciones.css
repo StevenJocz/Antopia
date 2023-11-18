@@ -13,6 +13,7 @@
     overflow: hidden;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: 1002;
 }
 
 .Notificaciones a {
@@ -138,6 +139,45 @@
     color: #fbfbfb;
 }
 
+.Notificaciones .Notificaciones-content-icono .icono-medalla {
+    background-color: #bdc179da;
+    font-size: 15px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: 5px;
+    color: #fbfbfb;
+}
+
+
+.Notificaciones .Notificaciones-content-icono .icono-colonia {
+    background-color: #a009d3da;
+    font-size: 15px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: 5px;
+    color: #fbfbfb;
+}
+
+.Notificaciones .Notificaciones-content-icono .icono-colonia-mas {
+    background-color: #09d353da;
+    font-size: 15px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: 5px;
+    color: #fbfbfb;
+}
+
+
+
 .Notificaciones .Notificaciones-content-icono {
     position: absolute;
     top: 60%;
@@ -185,7 +225,18 @@
 @media screen and (max-width: 600px) {
     
     .Notificaciones {
-        top: 130px;
+        padding: 10px;
+        width: 100%;
+        top: 65px;
+        max-height: 100vh;
+    }
+
+    .Notificaciones-header {
+        padding: 10px;
+    }
+
+    .div-Notificaciones {
+        padding:0 10px;
     }
     
 }

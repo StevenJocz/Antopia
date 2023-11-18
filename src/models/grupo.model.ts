@@ -12,6 +12,7 @@ export interface Colonia {
     s_colors: string;
     cantidadMembers: number;
     esmember: number;
+    points : number;
     userMembers: UserMember[];
 }
 
@@ -22,4 +23,11 @@ interface UserMember {
     urluser: string;
     level: number;
     siguiendo: number;
+}
+
+export interface ColoniaTop {
+    id_colonies: number;
+    s_name: string;
+    s_photo: string;
+    points: number;
 }

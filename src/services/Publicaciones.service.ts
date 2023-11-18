@@ -58,6 +58,13 @@ export const getPublicaciones = async (iduser: number, tipo: number, parametro: 
                     UserLikes: comentarioResponseItem.userLike,
                 })),
             })),
+            InfoColonia: item.infoColonia.map((coloniaItem: any) => ({
+                id_colonies: coloniaItem.id_colonies,
+                s_name: coloniaItem.s_name,
+                s_photo: coloniaItem.s_photo,
+                points: coloniaItem.colors,
+
+            })),
         }));
 
         return objetoMapeado;

@@ -61,5 +61,7 @@ export interface NotificacionUser {
     state: boolean;
     fechaCreacion: Date;
     urlPerfil:string;
+    nombreColonia:string;
+    idColonia: number;
 
 }

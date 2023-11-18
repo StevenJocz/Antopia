@@ -148,7 +148,9 @@ export const getNotificaciones = async (idUser: number) => {
             contenido: item.contenido,
             state: item.state,
             fechaCreacion: item.fechaCreacion,
-            urlPerfil: item.urlPerfil
+            urlPerfil: item.urlPerfil,
+            nombreColonia: item.nombreColonia,
+            idColonia: item.idColonia
         }));
 
         return Notificaciones;
@@ -192,6 +194,24 @@ export const getHayNotificacion = async (idUser: number) => {
         });
 
 
+        return response.data;
+    } catch (error) {
+        
+    }
+};
+
+export const getNivel = async (idUser: number) => {
+
+    const url = `${baseUrl}User/level?idUser=${idUser}`;
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return response.data;
     } catch (error) {
         

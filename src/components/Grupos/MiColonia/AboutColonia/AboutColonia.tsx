@@ -31,10 +31,10 @@ export const AboutColonia: React.FC<Props> = (props) => {
         </div>
         <div className="AboutColonia__header_info">
           <IonIcon className='Icono-About' icon={calendar} />
-          <p>Creado {format(new Date(grupo?.dt_creation || 0), "d 'de' MMMM 'de' yyyy")} por </p>
+          <p>Creado {format(new Date(grupo?.dt_creation || 0), "d 'de' MMMM 'de' yyyy")} por 
           <Link to={`/Home/Perfil/${grupo?.fk_tbl_user_creator}/${grupo?.name_creator.replace(/\s/g, '')}`}>
             @{grupo?.name_creator.replace(/\s/g, '')}
-          </Link>
+          </Link></p>
 
         </div>
       </div>
@@ -76,80 +76,84 @@ export const AboutColonia: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <div className="AboutColonia__Reinas">
-        <h3>Reinas</h3>
-        {grupo?.userMembers
-          .filter((miembro) => miembro.level == 6)
-          .map((miembro) => (
-            <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-              <div className="AboutColonia__soldados_info-img">
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  <img src={miembro.foto} alt={miembro.nombre} />
-                </Link>
-              </div>
-              <div className="AboutColonia__soldados_info-content">
-                <h4>{miembro.nombre}</h4>
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  @{miembro.nombre.replace(/\s/g, '')}
-                </Link>
-              </div>
-              {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                <div className="AboutColonia__soldados_info-seguir">
-                  <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+      <div className="AboutColonia__content">
+
+
+        <div className="AboutColonia__Reinas">
+          <h3>Reinas</h3>
+          {grupo?.userMembers
+            .filter((miembro) => miembro.level == 6)
+            .map((miembro) => (
+              <div className="AboutColonia__soldados_info" key={miembro.id_user}>
+                <div className="AboutColonia__soldados_info-img">
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    <img src={miembro.foto} alt={miembro.nombre} />
+                  </Link>
                 </div>
-              )}
-            </div>
-          ))}
-      </div>
-      <div className="AboutColonia__soldados">
-        <h3>Soldados</h3>
-        {grupo?.userMembers
-          .filter((miembro) => miembro.level === 5)
-          .map((miembro) => (
-            <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-              <div className="AboutColonia__soldados_info-img">
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  <img src={miembro.foto} alt={miembro.nombre} />
-                </Link>
-              </div>
-              <div className="AboutColonia__soldados_info-content">
-                <h4>{miembro.nombre}</h4>
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  @{miembro.nombre.replace(/\s/g, '')}
-                </Link>
-              </div>
-              {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                <div className="AboutColonia__soldados_info-seguir">
-                  <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                <div className="AboutColonia__soldados_info-content">
+                  <h4>{miembro.nombre}</h4>
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    @{miembro.nombre.replace(/\s/g, '')}
+                  </Link>
                 </div>
-              )}
-            </div>
-          ))}
-      </div>
-      <div className="AboutColonia__Members">
-        <h3>Miembros</h3>
-        {grupo?.userMembers
-          .filter((miembro) => miembro.level != 5 && miembro.level != 6)
-          .map((miembro) => (
-            <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-              <div className="AboutColonia__soldados_info-img">
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  <img src={miembro.foto} alt={miembro.nombre} />
-                </Link>
+                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
+                  <div className="AboutColonia__soldados_info-seguir">
+                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                  </div>
+                )}
               </div>
-              <div className="AboutColonia__soldados_info-content">
-                <h4>{miembro.nombre}</h4>
-                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                  @{miembro.nombre.replace(/\s/g, '')}
-                </Link>
-              </div>
-              {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                <div className="AboutColonia__soldados_info-seguir">
-                  <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+            ))}
+        </div>
+        <div className="AboutColonia__soldados">
+          <h3>Soldados</h3>
+          {grupo?.userMembers
+            .filter((miembro) => miembro.level === 5)
+            .map((miembro) => (
+              <div className="AboutColonia__soldados_info" key={miembro.id_user}>
+                <div className="AboutColonia__soldados_info-img">
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    <img src={miembro.foto} alt={miembro.nombre} />
+                  </Link>
                 </div>
-              )}
-            </div>
-          ))}
+                <div className="AboutColonia__soldados_info-content">
+                  <h4>{miembro.nombre}</h4>
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    @{miembro.nombre.replace(/\s/g, '')}
+                  </Link>
+                </div>
+                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
+                  <div className="AboutColonia__soldados_info-seguir">
+                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
+        <div className="AboutColonia__Members">
+          <h3>Miembros</h3>
+          {grupo?.userMembers
+            .filter((miembro) => miembro.level != 5 && miembro.level != 6)
+            .map((miembro) => (
+              <div className="AboutColonia__soldados_info" key={miembro.id_user}>
+                <div className="AboutColonia__soldados_info-img">
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    <img src={miembro.foto} alt={miembro.nombre} />
+                  </Link>
+                </div>
+                <div className="AboutColonia__soldados_info-content">
+                  <h4>{miembro.nombre}</h4>
+                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                    @{miembro.nombre.replace(/\s/g, '')}
+                  </Link>
+                </div>
+                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
+                  <div className="AboutColonia__soldados_info-seguir">
+                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )

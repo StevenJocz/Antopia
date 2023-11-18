@@ -11,6 +11,7 @@ import { NavResponsive } from '../Nav';
 import { Link } from 'react-router-dom';
 import { getHayNotificacion } from '../../services';
 import logo from '../../assets/imagenes/Logoants.png'
+import { TopBar } from '../TopBar';
 
 const Header = () => {
     const userState = useSelector((store: AppStore) => store.user);
@@ -72,7 +73,6 @@ const Header = () => {
         setVerNotificaciones(!verNotificaciones);
     }
 
-
     const handleVerMenu = () => {
         setVerMenu(!verMenu);
     }
@@ -123,10 +123,15 @@ const Header = () => {
                 )}
             </div>
             <div className={`MiPerfil ${miPerfil ? "active" : ""}`} ref={divMiPerfil} >
-                {miPerfil && <PerfilAcciones />}
+                {miPerfil && <PerfilAcciones  handleMiPerfil={() => setMiPerfil(false)} />}
             </div>
             {verMenu && <NavResponsive handleVerMenu={() => setVerMenu(false)} />}
-
+            <TopBar
+                handleVerMenu={() => setVerMenu(true)}
+                handleNotificaciones={() => handleNotificaciones()}
+                handleMiPerfil={() => setMiPerfil(true)} 
+                notificaciones={notificaciones}
+                />
         </div>
     )
 }

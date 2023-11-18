@@ -84,7 +84,7 @@ const Perfil = () => {
     const toggleFollowers = (accion: number) => {
         setAccion(accion);
         setFollowers(!followers);
-        
+
     };
 
 
@@ -139,14 +139,14 @@ const Perfil = () => {
                 </div>
             </div>
             <div className='Perfil-Info-Datos'>
-                        <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
-                        <p className='Perfil-Info-Datos-seguidores' onClick={() =>toggleFollowers(1)}><span>{perfil.Seguidores}</span> seguidores</p>
-                        <p className='Perfil-Info-Datos-seguidores'onClick={() =>toggleFollowers(2)}><span>{perfil.TotalSeguiendo}</span> Siguiendo</p>
-                        {!verEditarPerfil && (
-                            <BotonFollowers idPerfil={parseInt(idPerfil)} idSeguidor={userState.IdPerfil} Siguiendo={perfil.Siguiendo} />
-                        )}
-                    </div>
-                    
+                <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
+                <p className='Perfil-Info-Datos-seguidores' onClick={() => toggleFollowers(1)}><span>{perfil.Seguidores}</span> seguidores</p>
+                <p className='Perfil-Info-Datos-seguidores' onClick={() => toggleFollowers(2)}><span>{perfil.TotalSeguiendo}</span> Siguiendo</p>
+                {!verEditarPerfil && (
+                    <BotonFollowers idPerfil={parseInt(idPerfil)} idSeguidor={userState.IdPerfil} Siguiendo={perfil.Siguiendo} />
+                )}
+            </div>
+
             <nav>
                 <ul>
                     <Link to={`/Home/Perfil/${idPerfil}/${perfil.urlPerfil}`}><li><img src={notificacionesIcono} className="sidebar-icon" alt="" /> Publicaciones</li></Link>
@@ -167,7 +167,7 @@ const Perfil = () => {
                 />
             )}
             {followers && (
-                <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)} accion={accion}/>
+                <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)} accion={accion} />
             )}
 
         </div>

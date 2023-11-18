@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Level } from '../../Level';
 import { IonIcon } from '@ionic/react';
 import { search } from 'ionicons/icons';
+import imagenBuscar from '../../../assets/imagenes/buscar.png';
 
 interface Props {
   // handleVerBuscardor: () => void;
@@ -100,13 +101,21 @@ const Buscardor: React.FC<Props> = () => {
         />
         <IonIcon className='Header-buscador-icono' icon={search} />
 
+        <div className='Buscardor-navegar'>
+          <Link to={`/Home/Colonias/DescubreColonias`} >
+            <p>Buscar colonias</p>
+          </Link>
+        </div>
       </div>
+      <div>
 
+      </div>
       <div className="Buscardor-content">
 
         {inputBuscardor == '' && (
-          <div>
-            <p>Intenta buscar personas, especies o palabras clave</p>
+          <div className='Buscardor-content-null'>
+            <p>Explora Antopia: Busca a @personas, #hashtags, especies o palabras clave.</p>
+            <img src={imagenBuscar} alt="Antopia" />
           </div>
 
         )}
@@ -135,7 +144,7 @@ const Buscardor: React.FC<Props> = () => {
         {contieneHashtag(inputBuscardor) && (
           <div>
             {respuestaHashtags.map((hashtag, index) => (
-              <Link to={`Hashtag/${hashtag.Hashtag.slice(1)}`} key={hashtag.Hashtag}>
+              <Link to={`/Home/Hashtag/${hashtag.Hashtag.slice(1)}`} key={hashtag.Hashtag}>
                 <div className='Contenedor-Hashtag' key={index} >
                   <div className='Contenedor-Hashtag-icono'>
                     <p>#</p>

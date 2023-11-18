@@ -172,7 +172,7 @@ const Registro = () => {
                 s_user_gender: genero,
                 fk_user_address_city: 1, 
                 s_user_cellphone: telefono,
-                s_user_email: correo,
+                s_user_email: correo.toLowerCase(),
                 Password: contraseña,
                 s_userProfile: nombre.replace(/\s+/g, ''), 
                 s_userPhoto: fotoPerfilBase64,
@@ -414,6 +414,16 @@ const Registro = () => {
                         <Link to="/">Volver al iniciar sesión</Link>
                     </>
                 )}
+            </div>
+            <div className='footernav'>
+                <a href="">Términos de servicio</a>
+                <a href="">Política de privacidad</a>
+                <a href="">Política de cookies</a>
+                <a href="">Accesibilidad</a>
+                <a href="">Información de los anuncios</a>
+                <a href="">Más...</a>
+                <p>© 2023 Antopia. <span className='desarrollado'>Desarrollado por Steven Jocz</span></p>
+
             </div>
         </div >
     )

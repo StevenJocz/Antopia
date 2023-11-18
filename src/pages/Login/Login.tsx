@@ -33,7 +33,7 @@ const Login = () => {
       <div className='login__logo'>
         <img src={img} alt="" />
         <p>Únete a la comunidad en línea de amantes de las hormigas y descubre un paraíso utópico de pasión y conocimiento compartido.</p>
-        <button><Link to="/Registro">Únete</Link></button>      
+        <button><Link to="/Registro">Únete</Link></button>
       </div>
       <div className='login__container'>
         {componenteActual === ComponenteActual.IniciarSesion && (
@@ -42,6 +42,15 @@ const Login = () => {
         {componenteActual === ComponenteActual.Recordar && (
           <Recordarme mostrarIniciarSesion={() => setComponenteActual(ComponenteActual.IniciarSesion)} />
         )}
+      </div>
+      <div className='footernav'>
+        <a href="">Términos de servicio</a>
+        <a href="">Política de privacidad</a>
+        <a href="">Política de cookies</a>
+        <a href="">Accesibilidad</a>
+        <a href="">Información de los anuncios</a>
+        <a href="">Más...</a>
+        <p>© 2023 Antopia. <a  href="" className='desarrollado'>Desarrollado por Steven Jocz</a></p>
       </div>
     </div>
   );

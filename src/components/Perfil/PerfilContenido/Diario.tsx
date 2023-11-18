@@ -86,7 +86,7 @@ const Diario: React.FC<Props> = (props) => {
                                             <li> <LikeDiary idDiary={selectedDiario.id} idperfil={userState.IdPerfil} UserLikes={selectedDiario.UserLikes} />{selectedDiario.Megustas} </li>
                                             <li onClick={handdlemostrarComentariosDiario}><IonIcon className='Diario-content-boton-icono iconoComentar' icon={chatbubbleOutline} />{selectedDiario.comentarios}</li>
                                             {mostrarReDiario && (
-                                                <li className='Agregar-Registro' onClick={() => mostrarRegistrarDiario(false)}>¿Qué pasa en el mundo de tus hormigas hoy?</li>
+                                                <li className='Agregar-Registro' onClick={() => mostrarRegistrarDiario(false)}>¿Qué paso en mi colonia hoy?</li>
                                             )}
                                         </ul>
                                     </div>

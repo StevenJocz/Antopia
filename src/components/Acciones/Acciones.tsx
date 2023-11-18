@@ -14,7 +14,7 @@ const Acciones: React.FC<Props> = (props) => {
     const [compartir, setcompartir] = useState(false);
 
     const tituloCodificado = props.titulo.replace(/\s+/g, '').replace(/[^\w\s-]/g, '');
-    const urlACopiar = `https://antopia.site/Home/Publicacion/${props.idPublicacion}/${tituloCodificado}`; // Reemplaza con tu URL
+    const urlACopiar = `https://antopia.org/Home/Publicacion/${props.idPublicacion}/${tituloCodificado}`; // Reemplaza con tu URL
 
     const copiarAlPortapapeles = () => {
         navigator.clipboard.writeText(urlACopiar).then(() => {

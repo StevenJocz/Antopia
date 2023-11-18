@@ -15,10 +15,7 @@ import LikeComentarios from '../Like/LikeComentarios';
 import ComentariosRespuesta from './ComentariosRespuesta';
 
 interface Props {
-    mostrarComentarios: () => void;
     idPublicacion: number;
-    TituloPublicacion: string;
-    comentarios: Comentario[];
 }
 
 const CardComentarios: React.FC<Props> = (props) => {
@@ -35,9 +32,6 @@ const CardComentarios: React.FC<Props> = (props) => {
     const [verAgregarRespuesta, setVerAgregarRespuesta] = useState(false);
     const [idComentario, setIdComentario] = useState(0);
     const respuestaRef = useRef<HTMLDivElement | null>(null);
-
-
-    
 
     useEffect(() => {
         const cargarComentarios = async () => {
@@ -60,7 +54,7 @@ const CardComentarios: React.FC<Props> = (props) => {
     const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const textarea = event.target;
         textarea.style.height = 'auto';
-        textarea.style.height = `${textarea.scrollHeight}px`;
+        textarea.style.height = `${textarea.scrollHeight - 5}px`;
         setTextareaValue(textarea.value);
     };
 
@@ -74,7 +68,7 @@ const CardComentarios: React.FC<Props> = (props) => {
         } else {
             setVerAgregarRespuesta(true);
             setIdComentario(idComentario);
-    
+
             // Hacer scroll al elemento ComentariosRespuesta
             if (respuestaRef.current) {
                 respuestaRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -127,24 +121,12 @@ const CardComentarios: React.FC<Props> = (props) => {
                 contentBody.style.height = `calc(67vh - ${inputHeight}px)`;
             }
         };
-
-
-
         updateContentBodyHeight();
-
         window.addEventListener('resize', updateContentBodyHeight);
-
         return () => {
             window.removeEventListener('resize', updateContentBodyHeight);
         };
     }, [textareaValue, selectedImage]);
-
-    const handleTextareaKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            handleaddComentario();
-        }
-    };
 
     const handleaddComentario = () => {
 
@@ -179,11 +161,47 @@ const CardComentarios: React.FC<Props> = (props) => {
 
     return (
         <div className='CardComentarios'>
+            <h4>Comentarios</h4>
             <div className='CardComentarios-content'>
-                <div className='CardComentarios-content_header'>
-                    <h2>{props.TituloPublicacion}</h2>
-                    <div className='CardComentarios-content_header_cerrar'>
-                        <IonIcon className='Icono-cerrar' onClick={props.mostrarComentarios} icon={closeCircleOutline} />
+                <div className='Comentar'>
+
+                    <div className='Comentar-input'>
+                        <div className='Comentar-perfil'>
+                            <img src={userState.ImagenPerfil} alt="" />
+                        </div>
+                        <div className='Comentar-input-content'>
+                            <textarea
+                                name=""
+                                placeholder='Escribe un comentario...'
+                                value={textareaValue}
+                                onChange={handleTextareaInput}
+                                id="miTextarea"
+                                className="auto-adjust-textarea"
+                            />
+                            <div className='Card-Comentar-input-acciones'>
+                                <div>
+                                    <IonIcon onClick={mostrarEmoticos} className='iconoComentar' icon={happyOutline} />
+                                    <IonIcon className='iconoImagen' icon={cameraOutline} onClick={handleCameraIconClick} />
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        style={{ display: 'none' }}
+                                        ref={inputRef}
+                                        onChange={handleImageInputChange}
+                                    />
+                                </div>
+                                <div>
+                                    <IonIcon className='iconoEnviar' icon={paperPlaneOutline} onClick={handleaddComentario} />
+                                </div>
+                            </div>
+
+                            {selectedImage && (
+                                <div className='Comentar-input-preview'>
+                                    <img src={selectedImage} alt="Preview" />
+                                    <IonIcon className='Icono-cerrar' onClick={handleRemoveImage} icon={closeCircleOutline} />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className='CardComentarios-content_body'>
@@ -197,10 +215,10 @@ const CardComentarios: React.FC<Props> = (props) => {
                     {comentarios.slice().reverse().map((comentario) => (
                         <>
                             <div key={comentario.IdComentarios} className='content_body-comentario divComentario'>
-                                {comentario.comentariosRespuesta.length != 0  &&(
+                                {comentario.comentariosRespuesta.length != 0 && (
                                     <div className='hiloComentarios'></div>
                                 )}
-                                {(verAgregarRespuesta && idComentario === comentario.IdComentarios)  &&(
+                                {(verAgregarRespuesta && idComentario === comentario.IdComentarios) && (
                                     <div className='hiloComentarios'></div>
                                 )}
                                 <div className='content_body-comentario_perfil '>
@@ -209,9 +227,13 @@ const CardComentarios: React.FC<Props> = (props) => {
 
                                     </Link>
                                     <div className='content_body-comentario_content'>
-                                        <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
-                                            <h3>{comentario.NombrePerfilComentarios}</h3>
-                                        </Link>
+                                        <div>
+                                            <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
+                                                <h3>{comentario.NombrePerfilComentarios}</h3>
+                                            </Link>
+                                            <span className='fechaComentario'>{format(new Date(comentario.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                        </div>
+
                                         <p>{comentario.Comentario}</p>
                                     </div>
                                 </div>
@@ -230,11 +252,13 @@ const CardComentarios: React.FC<Props> = (props) => {
                                             UserLikes={comentario.UserLikes}
                                             tipo={1}
                                         />
-                                        <p>{comentario.megustaComentarios} Me gustas</p>
-                                        <IonIcon onClick={() => handleVerAgregarRespuesta(comentario.IdComentarios)} className='iconoPlus icono' icon={chatbubbleOutline} />
-                                        <p> Responder</p>
+                                        <p>{comentario.megustaComentarios}<span className='LetraMegusta'>Me gustas</span> </p>
+                                        <div className='boton-responder' onClick={() => handleVerAgregarRespuesta(comentario.IdComentarios)}>
+                                            <IonIcon className='iconoPlus icono' icon={chatbubbleOutline} />
+                                            <p> Responder</p>
+                                        </div>
+
                                     </div>
-                                    <span className=''>{format(new Date(comentario.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
                                 </div>
                             </div>
                             {verAgregarRespuesta && idComentario == comentario.IdComentarios && (
@@ -259,9 +283,12 @@ const CardComentarios: React.FC<Props> = (props) => {
                                                 <img src={respuesta.ImagenPerfilComentarios} alt="" />
                                             </Link>
                                             <div className='content_body-comentario_content-Response'>
-                                                <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
-                                                    <h3>{respuesta.NombrePerfilComentarios}</h3>
-                                                </Link>
+                                                <div>
+                                                    <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
+                                                        <h3>{respuesta.NombrePerfilComentarios}</h3>
+                                                    </Link>
+                                                    <span className='fechaComentario'>{format(new Date(respuesta.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                                </div>
                                                 <p>{respuesta.Comentario}</p>
                                             </div>
 
@@ -276,9 +303,9 @@ const CardComentarios: React.FC<Props> = (props) => {
                                                     UserLikes={respuesta.UserLikes}
                                                     tipo={2}
                                                 />
-                                                <p>{respuesta.megustaComentarios} Me gustas</p>
+                                                <p>{respuesta.megustaComentarios}<span className='LetraMegusta'>Me gustas</span></p>
                                             </div>
-                                            <span className=''>{format(new Date(respuesta.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+
                                         </div>
                                     </div>
                                 </div>
@@ -288,45 +315,7 @@ const CardComentarios: React.FC<Props> = (props) => {
                     ))}
 
                 </div>
-                <div className='Comentar'>
-                    <div className='Comentar-perfil'>
-                        <img src={userState.ImagenPerfil} alt="" />
-                    </div>
-                    <div className='Comentar-input'>
-                        <textarea
-                            name=""
-                            placeholder='Escribe un comentario...'
-                            value={textareaValue}
-                            onChange={handleTextareaInput}
-                            onKeyPress={handleTextareaKeyPress}
-                            id="miTextarea"
-                            className="auto-adjust-textarea"
-                        />
-                        <div className='Card-Comentar-input-acciones'>
-                            <div>
-                                <IonIcon onClick={mostrarEmoticos} className='iconoComentar' icon={happyOutline} />
-                                <IonIcon className='iconoImagen' icon={cameraOutline} onClick={handleCameraIconClick} />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    style={{ display: 'none' }}
-                                    ref={inputRef}
-                                    onChange={handleImageInputChange}
-                                />
-                            </div>
-                            <div>
-                                <IonIcon className='iconoEnviar' icon={paperPlaneOutline} onClick={handleaddComentario} />
-                            </div>
-                        </div>
 
-                        {selectedImage && (
-                            <div className='Comentar-input-preview'>
-                                <img src={selectedImage} alt="Preview" />
-                                <IonIcon className='Icono-cerrar' onClick={handleRemoveImage} icon={closeCircleOutline} />
-                            </div>
-                        )}
-                    </div>
-                </div>
                 <div className='Emoticones-content'>
                     {verEmoticos && (
                         <Emoticones

@@ -4,7 +4,6 @@ import './PreviewPerfil.css';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../../redux/store';
 import { InfoPerfil } from '../../../models';
-import { PropagateLoader } from 'react-spinners';
 import { Level } from '../../Level';
 import { BotonFollowers } from '../../BotonFollowers';
 import { Link } from 'react-router-dom';
@@ -20,7 +19,6 @@ interface Props {
 const PreviewPerfil: React.FC<Props> = (props) => {
     const userState = useSelector((store: AppStore) => store.user);
     const [perfil, setPerfil] = useState<InfoPerfil | null>(null);
-    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -35,25 +33,16 @@ const PreviewPerfil: React.FC<Props> = (props) => {
             } catch (error) {
                 console.error('Error al obtener el perfil:', error);
             } finally {
-                setLoading(false);
             }
         }
 
         if (props.idPerfil) {
-            setLoading(true);
             fetchPerfil();
         } else {
             setPerfil(null);
         }
     }, [props.idPerfil, userState.IdPerfil]);
 
-    if (loading) {
-        return (
-            <div className='PropagateLoader'>
-                <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
-            </div>
-        );
-    }
 
     if (!perfil) {
         return null;

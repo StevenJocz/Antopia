@@ -1,30 +1,72 @@
-
+/* .Compartir-Grupo {
+    position: absolute;
+    bottom: 40px;
+    right: 150px;
+} */
 
 .MiGrupo-navegacion {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2%;
+    margin-top: 10px;
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 20px;
 }
+
 
 .MiGrupo-navegacion a {
-    display: flex;
-    color: rgb(255, 255, 255);
     text-decoration: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #5903a4;
+    display: flex;
 }
 
-.MiGrupo-navegacion a p {
-    margin-left: -30px;
+.MiGrupo-navegacion a .volver-icono {
+    font-size: 20px;
+    margin-right: 10px;
+    color: aliceblue;
 }
 
-.MiGrupo-navegacion .volver-icono {
-    color: rgb(255, 255, 255);
-    font-size: 25px;
+.MiGrupo-navegacion p {
+    color: aliceblue;
 }
 
-.MiGrupo-navegacion h2{
-    color: rgba(255, 255, 255, 0.738);
-    font-size: 18px;
+
+.MiGrupo-puntos {
+    max-width: 120px;
+    height: 50px;
+    position: absolute;
+    bottom: 200px;
+    right: 20px;
+    border-radius: 100px 10px 40px 20px;
+    -webkit-border-radius: 100px 10px 40px 20px;
+    -moz-border-radius: 100px 10px 40px 20px;
+    -ms-border-radius: 100px 10px 40px 20px;
+    -o-border-radius: 100px 10px 40px 20px;
+    background-color: #5903a4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    padding: 15px;
+}
+
+.MiGrupo-puntos p {
+    display: block;
+}
+
+
+.MiGrupo-puntos span {
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .MiGrupo-portada {
@@ -42,7 +84,6 @@
     width: 100%;
     height: 180px;
     padding: 20px;
-    overflow: hidden;
 }
 
 .MiGrupo-info h2 {
@@ -111,6 +152,18 @@
     /* La sexta imagen estará en la parte inferior */
 }
 
+
+.MiGrupo-info .MiGrupo-info-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Compartir-Grupo {
+    display: flex;
+    justify-content: right;
+}
+
 .MiGrupo-btn {
     width: 100px;
     height: 40px;
@@ -121,8 +174,7 @@
     -o-border-radius: 10px;
     cursor: pointer;
     border: none;
-    position: absolute;
-    right: 0;
+    margin: 0 5px;
 }
 
 
@@ -161,4 +213,44 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+
+
+    .MiGrupo-info {
+        height: 250px;
+        padding: 30px 65px 30px 35px;
+    }
+
+    .MiGrupo-navegacion h2 {
+        display: none;
+
+    }
+
+    .MiGrupo-Menu ul a {
+        padding: 20px;
+        width: 33.3%;
+        font-size: 14px;
+    }
+
+    .MiGrupo-navegacion {
+        left: 40px;
+    }
+
+
+    .MiGrupo-puntos {
+        bottom: 270px;
+        right: 80px;
+    }
+
+    .MiGrupo-info .MiGrupo-info-content {
+        display: block;
+    }
+
 }

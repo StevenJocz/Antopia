@@ -16,7 +16,6 @@ const Publicaciones: React.FC<Props> = (props) => {
     return (
         <div className="Publicaciones-colonias">
             <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={grupo?.id_colonies ?? 0} opcion={4} hashtag="">
-                <h3>Publicaciones {grupo?.s_name}</h3>
                 {grupo?.esmember == 1 && (<NuevoPost tipo={5} idColonia={grupo.id_colonies} />)}
                 <Card />
             </PublicacionesProvider>

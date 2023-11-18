@@ -41,25 +41,31 @@ export const PostRegistrarUser = async (userData: userData) => {
     }
 };
 
-export const PostActualizarDatos = (idUser: string, tipo: string, dato: string) => {
+export const PostActualizarDatos = async (idUser: string, tipo: string, dato: string) => {
     const url = `${baseUrl}User/ActualizrDatos`;
+    const token = localStorage.getItem('token');
 
-    const requestData = {
+    const data = {
         idUser: idUser,
         tipo: tipo,
         dato: dato
     };
 
-    return fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    }).then(res => res.json());
+    try {
+        const response = await axios.put(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
 
-export const PostFollowers = async(idUser: number, id_follower: number, isfollower: number) => {
+export const PostFollowers = async (idUser: number, id_follower: number, isfollower: number) => {
     const url = `${baseUrl}User/Followers_User`;
     const token = localStorage.getItem('token');
 
@@ -70,13 +76,13 @@ export const PostFollowers = async(idUser: number, id_follower: number, isfollow
         isfollower: isfollower
     };
     try {
-        const response = await axios.post(url, data,{
+        const response = await axios.post(url, data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         });
-        
+
         return response.data;
     } catch (error) {
         throw error;

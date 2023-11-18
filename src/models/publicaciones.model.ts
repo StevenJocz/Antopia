@@ -1,3 +1,4 @@
+import { ColoniaTop } from ".";
 
 
 export interface Comentario {
@@ -37,6 +38,7 @@ export interface Publicacion {
     base64: string[];
     hashtags: string;
     Comentarios: Comentario[];
+    InfoColonia: ColoniaTop[];
 }
 
 

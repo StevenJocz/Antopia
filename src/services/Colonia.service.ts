@@ -123,4 +123,21 @@ export const getImagenesColonia = async (idColonia: number) => {
     }
 };
 
+export const getTopColonia = async () => {
+    const url = `${baseUrl}Colonia/topColonias`;
+    const token = localStorage.getItem('token');
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 
