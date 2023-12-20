@@ -114,6 +114,13 @@
     margin-bottom: 10px;
 }
 
+.Cargado-BarraProgreso {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 1024px) {}
 
 /* ========= MEDIA QUERIES (SMALL DEVICES) =======*/

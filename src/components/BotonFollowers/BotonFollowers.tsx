@@ -6,9 +6,10 @@ interface Props {
     idPerfil: number;
     idSeguidor: number;
     Siguiendo: number;
+    mostrar: () => void;
 }
 
-const BotonFollowers : React.FC<Props> = (props) => {
+const BotonFollowers: React.FC<Props> = (props) => {
 
     const [Siguiendo, setSiguiendo] = useState(props.Siguiendo);
 
@@ -19,13 +20,20 @@ const BotonFollowers : React.FC<Props> = (props) => {
 
 
     return (
+        <div>
+            <button
+                className="BotonFollowers"
+                onClick={() => toggleFollowers(Siguiendo === 0 ? 1 : 0)}
+            >
+                {Siguiendo === 0 ? "Seguir" : "Siguiendo"}
+            </button>
+            {Siguiendo === 1 && (
+                <button className='BotonFollowers-mensaje' onClick={props.mostrar}>Mesaje</button>
+            )}
+            
+        </div>
 
-        <button
-            className="BotonFollowers"
-            onClick={() => toggleFollowers(Siguiendo === 0 ? 1 : 0)}
-        >
-            {Siguiendo === 0 ? "Seguir" : "Siguiendo"}
-        </button>
+
 
     )
 }

@@ -42,6 +42,15 @@ const Slider: React.FC<Props> = () => {
         
     ]
 
+    const imagenesCautro  = [
+        "https://radio.antopia.org/assets/Imagenesantopia/1.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/2.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/3.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/4.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/5.png",
+        
+    ]
+
     const [imagenActual, setImagenActual] = useState(imagenes);
 
     useEffect(() => {
@@ -50,12 +59,14 @@ const Slider: React.FC<Props> = () => {
         
         // Condiciones para decidir qué lista de imágenes utilizar
         let nuevaLista;
-        if (randomValue < 0.33) {
-            nuevaLista = imagenes;
-        } else if (randomValue < 0.67) {
+        if (randomValue < 0.25) {
             nuevaLista = imagenesdos;
-        } else {
+        } else if (randomValue < 0.5) {
             nuevaLista = imagenestres;
+        } else if (randomValue < 0.75) {
+            nuevaLista = imagenesCautro;
+        } else {
+            nuevaLista = imagenes;
         }
     
         // Establecer la nueva lista de imágenes

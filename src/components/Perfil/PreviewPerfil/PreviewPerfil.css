@@ -90,3 +90,7 @@
     font-weight: 600;
     color: #fffefe;
 }
+
+.PreviewPerfil .BotonFollowers-mensaje {
+    display: none;
+}

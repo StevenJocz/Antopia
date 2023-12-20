@@ -12,16 +12,10 @@ import 'swiper/css/navigation';
 export const SliderEcomerce = () => {
 
     const imagenes = [
-        "https://antopia.site/ImagenesEcomerce/imagen1.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen2.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen3.jpg",
-        "https://antopia.site/ImagenesEcomerce/imagen4.jpg",
+        "https://radio.antopia.org/assets/Imagenesantopia/Ecomerce/imagen1.jpg",
+        "https://radio.antopia.org/assets/Imagenesantopia/Ecomerce/imagen2.jpg",
+        "https://radio.antopia.org/assets/Imagenesantopia/Ecomerce/imagen3.jpg",
+        "https://radio.antopia.org/assets/Imagenesantopia/Ecomerce/imagen4.jpg",
 
     ]
 
@@ -31,8 +25,6 @@ export const SliderEcomerce = () => {
                 slidesPerView={4}
                 spaceBetween={10}
                 loop={true}
-                
-
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
@@ -45,7 +37,6 @@ export const SliderEcomerce = () => {
                     <SwiperSlide key={index}>
                         <img src={img} alt="" />
                     </SwiperSlide>
-
                 ))}
             </Swiper>
 

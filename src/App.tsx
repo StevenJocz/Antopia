@@ -12,6 +12,7 @@ import { PropagateLoader } from 'react-spinners';
 import Registro from './pages/Login/Registro';
 import  Login from './pages/Login/Login';
 import Private  from './pages/Private/Private';
+import Inicio from './pages/Inicio/Inicio';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,6 +41,7 @@ function App() {
               <RoutesWithNotFound>
                 <Route path="/Dashboard" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
                 <Route path={PublicRoutes.Home} element={<Login />} />
+                <Route path={`${PublicRoutes.Inicio}/*`} element={<Inicio />} />
                 <Route path={PublicRoutes.Registro} element={<Registro />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard rol={Roles.ADMIN} />}>

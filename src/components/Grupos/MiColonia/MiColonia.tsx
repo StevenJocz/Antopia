@@ -13,6 +13,7 @@ import { PostUnirmeColonia } from '../../../services';
 import { Helmet } from 'react-helmet';
 import { PublicacionesProvider } from '../../../Context/PublicacionesContext';
 import { NuevoPost } from '../../NuevoPost';
+import { ChatColonia } from '../../Chat';
 
 const MiColonia = () => {
 
@@ -20,8 +21,11 @@ const MiColonia = () => {
     const [grupo, setGrupo] = useState<Colonia | null>(null);
     const [esMiembro, setEsMiembro] = useState<number>(0);
     const location = useLocation();
+    const [verChatColonia, setVerChatColonia] = useState(false);
 
-
+    const handdleVerChatColonia = () => {
+        setVerChatColonia(!verChatColonia);
+    };
     const idgrupo = location.pathname.split("/")[3];
     useEffect(() => {
         async function fetchPerfil() {
@@ -59,6 +63,7 @@ const MiColonia = () => {
             } else if (resultado.resultado == true && esMiembro == 0) {
                 setEsMiembro(1)
             }
+            window.location.reload();
         } catch (error) {
         }
     }
@@ -100,6 +105,10 @@ const MiColonia = () => {
 
                             <div className='Compartir-Grupo'>
                                 <button className='MiGrupo-btn' onClick={handleUnirmeColonia}>{esMiembro == 1 ? 'Abandonar' : 'Unirme'}</button>
+                                {esMiembro == 1 && (
+                                    <button className='MiGrupo-btn' onClick={handdleVerChatColonia}>Chat</button>
+                                )}
+
                                 <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={1} hashtag="">
                                     <NuevoPost tipo={6} idColonia={parseInt(idgrupo)} />
                                 </PublicacionesProvider>
@@ -121,8 +130,21 @@ const MiColonia = () => {
                 <div>
                     <MicoloniaRouter grupo={grupo} />
                 </div>
+                {verChatColonia && (
+                    <div className='Chat'>
+                        <div className='Chat-center'>
+                            <ChatColonia
+                                idColonia={parseInt(idgrupo)}
+                                handleVerColonia={handdleVerChatColonia}
+                                handleVerPerviaChat={handdleVerChatColonia}
 
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
+
+
         </>
     )
 }

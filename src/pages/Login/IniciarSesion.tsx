@@ -113,7 +113,7 @@ const IniciarSesion: React.FC<IniciarProps> = (props) => {
                             </div>
                             <div className="login__container__group">
                                 <Field
-                                     type={showPassword ? 'text' : 'password'}
+                                    type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     placeholder='*******'
                                     className={errors.password ? 'Input_Border_Red' : ''}

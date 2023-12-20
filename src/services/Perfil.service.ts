@@ -159,6 +159,28 @@ export const getNotificaciones = async (idUser: number) => {
     }
 };
 
+export const MarcaNotificacionesNoLeidas = async (idUser: number) => { 
+    const url = baseUrl + 'Notificaciones/MarcaNotificacionesNoLeidas';
+    const token = localStorage.getItem('token');
+    const data = {
+        "id_user": idUser 
+    };
+    
+    console.log(data)
+    try {
+        const response = await axios.post(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 
 export const CambiarEstadoNotificacion = async (idNotification: number) => { 
     const url = baseUrl + 'Notificaciones/CambiarEstadoNotificacion';

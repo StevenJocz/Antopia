@@ -1,14 +1,14 @@
 
 
-
 .CardComentarios-content {
     width: 100%;
+    height: auto;
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    position: relative;
+    background-color: #289eed;
 }
 
 .Emoticones-content {
@@ -42,25 +42,10 @@
 
 .CardComentarios-content_body {
     width: 100%;
-    height: auto;
+    margin-top: 30px;
+    margin-bottom: 150px;
 }
 
-.CardComentarios-content_body::-webkit-scrollbar {
-    width: 5px;
-}
-
-.CardComentarios-content_body::-webkit-scrollbar-thumb {
-    background-color: #fbfbfb;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-}
-
-.CardComentarios-content_body::-webkit-scrollbar-track {
-    background-color: #262b34;
-}
 
 .content_body-comentario {
     padding: 1px;
@@ -281,7 +266,7 @@
     cursor: pointer;
 }
 
-.CardComentarios h4{
+.CardComentarios h4 {
     margin: 5% 0 10px 0;
 }
 
@@ -453,6 +438,7 @@
 }
 
 
+
 @media screen and (max-width: 1024px) {}
 
 /* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
@@ -494,7 +480,7 @@
         white-space: pre-line;
     }
 
-    
+
     .Publicaciones .Card {
         margin-bottom: 0;
     }

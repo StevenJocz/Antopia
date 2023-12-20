@@ -21,6 +21,7 @@ import { Followers } from '../Followers';
 import './Perfil.css'
 import { Level } from '../Level';
 import { PropagateLoader } from 'react-spinners';
+import ChatView from '../Chat/ChatView';
 
 const Perfil = () => {
     const userState = useSelector((store: AppStore) => store.user);
@@ -32,6 +33,12 @@ const Perfil = () => {
     const [perfil, setPerfil] = useState<InfoPerfil | null>(null);
     const location = useLocation();
     const idPerfil = location.pathname.split("/")[3];
+    const [verChat, setVerChat] = useState(false);
+
+
+    const handdleVerChat = () => {
+        setVerChat(!verChat);
+    };
 
     useEffect(() => {
         async function fetchPerfil() {
@@ -70,11 +77,7 @@ const Perfil = () => {
     const backgroundImageUrl = perfil.ImagenPortada;
     const profileImageUrl = perfil.ImagenPerfil || '';
 
-    const back = {
-        backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: 'cover',
-        backgroundPositionY: '35%',
-    };
+
 
     const toggleConfiguracion = (tipo: number) => {
         setTipo(tipo);
@@ -101,7 +104,8 @@ const Perfil = () => {
                 <meta property="og:description" content={ogDescription} />
                 <meta property="og:image" content={ogImage[0]} />
             </Helmet>
-            <div className='Perfil-portada' style={back}>
+            <div className='Perfil-portada'>
+                <img src={backgroundImageUrl} alt="" />
                 {verEditarPerfil && (
                     <div className='Cambio__Perfil-portada' onClick={() => toggleConfiguracion(3)}>
                         <IonIcon icon={imageOutline} />
@@ -142,9 +146,17 @@ const Perfil = () => {
                 <p><span>{perfil.CantidadPublicaciones}</span> publicaciones</p>
                 <p className='Perfil-Info-Datos-seguidores' onClick={() => toggleFollowers(1)}><span>{perfil.Seguidores}</span> seguidores</p>
                 <p className='Perfil-Info-Datos-seguidores' onClick={() => toggleFollowers(2)}><span>{perfil.TotalSeguiendo}</span> Siguiendo</p>
-                {!verEditarPerfil && (
-                    <BotonFollowers idPerfil={parseInt(idPerfil)} idSeguidor={userState.IdPerfil} Siguiendo={perfil.Siguiendo} />
-                )}
+                <div>
+                    {!verEditarPerfil && (
+                        <BotonFollowers
+                            idPerfil={parseInt(idPerfil)}
+                            idSeguidor={userState.IdPerfil}
+                            Siguiendo={perfil.Siguiendo}
+                            mostrar={handdleVerChat}
+                        />
+                    )}
+                    
+                </div>
             </div>
 
             <nav>
@@ -169,6 +181,21 @@ const Perfil = () => {
             {followers && (
                 <Followers idUser={parseInt(idPerfil)} mostrarFollowers={() => setFollowers(false)} accion={accion} />
             )}
+
+            {verChat && (
+                <div className='Chat'>
+                    <div className='Chat-center'>
+                        <ChatView
+                            idPerfil={parseInt(idPerfil)}
+                            handleVerViewChat={() => handdleVerChat()}
+                            handleVerPerviaChat={() => handdleVerChat()}
+
+                        />
+                    </div>
+                </div>
+            )}
+
+
 
         </div>
     );

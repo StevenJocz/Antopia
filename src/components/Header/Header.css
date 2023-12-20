@@ -52,15 +52,36 @@
 .Header-menu .Header-menu-icono {
     font-size: 20px;
 }
+.Header-menu-contect-chat {
+    position: relative;
+}
+
+.Header-menu-contect-chat span {
+    width: 23px;
+    height: 23px;
+    background-color: #2ecd63;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
 
 .Header-menu-contect-notificacion {
     position: relative;
 }
 
 .Header-menu-contect-notificacion span {
-    width: 15px;
-    height: 15px;
-    background-color: #71ddf5;
+    width: 20px;
+    height: 20px;
+    background-color: #1ab2e9;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;

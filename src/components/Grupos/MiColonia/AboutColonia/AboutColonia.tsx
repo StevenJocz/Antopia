@@ -16,6 +16,9 @@ interface Props {
 export const AboutColonia: React.FC<Props> = (props) => {
   const userState = useSelector((store: AppStore) => store.user);
   const { grupo } = props;
+
+  const handleM = () => {};
+  
   return (
     <div className="AboutColonia">
       <div className="AboutColonia__header">
@@ -31,10 +34,10 @@ export const AboutColonia: React.FC<Props> = (props) => {
         </div>
         <div className="AboutColonia__header_info">
           <IonIcon className='Icono-About' icon={calendar} />
-          <p>Creado {format(new Date(grupo?.dt_creation || 0), "d 'de' MMMM 'de' yyyy")} por 
-          <Link to={`/Home/Perfil/${grupo?.fk_tbl_user_creator}/${grupo?.name_creator.replace(/\s/g, '')}`}>
-            @{grupo?.name_creator.replace(/\s/g, '')}
-          </Link></p>
+          <p>Creado {format(new Date(grupo?.dt_creation || 0), "d 'de' MMMM 'de' yyyy")} por
+            <Link to={`/Home/Perfil/${grupo?.fk_tbl_user_creator}/${grupo?.name_creator.replace(/\s/g, '')}`}>
+              @{grupo?.name_creator.replace(/\s/g, '')}
+            </Link></p>
 
         </div>
       </div>
@@ -98,7 +101,12 @@ export const AboutColonia: React.FC<Props> = (props) => {
                 </div>
                 {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
                   <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                    <BotonFollowers
+                      idPerfil={miembro.id_user}
+                      idSeguidor={userState.IdPerfil}
+                      Siguiendo={miembro.siguiendo}
+                      mostrar={handleM}
+                    />
                   </div>
                 )}
               </div>
@@ -123,7 +131,12 @@ export const AboutColonia: React.FC<Props> = (props) => {
                 </div>
                 {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
                   <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                    <BotonFollowers
+                      idPerfil={miembro.id_user}
+                      idSeguidor={userState.IdPerfil}
+                      Siguiendo={miembro.siguiendo}
+                      mostrar={handleM}
+                    />
                   </div>
                 )}
               </div>
@@ -148,7 +161,12 @@ export const AboutColonia: React.FC<Props> = (props) => {
                 </div>
                 {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
                   <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers idPerfil={miembro.id_user} idSeguidor={userState.IdPerfil} Siguiendo={miembro.siguiendo} />
+                    <BotonFollowers
+                      idPerfil={miembro.id_user}
+                      idSeguidor={userState.IdPerfil}
+                      Siguiendo={miembro.siguiendo}
+                      mostrar={handleM}
+                    />
                   </div>
                 )}
               </div>

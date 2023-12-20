@@ -1,0 +1,116 @@
+.Inicio_Layout-sidebar-right {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.Inicio_Layout-sidebar-right-inicio  {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 30px;
+    display: none;
+}
+
+
+.Inicio_Layout-sidebar-right h1, .Inicio_Layout-sidebar-right-inicio h1{
+    font-weight: 900;
+    font-size: 35px;
+    letter-spacing: -1.2px;
+    line-height: 40px;
+    color: #8e0dfe;
+}
+
+
+.Inicio_Layout-sidebar-right h2, .Inicio_Layout-sidebar-right-inicio h2 {
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+    line-height: 30px;
+    color: aliceblue;
+    display: flex;
+    margin-bottom: 35px;
+}
+
+.Inicio_Layout-sidebar-right a , .Inicio_Layout-sidebar-right-inicio a {
+    padding: 8px 80px;
+    font-size: 22px;
+    background-color: #8f0fffa9;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.Inicio .Layout-top {
+    width: 100%;
+    height: 70px;
+    padding: 15px 120px 15px 15px;
+    display: flex;
+    justify-content: right;
+}
+
+.Inicio-Header-logo {
+    display: none;
+}
+
+
+.Inicio .Layout-top a {
+    text-align: center;
+    width: 150px;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #ffffff;
+    border: none;
+    color: #030303;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.Inicio .Comentar-input, .Inicio .boton-responder, .Inicio .content_body-comentario_perfil_calificacion{
+    display: none;
+}
+
+.Inicio .content_body-comentario_perfil {
+    margin: 10px 0;
+}
+
+
+
+@media screen and (max-width: 1024px) {}
+
+/* ========= MEDIA QUERIES (SMALL DEVICES) =======*/
+
+@media screen and (max-width: 600px) {
+    .Inicio_Layout-sidebar-right-inicio {
+        display: block;
+    }
+
+    .Inicio .Layout-top {
+        width: 100%;
+        height: 70px;
+        padding: 15px 15px 15px 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Inicio-Header-logo {
+        display: block;
+    }
+
+    .Inicio-Header-logo  img {
+        width: 100px;
+    }
+
+    .Inicio .Layout-top a {
+        text-align: center;
+        width: 100px;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .Inicio .NavResponsive {
+        z-index: 10000;
+    }
+
+}

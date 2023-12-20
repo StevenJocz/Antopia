@@ -110,23 +110,7 @@ const CardComentarios: React.FC<Props> = (props) => {
         }
     };
 
-    useEffect(() => {
-        const contentBody = document.querySelector('.CardComentarios-content_body') as HTMLElement;
-        const comentarInput = document.querySelector('.Comentar-input') as HTMLElement;
-        const input = document.querySelector('.auto-adjust-textarea') as HTMLTextAreaElement;
 
-        const updateContentBodyHeight = () => {
-            if (contentBody && comentarInput && input) {
-                const inputHeight = comentarInput.clientHeight;
-                contentBody.style.height = `calc(67vh - ${inputHeight}px)`;
-            }
-        };
-        updateContentBodyHeight();
-        window.addEventListener('resize', updateContentBodyHeight);
-        return () => {
-            window.removeEventListener('resize', updateContentBodyHeight);
-        };
-    }, [textareaValue, selectedImage]);
 
     const handleaddComentario = () => {
 
@@ -162,170 +146,166 @@ const CardComentarios: React.FC<Props> = (props) => {
     return (
         <div className='CardComentarios'>
             <h4>Comentarios</h4>
-            <div className='CardComentarios-content'>
-                <div className='Comentar'>
-
-                    <div className='Comentar-input'>
-                        <div className='Comentar-perfil'>
-                            <img src={userState.ImagenPerfil} alt="" />
-                        </div>
-                        <div className='Comentar-input-content'>
-                            <textarea
-                                name=""
-                                placeholder='Escribe un comentario...'
-                                value={textareaValue}
-                                onChange={handleTextareaInput}
-                                id="miTextarea"
-                                className="auto-adjust-textarea"
-                            />
-                            <div className='Card-Comentar-input-acciones'>
-                                <div>
-                                    <IonIcon onClick={mostrarEmoticos} className='iconoComentar' icon={happyOutline} />
-                                    <IonIcon className='iconoImagen' icon={cameraOutline} onClick={handleCameraIconClick} />
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        style={{ display: 'none' }}
-                                        ref={inputRef}
-                                        onChange={handleImageInputChange}
-                                    />
-                                </div>
-                                <div>
-                                    <IonIcon className='iconoEnviar' icon={paperPlaneOutline} onClick={handleaddComentario} />
-                                </div>
+            <div className='Comentar'>
+                <div className='Comentar-input'>
+                    <div className='Comentar-perfil'>
+                        <img src={userState.ImagenPerfil} alt="" />
+                    </div>
+                    <div className='Comentar-input-content'>
+                        <textarea
+                            name=""
+                            placeholder='Escribe un comentario...'
+                            value={textareaValue}
+                            onChange={handleTextareaInput}
+                            id="miTextarea"
+                            className="auto-adjust-textarea"
+                        />
+                        <div className='Card-Comentar-input-acciones'>
+                            <div>
+                                <IonIcon onClick={mostrarEmoticos} className='iconoComentar' icon={happyOutline} />
+                                <IonIcon className='iconoImagen' icon={cameraOutline} onClick={handleCameraIconClick} />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    ref={inputRef}
+                                    onChange={handleImageInputChange}
+                                />
                             </div>
-
-                            {selectedImage && (
-                                <div className='Comentar-input-preview'>
-                                    <img src={selectedImage} alt="Preview" />
-                                    <IonIcon className='Icono-cerrar' onClick={handleRemoveImage} icon={closeCircleOutline} />
-                                </div>
-                            )}
+                            <div>
+                                <IonIcon className='iconoEnviar' icon={paperPlaneOutline} onClick={handleaddComentario} />
+                            </div>
                         </div>
+
+                        {selectedImage && (
+                            <div className='Comentar-input-preview'>
+                                <img src={selectedImage} alt="Preview" />
+                                <IonIcon className='Icono-cerrar' onClick={handleRemoveImage} icon={closeCircleOutline} />
+                            </div>
+                        )}
                     </div>
                 </div>
-                <div className='CardComentarios-content_body'>
-                    {comentarios.length === 0 && (
-                        <div className='sincomentarios'>
-                            <h3> ¡Tu opinión es valiosa! Sé el primero en compartir tus pensamientos sobre esta publicación. </h3>
-                            <img src={comentar} alt="" />
+            </div>
+            <div className='CardComentarios-content_body'>
+                {comentarios.length === 0 && (
+                    <div className='sincomentarios'>
+                        <h3> ¡Tu opinión es valiosa! Sé el primero en compartir tus pensamientos sobre esta publicación. </h3>
+                        <img src={comentar} alt="" />
+                    </div>
+
+                )}
+                {comentarios.slice().reverse().map((comentario) => (
+                    <>
+                        <div key={comentario.IdComentarios} className='content_body-comentario divComentario'>
+                            {comentario.comentariosRespuesta.length != 0 && (
+                                <div className='hiloComentarios'></div>
+                            )}
+                            {(verAgregarRespuesta && idComentario === comentario.IdComentarios) && (
+                                <div className='hiloComentarios'></div>
+                            )}
+                            <div className='content_body-comentario_perfil '>
+                                <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
+                                    <img src={comentario.ImagenPerfilComentarios} alt="" />
+
+                                </Link>
+                                <div className='content_body-comentario_content'>
+                                    <div>
+                                        <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
+                                            <h3>{comentario.NombrePerfilComentarios}</h3>
+                                        </Link>
+                                        <span className='fechaComentario'>{format(new Date(comentario.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                    </div>
+
+                                    <p>{comentario.Comentario}</p>
+                                </div>
+                            </div>
+                            <div className='content_body-comentario-imagen'>
+                                {comentario?.imagenComentario != '' && (
+                                    <img src={comentario.imagenComentario} alt="" />
+                                )}
+                            </div>
+                            <div className="content_body-comentario_perfil_calificacion">
+                                <div>
+                                    <LikeComentarios
+                                        idPublicacion={props.idPublicacion}
+                                        idComentario={comentario.IdComentarios}
+                                        idRespuesta={0}
+                                        idperfil={userState.IdPerfil}
+                                        UserLikes={comentario.UserLikes}
+                                        tipo={1}
+                                    />
+                                    <p>{comentario.megustaComentarios}<span className='LetraMegusta'>Me gustas</span> </p>
+                                    <div className='boton-responder' onClick={() => handleVerAgregarRespuesta(comentario.IdComentarios)}>
+                                        <IonIcon className='iconoPlus icono' icon={chatbubbleOutline} />
+                                        <p> Responder</p>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+                        {verAgregarRespuesta && idComentario == comentario.IdComentarios && (
+                            <div className='respuestaComentario'>
+                                {comentario.comentariosRespuesta.length !== 0 && <div className='hiliRespuesta'></div>}
+                                <ComentariosRespuesta
+                                    ref={respuestaRef}
+                                    mostrarRespuestaComentario={() => setVerAgregarRespuesta(false)}
+                                    idComentario={idComentario}
+                                    idPublicacion={props.idPublicacion}
+                                />
+                            </div>
+                        )}
+                        {comentario.comentariosRespuesta.slice().reverse().map((respuesta, index) => (
+                            <div className='respuestaComentario' key={respuesta.IdResponse}>
+                                {index !== comentario.comentariosRespuesta.length - 1 && <div className='hiliRespuesta'></div>}
+                                <div key={respuesta.IdResponse} className='content_body-comentario-Response'>
 
-                    )}
-                    {comentarios.slice().reverse().map((comentario) => (
-                        <>
-                            <div key={comentario.IdComentarios} className='content_body-comentario divComentario'>
-                                {comentario.comentariosRespuesta.length != 0 && (
-                                    <div className='hiloComentarios'></div>
-                                )}
-                                {(verAgregarRespuesta && idComentario === comentario.IdComentarios) && (
-                                    <div className='hiloComentarios'></div>
-                                )}
-                                <div className='content_body-comentario_perfil '>
-                                    <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
-                                        <img src={comentario.ImagenPerfilComentarios} alt="" />
+                                    <div className='content_body-comentario_perfil-Response'>
+                                        <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
 
-                                    </Link>
-                                    <div className='content_body-comentario_content'>
-                                        <div>
-                                            <Link to={`/Home/Perfil/${comentario.IdPerfilComentarios}/${comentario.urlPerfil}`}>
-                                                <h3>{comentario.NombrePerfilComentarios}</h3>
-                                            </Link>
-                                            <span className='fechaComentario'>{format(new Date(comentario.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                            <img src={respuesta.ImagenPerfilComentarios} alt="" />
+                                        </Link>
+                                        <div className='content_body-comentario_content-Response'>
+                                            <div>
+                                                <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
+                                                    <h3>{respuesta.NombrePerfilComentarios}</h3>
+                                                </Link>
+                                                <span className='fechaComentario'>{format(new Date(respuesta.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
+                                            </div>
+                                            <p>{respuesta.Comentario}</p>
                                         </div>
 
-                                        <p>{comentario.Comentario}</p>
                                     </div>
-                                </div>
-                                <div className='content_body-comentario-imagen'>
-                                    {comentario?.imagenComentario != '' && (
-                                        <img src={comentario.imagenComentario} alt="" />
-                                    )}
-                                </div>
-                                <div className="content_body-comentario_perfil_calificacion">
-                                    <div>
-                                        <LikeComentarios
-                                            idPublicacion={props.idPublicacion}
-                                            idComentario={comentario.IdComentarios}
-                                            idRespuesta={0}
-                                            idperfil={userState.IdPerfil}
-                                            UserLikes={comentario.UserLikes}
-                                            tipo={1}
-                                        />
-                                        <p>{comentario.megustaComentarios}<span className='LetraMegusta'>Me gustas</span> </p>
-                                        <div className='boton-responder' onClick={() => handleVerAgregarRespuesta(comentario.IdComentarios)}>
-                                            <IonIcon className='iconoPlus icono' icon={chatbubbleOutline} />
-                                            <p> Responder</p>
+                                    <div className="content_body-comentario_perfil_calificacion calificacion-response">
+                                        <div>
+                                            <LikeComentarios
+                                                idPublicacion={props.idPublicacion}
+                                                idComentario={respuesta.IdComentarios}
+                                                idRespuesta={respuesta.IdResponse}
+                                                idperfil={userState.IdPerfil}
+                                                UserLikes={respuesta.UserLikes}
+                                                tipo={2}
+                                            />
+                                            <p>{respuesta.megustaComentarios}<span className='LetraMegusta'>Me gustas</span></p>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                            {verAgregarRespuesta && idComentario == comentario.IdComentarios && (
-                                <div className='respuestaComentario'>
-                                    {comentario.comentariosRespuesta.length !== 0 && <div className='hiliRespuesta'></div>}
-                                    <ComentariosRespuesta
-                                        ref={respuestaRef}
-                                        mostrarRespuestaComentario={() => setVerAgregarRespuesta(false)}
-                                        idComentario={idComentario}
-                                        idPublicacion={props.idPublicacion}
-                                    />
-                                </div>
-                            )}
-                            {comentario.comentariosRespuesta.slice().reverse().map((respuesta, index) => (
-                                <div className='respuestaComentario' key={respuesta.IdResponse}>
-                                    {index !== comentario.comentariosRespuesta.length - 1 && <div className='hiliRespuesta'></div>}
-                                    <div key={respuesta.IdResponse} className='content_body-comentario-Response'>
+                        ))}
 
-                                        <div className='content_body-comentario_perfil-Response'>
-                                            <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
-
-                                                <img src={respuesta.ImagenPerfilComentarios} alt="" />
-                                            </Link>
-                                            <div className='content_body-comentario_content-Response'>
-                                                <div>
-                                                    <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
-                                                        <h3>{respuesta.NombrePerfilComentarios}</h3>
-                                                    </Link>
-                                                    <span className='fechaComentario'>{format(new Date(respuesta.FechaComentario), "dd 'de' MMMM 'a las' HH:mm")}</span>
-                                                </div>
-                                                <p>{respuesta.Comentario}</p>
-                                            </div>
-
-                                        </div>
-                                        <div className="content_body-comentario_perfil_calificacion calificacion-response">
-                                            <div>
-                                                <LikeComentarios
-                                                    idPublicacion={props.idPublicacion}
-                                                    idComentario={respuesta.IdComentarios}
-                                                    idRespuesta={respuesta.IdResponse}
-                                                    idperfil={userState.IdPerfil}
-                                                    UserLikes={respuesta.UserLikes}
-                                                    tipo={2}
-                                                />
-                                                <p>{respuesta.megustaComentarios}<span className='LetraMegusta'>Me gustas</span></p>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-
-                        </>
-                    ))}
-
-                </div>
-
-                <div className='Emoticones-content'>
-                    {verEmoticos && (
-                        <Emoticones
-                            mostrarEmoticos={() => setVerEmoticos(!verEmoticos)}
-                            onEmojiSelect={handleEmojiSelect}
-                        />
-                    )}
-                </div>
+                    </>
+                ))}
 
             </div>
+            <div className='Emoticones-content'>
+                {verEmoticos && (
+                    <Emoticones
+                        mostrarEmoticos={() => setVerEmoticos(!verEmoticos)}
+                        onEmojiSelect={handleEmojiSelect}
+                    />
+                )}
+            </div>
+
         </div>
     )
 }

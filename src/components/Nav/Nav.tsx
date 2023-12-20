@@ -43,12 +43,12 @@ const Nav = () => {
                 </div>
             </div>
             <div className='footernav'>
-                <a href="">Términos de servicio</a>
-                <a href="">Política de privacidad</a>
-                <a href="">Política de cookies</a>
-                <a href="">Accesibilidad</a>
-                <a href="">Información de los anuncios</a>
-                <a href="">Más...</a>
+                <a href="https://about.antopia.org/es/ts" target='_blank'>Términos de servicio</a>
+                <a href="https://about.antopia.org/es/tp" target='_blank'>Política de privacidad</a>
+                <a href="https://about.antopia.org/es/tc" target='_blank'>Política de cookies</a>
+                <a href="https://about.antopia.org" target='_blank'>Accesibilidad</a>
+                <a href="https://about.antopia.org/es/ia" target='_blank'>Información de los anuncios</a>
+                <a href="https://about.antopia.org" target='_blank'>Más...</a>
                 <p>© 2023 Antopia. <span className='desarrollado'>Desarrollado por Steven Jocz</span></p>
                 
             </div>

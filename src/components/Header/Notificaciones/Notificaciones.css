@@ -90,6 +90,7 @@
     padding: 5px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 }
 
 .Notificaciones .Notificaciones-content:hover{
@@ -197,9 +198,15 @@
 }
 
 .Notificaciones .Notificaciones-content p{
-    width: 310px;
+    width: 260px;
     color: aliceblue;
-    font-size: 15px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.Notificaciones .Notificaciones-content p p{
+    color: rgba(240, 248, 255, 0.345);
+    font-size: 11px;
 }
 
 .Notificaciones .Notificaciones-content p span{
@@ -207,7 +214,7 @@
 }
 
 .Notificaciones .Notificaciones-content .Notificaciones-NoLeidas {
-    width: 20px;
+    width: 15px;
     height: 15px;
     background-color: #71ddf5;
     border-radius: 50%;
@@ -217,6 +224,60 @@
     -o-border-radius: 50%;
 }
 
+.Notificaciones ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    margin: 20px 0;
+}
+
+.Notificaciones ul li {
+    padding: 10px;
+    color: #ffffff;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 2px;
+    cursor: pointer;
+    
+}
+
+.Notificaciones .UlLinea {
+    border-bottom: 3px solid #8e0dfe;
+}
+
+.Notificaciones .Boton-Leidas {
+    margin: 20px 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.Notificaciones .Boton-Leidas  button {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+}
+
+.Notificaciones .SinNotificaciones{
+    text-align: center;
+    color: #fbfbfb;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.Notificaciones .SinNotificaciones .icono-SinNotificaciones {
+    font-size: 130px;
+}
+
+
 
 @media screen and (max-width: 1024px) {}
 
@@ -225,10 +286,11 @@
 @media screen and (max-width: 600px) {
     
     .Notificaciones {
-        padding: 10px;
+        padding: 15px 15px 200px 20px;
         width: 100%;
         top: 65px;
         max-height: 100vh;
+
     }
 
     .Notificaciones-header {

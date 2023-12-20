@@ -1,4 +1,4 @@
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect, useMemo, useState } from 'react';
 import { PublicacionesProvider } from '../../../../Context/PublicacionesContext';
 import { Slider } from '../../../../components/Slider';
 import { Helmet } from 'react-helmet';
@@ -8,14 +8,31 @@ const Card = lazy(() => import('../../../../components/Card/Card'));
 const NuevoPost = lazy(() => import('../../../../components/NuevoPost/NuevoPost'));
 
 const Inicio: React.FC = () => {
-
-  
+    const [tipo, setTipo] = useState(1);
+    const [key, setKey] = useState(0);
     useEffect(() => {
         const mainContainer = document.getElementById('Layout-main');
         if (mainContainer) {
             mainContainer.scrollTop = 0;
         }
     }, []);
+
+    const handdleTipo = (tipo: number) => {
+
+        setTipo(tipo);
+        setKey(key + 1);
+    };
+
+    const providerKey = useMemo(
+        () => ({
+            idTipo: tipo,
+            idPerfil: 0,
+            idColonia: 0,
+            opcion: tipo,
+            hashtag: '',
+        }),
+        [tipo]
+    );
     return (
         <div>
             <Helmet>
@@ -24,13 +41,17 @@ const Inicio: React.FC = () => {
                 <meta property="og:title" content="Antopia" />
                 <meta property="og:description" content="Antopia" />
             </Helmet>
-            <PublicacionesProvider idTipo={1} idPerfil={0} idColonia={0} opcion={1} hashtag="">
+            <PublicacionesProvider key={key} {...providerKey} >
                 <div className='progreso-inicio'>
-                <BarraProgreso/>
+                    <BarraProgreso />
                 </div>
                 <NuevoPost tipo={1} idColonia={0} />
                 <h2>Reciente</h2>
                 <Slider idTipo={1} />
+                <ul className='MenuInicio'>
+                    <li className={tipo == 1 ? 'UlLinea' : ''} onClick={() => handdleTipo(1)}>Para ti</li>
+                    <li className={tipo == 7 ? 'UlLinea' : ''} onClick={() => handdleTipo(7)}>Siguiendo</li>
+                </ul>
                 <Card />
             </PublicacionesProvider>
         </div>

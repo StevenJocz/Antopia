@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import './BarraProgreso.css';
 import { getNivel } from '../../services';
+import { PropagateLoader } from 'react-spinners';
 
 
 const BarraProgreso = () => {
@@ -21,6 +22,7 @@ const BarraProgreso = () => {
     const [nivelAtual, setNivelAtual] = useState<string>('');
     const [nivelTexto, setNivelTexto] = useState<string>('');
     const [nivel, setNivel] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     const handdleNivel = () => {
         setVerNivel(!verNivel);
@@ -49,6 +51,8 @@ const BarraProgreso = () => {
                     setNivelAtual('');
                     setNivelTexto('');
                 }
+
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error al consultar el servicio:', error);
             }
@@ -61,51 +65,60 @@ const BarraProgreso = () => {
 
     return (
         <div className='BarraProgreso'>
-
-            <div className='BarraProgreso-nivel'>
-                <h3>¡Tu rango es {nivelTexto}! </h3>
-                <div className='BarraProgreso-contect-imagen'>
-                    <img src={nivelAtual} className='' alt="" onClick={handdleNivel} />
+            {isLoading ? ( // Muestra el loader si los niveles aún no se han cargado completamente
+                <div className='Cargado-BarraProgreso'>
+                    <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
                 </div>
-            </div>
-
-            {verNivel && (
-                <div className='BarraProgreso-contect-bg'>
-                    <div className='BarraProgreso-contect'>
+            ) : (
+                <>
+                    <div className='BarraProgreso-nivel'>
                         <h3>¡Tu rango es {nivelTexto}! </h3>
-                        <IonIcon className='BarraProgreso-contect-cerrar' onClick={handdleNivel} icon={closeCircleOutline} />
                         <div className='BarraProgreso-contect-imagen'>
-                            <img src={nivelAtual} className='' alt="" />
+                            <img src={nivelAtual} className='' alt="" onClick={handdleNivel} />
                         </div>
-                        {nivel == 6 ? (
-                            <>
-                                <h2>🎉 ¡Felicitaciones! 🎉</h2>
-                                <p>Como nivel Reina, tu papel es fundamental para construir y mantener este vibrante espacio. Aquí te dejo un vistazo a tus responsabilidades y cómo tu liderazgo transforma nuestra comunidad de Antopia:</p>
-                                <p>🌐 <span>Funciones exclusivas:</span> Ahora prodrás crear tus propias colonias.</p>
-                                <p>🛡 <span>Moderación Justa:</span> Tu labor incluye asegurar un entorno seguro y respetuoso, eliminando contenido inapropiado y fomentando la convivencia positiva.</p>
-                                <p>🔧 <span>Facilitador del Diálogo:</span> Anima a todos a participar y compartir sus pensamientos. Tu tarea es crear un ambiente donde cada voz sea valorada.</p>
-                                <p> 🌟 <span>Reconocimiento y Agradecimiento:</span> Celebra los logros de los miembros y agradece sus contribuciones. Un pequeño gesto puede tener un gran impacto.</p>
-                                <h4>Recuerda, tu participación activa y liderazgo inspiran a otros. ¡Sigamos construyendo esta comunidad excepcional!</h4>
-
-                            </>
-
-                        ) : (
-                            <>
-                                <h4>Cada publicación te acerca a nuevos niveles de grandeza. ¿Qué ganas al subir?</h4>
-                                <p>📈 <span>Mayor visibilidad:</span> Más ojos en tus publicaciones.</p>
-                                <p>🏆 <span>Logros exclusivos:</span> Insignias y reconocimientos.</p>
-                                <p>🌐 <span>Funciones exclusivas:</span> Si llegas al nivel reina, podrás crear tus propias colonias.</p>
-                                <p>¡Al alcanzar el nivel Reina, no solo podrás crear tus propias colonias, sino que también te convertirás en administrador de Antopia! Descubre el poder de liderar y construir, ¡tu reino te espera! 🌟✨</p>
-                                <h4>¿Cómo llegar más alto?</h4>
-                                <p>📝 Publica con pasión.</p>
-                                <p>🤝 Conecta con la comunidad.</p>
-                                <p>🔄 Sigue sumando puntos.</p>
-                                <p>Tu ayuda es la chispa que hará crecer nuestra comunidad. Juntos, podemos construir un espacio donde el conocimiento fluye libremente. Imagina una gran comunidad donde cada aporte cuenta, donde aprender es un viaje compartido.</p>
-                            </>
-                        )}
                     </div>
-                </div>
+
+                    {verNivel && (
+                        <div className='BarraProgreso-contect-bg'>
+                            <div className='BarraProgreso-contect'>
+                                <h3>¡Tu rango es {nivelTexto}! </h3>
+                                <IonIcon className='BarraProgreso-contect-cerrar' onClick={handdleNivel} icon={closeCircleOutline} />
+                                <div className='BarraProgreso-contect-imagen'>
+                                    <img src={nivelAtual} className='' alt="" />
+                                </div>
+                                {nivel == 6 ? (
+                                    <>
+                                        <h2>🎉 ¡Felicitaciones! 🎉</h2>
+                                        <p>Como nivel Reina, tu papel es fundamental para construir y mantener este vibrante espacio. Aquí te dejo un vistazo a tus responsabilidades y cómo tu liderazgo transforma nuestra comunidad de Antopia:</p>
+                                        <p>🌐 <span>Funciones exclusivas:</span> Ahora prodrás crear tus propias colonias.</p>
+                                        <p>🛡 <span>Moderación Justa:</span> Tu labor incluye asegurar un entorno seguro y respetuoso, eliminando contenido inapropiado y fomentando la convivencia positiva.</p>
+                                        <p>🔧 <span>Facilitador del Diálogo:</span> Anima a todos a participar y compartir sus pensamientos. Tu tarea es crear un ambiente donde cada voz sea valorada.</p>
+                                        <p> 🌟 <span>Reconocimiento y Agradecimiento:</span> Celebra los logros de los miembros y agradece sus contribuciones. Un pequeño gesto puede tener un gran impacto.</p>
+                                        <h4>Recuerda, tu participación activa y liderazgo inspiran a otros. ¡Sigamos construyendo esta comunidad excepcional!</h4>
+
+                                    </>
+
+                                ) : (
+                                    <>
+                                        <h4>Cada publicación te acerca a nuevos niveles de grandeza. ¿Qué ganas al subir?</h4>
+                                        <p>📈 <span>Mayor visibilidad:</span> Más ojos en tus publicaciones.</p>
+                                        <p>🏆 <span>Logros exclusivos:</span> Insignias y reconocimientos.</p>
+                                        <p>🌐 <span>Funciones exclusivas:</span> Si llegas al nivel reina, podrás crear tus propias colonias.</p>
+                                        <p>¡Al alcanzar el nivel Reina, no solo podrás crear tus propias colonias, sino que también te convertirás en administrador de Antopia! Descubre el poder de liderar y construir, ¡tu reino te espera! 🌟✨</p>
+                                        <h4>¿Cómo llegar más alto?</h4>
+                                        <p>📝 Publica con pasión.</p>
+                                        <p>🤝 Conecta con la comunidad.</p>
+                                        <p>🔄 Sigue sumando puntos.</p>
+                                        <p>Tu ayuda es la chispa que hará crecer nuestra comunidad. Juntos, podemos construir un espacio donde el conocimiento fluye libremente. Imagina una gran comunidad donde cada aporte cuenta, donde aprender es un viaje compartido.</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
+
+
 
         </div>
     );

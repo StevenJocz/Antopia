@@ -10,6 +10,18 @@
     overflow: hidden;
 }
 
+.Registro {
+    width: 100%;
+    height: 100vh;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #010912;
+    position: relative;
+    overflow: hidden;
+}
+
 .login__bg--Uno {
     position: absolute;
     top: -10%;
@@ -122,14 +134,23 @@
 .login__logo button {
     width: 200px;
     height: 40px;
-    margin-top: 20px;
     font-size: 24px;
     font-weight: 500;
+    margin: 20px 10px 20px 10px;
+}
+
+
+.login__logo .Uniser {
+    background-color: #8f0fffa9;
 }
 
 .login__logo button a {
     color: rgb(0, 0, 0);
     text-decoration: none;
+}
+
+.login__logo .Uniser a {
+    color: #ffffff;
 }
 
 .login__container {
@@ -373,6 +394,7 @@
 
 
 .Registro {
+    width: 100%;
     display: block;
     z-index: 1;
 }
@@ -387,6 +409,7 @@
 
 .Registro__Content {
     width: 40%;
+    height: auto;
     margin: 0 30%;
     background-color: #121316;
     border-radius: 10px;
@@ -398,13 +421,20 @@
     z-index: 1;
 }
 
-.Registro__Content-paso {
-    font-size: 25px;
-    color: aliceblue;
+.Registro .Iniciar_Boton {
+    margin-top: 0;
 }
 
+.Registro__Content-paso {
+    font-size: 20px;
+    color: aliceblue;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .Registro__Formulario {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -413,8 +443,9 @@
     margin-top: 2%;
 }
 
-.Registro__Formulario .Aceptar span {
+.Registro__Formulario .Aceptar a {
     color: #AAEDFD;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -610,7 +641,6 @@
     bottom: 30px;
 }
 
-
 .login .footernav a {
     margin-right: 10px;
     font-size: 14px;
@@ -642,6 +672,44 @@
 }
 
 
+
+.Registro .footernav {
+    text-align: center;
+    margin-left: 25%;
+}
+
+.Registro .footernav a {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #d0d0d0dc;
+    line-height: 14px;
+    text-decoration: none;
+}
+
+.Registro .footernav a:hover {
+    text-decoration-line: underline;
+    -moz-text-decoration-line: underline;
+}
+
+.Registro .footernav p {
+    font-size: 14px;
+    color: #d0d0d0dc;
+    line-height: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.Registro .footernav .desarrollado {
+    font-size: 12px;
+    color: #a6a6a6dc;
+    line-height: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
 .eye-icon {
     position: absolute;
     top: 40%;
@@ -663,19 +731,16 @@
 
 @media screen and (max-width: 600px) {
     .login {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position-y: 10%;
-        background-position-X: 20%;
-        height: auto;
+        height: 145vh;
         display: block;
         padding: 5%;
-        margin-bottom: 20%;
     }
 
-
-
-    
+    .Registro{
+        height: 110vh;
+        display: block;
+        padding: 10px;
+    }
 
     .login__bg--Uno::before {
         display: none;
@@ -726,7 +791,32 @@
         width: 100%;
     }
 
-    .footernav {
-        display: none;
+    .pasocuatro h2 {
+        font-size: 20px;
+    }
+
+    .pasocuatro p {
+        font-size: 14px;
+        margin: 10px 0 40px 0;
+    }
+
+    .foto-preview {
+        
+        left: 25%;
+    }
+
+    .Registro .footernav {
+        position: absolute;
+        left: 0%;
+        bottom: -30px;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .login .footernav {
+        position: absolute;
+        left: 0%;
+        bottom: -30px;
+        text-align: center;
     }
 }

@@ -1,10 +1,10 @@
 import { IonIcon } from '@ionic/react';
-import { notifications, search, filter, home } from 'ionicons/icons';
+import { notifications, search, filter, home, chatbubble } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../redux/store';
 import './Header.css'
 import { useEffect, useRef, useState } from 'react';
-import Chat from './Chat/Chat';
+import Chat from '../Chat/Chat';
 import Notificaciones from './Notificaciones/Notificaciones';
 import PerfilAcciones from './PerfilAcciones/PerfilAcciones';
 import { NavResponsive } from '../Nav';
@@ -12,6 +12,9 @@ import { Link } from 'react-router-dom';
 import { getHayNotificacion } from '../../services';
 import logo from '../../assets/imagenes/Logoants.png'
 import { TopBar } from '../TopBar';
+import io from 'socket.io-client';
+import { services } from '../../models';
+
 
 const Header = () => {
     const userState = useSelector((store: AppStore) => store.user);
@@ -21,6 +24,10 @@ const Header = () => {
     const [verNotificaciones, setVerNotificaciones] = useState(false);
     const [notificaciones, setNotificaciones] = useState(false);
     const [verMenu, setVerMenu] = useState(false);
+    const [cantidadMensajes, setCantidadMensajes] = useState(0);
+    const baseUrl = services.socket
+    const socket = io(baseUrl);
+
 
     const handleMiPerfil = () => {
         setMiPerfil(!miPerfil);
@@ -41,20 +48,39 @@ const Header = () => {
         if (divNotificaciones.current && verNotificaciones && !((divNotificaciones.current as HTMLDivElement).contains(event.target as Node))) {
             setVerNotificaciones(false);
         }
-        if (divChat.current && verChat && !((divChat.current as HTMLDivElement).contains(event.target as Node))) {
-            setChat(false);
-        }
+        // if (divChat.current && verChat && !((divChat.current as HTMLDivElement).contains(event.target as Node))) {
+        //     setChat(false);
+        // }
     };
     document.addEventListener('mousedown', closeOpenMenus)
 
-    // const handleChat = () => {
-    //     setChat(!verChat);
-    // }
+    const handleChat = () => {
+        
+        socket.emit('user_disconnected', userState.IdPerfil);
+        socket.emit('user_connected', userState.IdPerfil);
+        socket.on('mensajes_nuevos', (data) => {
+            setCantidadMensajes(data);
+        });
+        setChat(!verChat);
+    }
 
     useEffect(() => {
+
         consultarNotificacion()
         const intervalId = setInterval(consultarNotificacion, 60000); // cada 3 minutos
-        return () => clearInterval(intervalId);
+
+        socket.emit('user_connected', userState.IdPerfil);
+
+        socket.on('mensajes_nuevos', (data) => {
+            setCantidadMensajes(data);
+        });
+
+        return () => {
+            socket.emit('user_disconnected', userState.IdPerfil);
+            socket.disconnect();
+            clearInterval(intervalId);
+        };
+
     }, []);
 
 
@@ -98,9 +124,12 @@ const Header = () => {
                     </Link>
 
                 </div>
-                {/* <div className='Header-menu-contect' onClick={handleChat}>
+                <div className='Header-menu-contect Header-menu-contect-chat' onClick={handleChat}>
                     <IonIcon className='Header-menu-icono' icon={chatbubble} />
-                </div> */}
+                    {cantidadMensajes > 0 && (
+                        <span>{cantidadMensajes}</span>
+                    )}
+                </div>
                 <div className='Header-menu-contect Header-menu-contect-notificacion' onClick={handleNotificaciones}>
                     <IonIcon className='Header-menu-icono' icon={notifications} />
                     {notificaciones && (
@@ -114,7 +143,7 @@ const Header = () => {
             </div>
             <div className={`Chat-Contenedor ${verChat ? "active" : ""}`} ref={divChat} >
                 {verChat && (
-                    <Chat />
+                    <Chat haddleVerChat={handleChat} />
                 )}
             </div>
             <div className={`Notificaciones-Contenedor ${verNotificaciones ? "active" : ""}`} ref={divNotificaciones} >
@@ -123,15 +152,15 @@ const Header = () => {
                 )}
             </div>
             <div className={`MiPerfil ${miPerfil ? "active" : ""}`} ref={divMiPerfil} >
-                {miPerfil && <PerfilAcciones  handleMiPerfil={() => setMiPerfil(false)} />}
+                {miPerfil && <PerfilAcciones handleMiPerfil={() => setMiPerfil(false)} />}
             </div>
             {verMenu && <NavResponsive handleVerMenu={() => setVerMenu(false)} />}
             <TopBar
                 handleVerMenu={() => setVerMenu(true)}
                 handleNotificaciones={() => handleNotificaciones()}
-                handleMiPerfil={() => setMiPerfil(true)} 
+                handleMiPerfil={() => setMiPerfil(true)}
                 notificaciones={notificaciones}
-                />
+            />
         </div>
     )
 }

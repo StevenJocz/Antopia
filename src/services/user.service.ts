@@ -5,10 +5,7 @@ const baseUrl = services.local;
 interface userData {
     id: number;
     s_user_name: string;
-    dt_user_birthdate: string;
-    s_user_gender: string;
     fk_user_address_city: number;
-    s_user_cellphone: string;
     s_user_email: string;
     s_userProfile: string;
     s_userPhoto: string;

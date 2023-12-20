@@ -49,3 +49,44 @@
     right: 10px;
     cursor: pointer;
 }
+
+.sidebar-content .AboutColonia__header {
+    color: #fff;
+}
+
+.sidebar-content .AboutColonia__header_info .Icono-About {
+    font-size: 40px;
+}
+
+.sidebar-content .sidebar-content-imagenes {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar-content .sidebar-content-imagenes h3 {
+   margin-bottom: 10px;
+}
+
+.sidebar-content-imagenes img {
+    width: 50%;
+    height: 100px;
+    box-sizing: border-box;
+    padding: 4px;
+    cursor: pointer;
+}
+
+
+
+.sidebar-content button  {
+    background-color: #fff;
+    padding: 5px 40px;
+    width: 100%;
+    margin: 10px;
+}
+
+.sidebar-content button .Link-About {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}

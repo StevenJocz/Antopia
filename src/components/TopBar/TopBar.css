@@ -1,8 +1,8 @@
 .TopBar {
-    background: #6454b132;
+    background: #5b5485b4;
     width: max-content;
     display: block;
-    padding: 5px 10px;
+    padding: 10px;
     z-index: 2;
     position: fixed;
     left: 50%;
@@ -23,15 +23,13 @@
 
 }
 
-
-
 .TopBar a {
     background: transparent;
-    padding: 0.9rem;
+    padding: 5px;
     border-radius: 50%;
     display: flex;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 25px;
 }
 
 .TopBar a img {
@@ -54,22 +52,51 @@
     color: #ffffffb4;
 }
 
-.notifi-a {
+.TopBar .Header-menu-icono {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.TopBar-menu-icono-chat {
     position: relative;
 }
 
-.notifi-a  span {
-    width: 12px;
-    height: 12px;
-    background-color: #71ddf5;
+.TopBar-menu-icono-chat span {
+    width: 18px;
+    height: 18px;
+    background-color: #2ecd63;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     position: absolute;
-    top: 10px;
+    top: 2px;
     left: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+
+.notifi-a {
+    position: relative;
+}
+
+
+.notifi-a  span {
+    width: 18px;
+    height: 18px;
+    background-color: #1ab2e9;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 20px;
 }
 
 

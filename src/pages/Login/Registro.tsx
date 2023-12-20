@@ -20,10 +20,6 @@ const Registro = () => {
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
 
-    const [fechaNacimiento, setFechaNacimeiento] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [genero, setGenero] = useState('');
-
     const [fondo, setfondo] = useState('');
     const [fotoPerfilPreview, setFotoPerfilPreview] = useState('');
 
@@ -31,6 +27,7 @@ const Registro = () => {
     const [fondoBase64, setFondoBase64] = useState('');
 
     const [contraseña, setContraseña] = useState('');
+    const [contraseñaDos, setContraseñaDos] = useState('');
 
     const [frase, setFrase] = useState('');
 
@@ -64,32 +61,6 @@ const Registro = () => {
 
         }
         else if (numeroPaso === 2) {
-            if (fechaNacimiento === '') {
-                setMsg('* La fecha de nacimiento es requerida');
-                setIsLoading(false);
-                return;
-            }
-            if (telefono === '') {
-                setMsg('* El teléfono es requerido');
-                setIsLoading(false);
-                return;
-            }
-            if (telefono.length < 7) {
-                setMsg('* El teléfono no es válido');
-                setIsLoading(false);
-                return;
-            }
-            if (genero === '') {
-                setMsg('* El género es requerido');
-                setIsLoading(false);
-                return;
-            }
-            setMsg('');
-            setTextBoton('Siguiente');
-            setnumeroPaso(numeroPaso + 1);
-            setIsLoading(false);
-        }
-        else if (numeroPaso === 3) {
             if (fotoPerfilPreview === '') {
                 setMsg('* La foto de perfil es requerida');
                 setIsLoading(false);
@@ -105,7 +76,7 @@ const Registro = () => {
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
 
-        } else if (numeroPaso === 4) {
+        } else if (numeroPaso === 3) {
 
             if (frase === '') {
                 setMsg('* La frase es un campo requerido, ya que nos permite capturar tu pasión en palabras y expresarla al mundo.');
@@ -114,13 +85,13 @@ const Registro = () => {
             }
 
             if (frase.length < 10) {
-                setMsg('* ¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya y comparte una frase que refleje tu amor de manera más completa.');
+                setMsg('* ¡Tu pasión por las hormigas merece palabras más extensas! Deja que tu inspiración fluya.');
                 setIsLoading(false);
                 return;
             }
 
             if (frase.length >= 150) {
-                setMsg('* Tu pasión por las hormigas es evidente, ¡pero quizás podrías resumirlo en una frase más concisa para que sea más fácil de digerir! A veces, menos es más');
+                setMsg('* Tu pasión por las hormigas es evidente, A veces, menos es más');
                 setIsLoading(false);
                 return;
             }
@@ -131,7 +102,7 @@ const Registro = () => {
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
         }
-        else if (numeroPaso === 5) {
+        else if (numeroPaso === 4) {
             if (contraseña === '') {
                 setMsg('* La contraseña es requerida');
                 setIsLoading(false);
@@ -152,15 +123,19 @@ const Registro = () => {
                 setIsLoading(false);
                 return;
             }
+            if (contraseña !== contraseñaDos) {
+                setMsg('* Las contraseñas no coinciden ');
+                setIsLoading(false);
+                return;
+            }
             setMsg('');
 
             CreateUser()
-            
+
             setIsLoading(false);
 
         }
     };
-
 
     const CreateUser = async () => {
         try {
@@ -168,23 +143,21 @@ const Registro = () => {
             const userData = {
                 id: 0,
                 s_user_name: nombre,
-                dt_user_birthdate: new Date(fechaNacimiento + 'T00:00:00Z').toISOString(),
-                s_user_gender: genero,
-                fk_user_address_city: 1, 
-                s_user_cellphone: telefono,
+                fk_user_address_city: 1,
                 s_user_email: correo.toLowerCase(),
                 Password: contraseña,
-                s_userProfile: nombre.replace(/\s+/g, ''), 
+                s_userProfile: nombre.replace(/\s+/g, ''),
                 s_userPhoto: fotoPerfilBase64,
                 s_userFrontpage: fondoBase64,
                 s_frase: frase,
-                fk_tblRol: 2, 
+                fk_tblRol: 2,
                 fk_tbl_level: 1
             };
 
             const result = await PostRegistrarUser(userData);
             if (result.resultado === false) {
-                
+
+                console.log(result.msg)
                 setMsg(result.msg);
 
             } else {
@@ -199,7 +172,7 @@ const Registro = () => {
     };
 
 
-    
+
     const handleFotoPerfilChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
 
@@ -253,17 +226,15 @@ const Registro = () => {
     };
 
 
-
-
     return (
-        <div className='login Registro'>
+        <div className='Registro'>
             <div className='login__bg--Uno'></div>
             <div className='login__bg--Tres'></div>
             <div className='Registro__logo'>
                 <img src={img} alt="" />
             </div>
             <div className='Registro__Content'>
-                {numeroPaso === 6 ? (
+                {numeroPaso === 5 ? (
                     <div className="paso finalizacion">
                         <h2>🎉 ¡Felicitaciones! 🎉</h2>
                         <p>Ahora eres parte de Antopia. Inicia sesión para explorar este maravilloso mundo y conectar con otros amantes de las hormigas.</p>
@@ -272,7 +243,7 @@ const Registro = () => {
                 ) : (
                     <>
                         <div className="Registro__Content-paso">
-                            <p>Paso <span>{numeroPaso}</span> de 5</p>
+                            <p>Paso <span>{numeroPaso}</span> de 4</p>
                         </div>
                         <div className='login__container__title'>
                             <h1>Crea tu cuenta</h1>
@@ -284,12 +255,12 @@ const Registro = () => {
                                         <input
                                             type='text'
                                             name='nombre'
-                                            placeholder='Nombre'
+                                            placeholder='Nombre de usuario'
                                             onChange={(e) => setNombre(e.target.value)}
                                         />
                                         <span className="highlight"></span>
                                         <span className="bar"></span>
-                                        <label>Nombre</label>
+                                        <label>Nombre de usuario</label>
                                     </div>
                                     <div className="login__container__group">
                                         <input
@@ -305,42 +276,6 @@ const Registro = () => {
                                 </div>
                             )}
                             {numeroPaso === 2 && (
-                                <div className="paso">
-                                    <div className="login__container__group">
-                                        <input
-                                            type='date'
-                                            name='fechaNacimiento'
-                                            placeholder='Fecha de nacimiento'
-                                            onChange={(e) => setFechaNacimeiento(e.target.value)}
-                                        />
-                                        <span className="highlight"></span>
-                                        <span className="bar"></span>
-                                        <label>Fecha de nacimiento</label>
-                                    </div>
-                                    <div className="login__container__group">
-                                        <input
-                                            type='number'
-                                            name='Teléfono'
-                                            placeholder='Teléfono'
-                                            onChange={(e) => setTelefono(e.target.value)}
-                                        />
-                                        <span className="highlight"></span>
-                                        <span className="bar"></span>
-                                        <label>Teléfono</label>
-                                    </div>
-                                    <div className="login__container__group select">
-                                        <label>Sexo</label>
-                                        <select
-                                            name="genero"
-                                            onChange={(e) => setGenero(e.target.value)}>
-                                            <option value="Masculino">Seleccione</option>
-                                            <option value="Masculino">Masculino</option>
-                                            <option value="Femenino">Femenino</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            )}
-                            {numeroPaso === 3 && (
                                 <>
                                     <div className='configuracion-Perfil'>
                                         <div className='configuracion-portada registro-portada configuracion-registro-portada'>
@@ -371,10 +306,8 @@ const Registro = () => {
                                         </div>
                                     </div>
                                 </>
-
-
                             )}
-                            {numeroPaso === 4 && (
+                            {numeroPaso === 3 && (
 
                                 <div className="paso frase">
                                     <p>Demuestra tu profundo cariño y fascinación por las hormigas en su maravilloso universo. ¡Libera tu creatividad y comparte una frase llena de amor!</p>
@@ -388,8 +321,8 @@ const Registro = () => {
 
                                 </div>
                             )}
-                            {numeroPaso === 5 && (
-                                <div className="paso">
+                            {numeroPaso === 4 && (
+                                <div className="paso pasocuatro">
                                     <h2>Necesitarás una contraseña</h2>
                                     <p>Asegúrate de que tenga 8 caracteres o más y una mayúscula.</p>
                                     <div className="login__container__group">
@@ -403,28 +336,41 @@ const Registro = () => {
                                         <span className="bar"></span>
                                         <label>Contraseña</label>
                                     </div>
-                                    <p className='Aceptar'>Al hacer clic en "Registrarte", aceptas nuestras <span>Condiciones</span> , la <span>Política de privacidad</span>  y  <span> la Política de cookies</span>.</p>
+                                    <div className="login__container__group">
+                                        <input
+                                            type='password'
+                                            name='contraseñaDos'
+                                            placeholder='*******'
+                                            onChange={(e) => setContraseñaDos(e.target.value)}
+                                        />
+                                        <span className="highlight"></span>
+                                        <span className="bar"></span>
+                                        <label>Confirmar contraseña</label>
+                                    </div>
+
                                 </div>
+
                             )}
 
                             <i className='mensaje'>{msg}</i>
-
                             <BotonSubmit texto={textBoton} isLoading={isLoading} onClick={() => handlenumeroPaso()} color="guardar" />
+                            <Link to="/">Volver al iniciar sesión</Link>
                         </div>
-                        <Link to="/">Volver al iniciar sesión</Link>
+
                     </>
                 )}
             </div>
             <div className='footernav'>
-                <a href="">Términos de servicio</a>
-                <a href="">Política de privacidad</a>
-                <a href="">Política de cookies</a>
-                <a href="">Accesibilidad</a>
-                <a href="">Información de los anuncios</a>
-                <a href="">Más...</a>
+                <a href="https://about.antopia.org/es/ts" target='_blank'>Términos de servicio</a>
+                <a href="https://about.antopia.org/es/tp" target='_blank'>Política de privacidad</a>
+                <a href="https://about.antopia.org/es/tc" target='_blank'>Política de cookies</a>
+                <a href="https://about.antopia.org" target='_blank'>Accesibilidad</a>
+                <a href="https://about.antopia.org/es/ia" target='_blank'>Información de los anuncios</a>
+                <a href="https://about.antopia.org" target='_blank'>Más...</a>
                 <p>© 2023 Antopia. <span className='desarrollado'>Desarrollado por Steven Jocz</span></p>
 
             </div>
+
         </div >
     )
 }

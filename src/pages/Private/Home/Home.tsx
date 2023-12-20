@@ -9,6 +9,8 @@ import { Noticas } from './Noticias';
 import { resetUser,  UserKey, TokenKey} from '../../../redux/states/user';
 import { AppStore } from '../../../redux/store';
 import { useSelector } from 'react-redux';
+import { Chat } from './PublicacionesAntopia';
+import { SidebarGrupo } from '../../../components/Sidebar';
 const Nav = lazy(() => import('../../../components/Nav/Nav'));
 const Inicio = lazy(() => import('./Inicio/Inicio'));
 const CriaHormigas = lazy(() => import('./CriaHormigas/CriaHormigas'));
@@ -43,14 +45,23 @@ const Home: React.FC = () => {
     navigate('/', { replace: true });
   };
 
-  
+  const currentPath = location.pathname;
+
+  const isColoniasRoute = currentPath.startsWith('/Home/Colonias/');
+
   return (
     <div className="Layout">
       <nav className="Layout-menu">
         <Nav />
       </nav>
       <aside className="Layout-sidebar-right">
+      {isColoniasRoute ? (
+         <SidebarGrupo/>
+      ): (
         <Sidebar />
+        
+      )}
+        
       </aside>
       <div className="Layout-top">
         <Header />
@@ -67,9 +78,9 @@ const Home: React.FC = () => {
             <Route path="/Hashtag/:hashtag/*" element={<Hashtag />} />
             <Route path="/Buscar/*" element={<Buscador />} />
             <Route path="/Felicidades/*" element={<Noticas />} />
+            <Route path="/Chat/*" element={<Chat />} />
           </RoutesWithNotFound>
       </main>
-      
     </div>
   )
 }

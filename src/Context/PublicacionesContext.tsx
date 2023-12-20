@@ -83,6 +83,10 @@ export const PublicacionesProvider: React.FC<PublicacionesProviderProps> = (prop
                     const resultado = await getPublicaciones(userState.IdPerfil, 6, props.idColonia, props.hashtag);
                     setPublicaciones(resultado);
                 }
+                else if (props.opcion === 7) {
+                    const resultado = await getPublicaciones(userState.IdPerfil,7,  7, 'o');
+                    setPublicaciones(resultado);
+                }
 
             } catch (error) {
                 setPublicaciones([]);

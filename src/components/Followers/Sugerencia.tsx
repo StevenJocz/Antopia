@@ -30,6 +30,8 @@ const Sugerencia = () => {
         }
     };
 
+    const handleM = () => {};
+
     return (
         <div className="Sugerencia">
             <h3>A quién seguir</h3>
@@ -50,7 +52,12 @@ const Sugerencia = () => {
                                 <p>@{user.urlPerfil}</p>
                             </div>
                         </Link>
-                        <BotonFollowers idPerfil={user.IdPerfil} idSeguidor={userState.IdPerfil} Siguiendo={0} />
+                        <BotonFollowers
+                            idPerfil={user.IdPerfil}
+                            idSeguidor={userState.IdPerfil}
+                            Siguiendo={0}
+                            mostrar={handleM}
+                        />
                     </div>
                 </div>
             ))}
