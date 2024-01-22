@@ -54,6 +54,12 @@
     border: 1px solid #43b3c7;
 }
 
+.Layout-menu ul .bg-Icono_cinco {
+    background-color: #f09d3f1f;
+    border: 1px solid #f09d3f4c;
+}
+
+
 .Layout-menu ul a .bg-Icono_home {
     color: #ffffffdf;
 }
@@ -73,6 +79,11 @@
 .Layout-menu ul a .bg-Icono_cuatro {
     color: #edededdc;
 }
+
+.Layout-menu ul a .bg-Icono_cinco {
+    color: #f09d3f;
+}
+
 
 
 .Layout-menu ul li img {
@@ -105,6 +116,10 @@
 
 .Layout-menu .bg-Icono_cuatro img {
     background-color: #ffffff;
+}
+
+.Layout-menu .bg-Icono_cinco img {
+    background-color: #f09d3f;
 }
 
 .Layout-menu ul a {
@@ -164,9 +179,8 @@
 
 .footernav {
     padding: 10px;
-    position: absolute;
-    bottom: 30px;
-    
+    margin-top: 18px;
+
 }
 
 .footernav a {
@@ -195,4 +209,24 @@
     color: #a6a6a6dc;
     line-height: 14px;
     cursor: pointer;
+}
+
+
+.Rango-menu {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.pentagon {
+    width: 30px;
+    height: 30px;
+    background-image: url('http://localhost:5173/src/assets/imagenes/huevo.png');
+    background-size: cover;
+    /* Ajusta el tamaño de la imagen para cubrir completamente el pentágono */
+    position: relative;
+    clip-path: polygon(50% 1%, 92% 25%, 93% 76%, 50% 100%, 8% 76%, 8% 25%);
+    margin-right: 10PX;
 }

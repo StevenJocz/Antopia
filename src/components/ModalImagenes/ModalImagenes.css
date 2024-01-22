@@ -33,6 +33,19 @@
     right: 0%;
 }
 
+.ImageModal-content_cerrarDos {
+    position: absolute;
+    top: 1%;
+    right: 0%;
+    z-index: 1000;
+}
+
+.ImageModal-content_cerrarDos .Icono-cerrar {
+    font-size: 30px;
+    cursor: pointer;
+    color: #fffefe;
+}
+
 .ImageModal-content_cerrar .Icono-cerrar {
     font-size: 30px;
     cursor: pointer;
@@ -48,6 +61,16 @@
 
 .ImageModal-content-body-imagen {
     width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.ImageModal-content-body-imagenDos {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

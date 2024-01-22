@@ -41,6 +41,11 @@
     border-bottom: 0;
 }
 
+.borde-siete {
+    border: 1px solid #f09d3f4c;
+    border-bottom: 0;
+}
+
 
 .Card-Articulo_header {
     display: flex;
@@ -407,6 +412,10 @@
     background-color: #ceca7a;
 }
 
+.footer-borde-siete img {
+    background-color: #f09d3f;
+}
+
 .Card-content_footer a {
     text-decoration: none;
 
@@ -432,6 +441,11 @@
     border: 1px solid #ceca7a7d;
 }
 
+.footer-borde-siete {
+    background-color: #f09d3f1f;
+    border: 1px solid #f09d3f4c;
+}
+
 .footer-borde-home p{
     color: #ffffffdf;
 }
@@ -446,6 +460,10 @@
 
 .footer-borde-tres p {
     color: #fffa97dc;
+}
+
+.footer-borde-siete{
+    color: #f09d3f;
 }
 
 .imgen-barner {

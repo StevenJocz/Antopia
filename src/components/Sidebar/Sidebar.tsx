@@ -1,5 +1,5 @@
 
-import { BarraProgreso } from "../BarraProgreso"
+
 import { Tendencias } from "../Tendencias";
 import { Sugerencia } from "../Followers";
 import { Recomendados } from '../Tiendas';
@@ -12,7 +12,7 @@ const Sidebar = () => {
     
     return (
         <div>
-            <BarraProgreso />
+            {/* <BarraProgreso /> */}
             <div className="sidebar-content siderbar-donacion">
                 <h4>Apoya a Antopia</h4>
                 <p>¡Haz que nuestra pasión por las hormigas siga latiendo! Con tu apoyo, impulsamos el crecimiento y mantenimiento de nuestra comunidad.</p>

@@ -43,7 +43,7 @@ const Fotos: React.FC = () => {
         fetchPerfil();
         const mainContainer = document.getElementById('Layout-main');
         if (mainContainer) {
-            mainContainer.scrollTop = 550;
+            mainContainer.scrollTop = 650;
         }
     }, [idPerfil]);
 
@@ -57,6 +57,7 @@ const Fotos: React.FC = () => {
                         src={imageUrl.url}
                         alt={`Hormiga ${array.length - 1 - index}`}
                         onClick={() => openModal(array.length - 1 - index)}
+                        loading="lazy"
                     />
                 ))}
             </div>

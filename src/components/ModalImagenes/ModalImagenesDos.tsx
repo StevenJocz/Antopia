@@ -24,7 +24,7 @@ const ModalImagenesDos: React.FC<ImageModalProps> = ({ imageUrls, currentIndex, 
     const userState = useSelector((store: AppStore) => store.user);
     const [publicacion, setPublicacion] = useState<Publicacion[] | null>(null);
 
-
+ console.log(imageUrls)
     const closeModal = () => {
         setIsModalOpen(false);
         onClose();

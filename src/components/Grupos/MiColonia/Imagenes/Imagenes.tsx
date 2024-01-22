@@ -55,6 +55,7 @@ const Imagenes = () => {
                         src={imageUrl.url}
                         alt={`Hormiga ${array.length - 1 - index}`}
                         onClick={() => openModal(array.length - 1 - index)}
+                        loading="lazy"
                     />
                 ))}
             </div>

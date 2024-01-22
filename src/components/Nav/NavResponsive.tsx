@@ -7,10 +7,12 @@ import { IonIcon } from '@ionic/react'
 import { closeCircleOutline } from 'ionicons/icons';
 import diarioIcono from '../../assets/imagenes/diarioIcono.png'
 import fotoIcono from '../../assets/imagenes/fotos.png'
+import insectos from '../../assets/imagenes/insectos.png'
 import hormigueroIcono from '../../assets/imagenes/IconHhormiguero.png'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../redux/store'
 import logo from '../../assets/imagenes/Logoants.png'
+import { BarraProgreso } from '../BarraProgreso'
 
 interface Props {
     handleVerMenu: () => void;
@@ -23,11 +25,13 @@ const NavResponsive: React.FC<Props> = (props) => {
                 <IonIcon className='cerrarNavResponsive-icono' icon={closeCircleOutline} />
             </div>
             <img src={logo} alt="Antopia" className='NavResponsive-logo' />
+            <BarraProgreso />
             <ul>
                 <Link to='/Home' onClick={props.handleVerMenu}><li className='bg-Icono_home'><img src={Home} alt="" />Inicio</li></Link>
                 <Link to='/Home/CriaHormigas' onClick={props.handleVerMenu}><li className='bg-Icono_Uno'><img src={IconAnt} alt="" />Cría de Hormigas</li></Link>
                 <Link to='/Home/ConstrucionHormigueros' onClick={props.handleVerMenu}><li className='bg-Icono_dos'><img src={IconHormiguero} alt="" />Construcción de hormigueros</li></Link>
                 <Link to='/Home/ExperimentosTecnicas' onClick={props.handleVerMenu}><li className='bg-Icono_tres'><img src={IconAnt} alt="" />Experimentos y técnicas</li></Link>
+                <Link to='/Home/AlimentoVivo' onClick={props.handleVerMenu}><li className='bg-Icono_cinco'><img src={insectos} alt="" />Alimento vivo</li></Link>
                 <Link to='/Home/Colonias' onClick={props.handleVerMenu}><li className='bg-Icono_cuatro'><img src={IconHormiguero} alt="" />Colonias</li></Link>
             </ul>
             <div className="Layout-menu-imagenes">

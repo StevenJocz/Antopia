@@ -6,6 +6,8 @@ import { getPublicaciones } from "../../../../services";
 import { useEffect, useState } from "react";
 import { Publicacion } from "../../../../models";
 import { CardComentarios } from "../../../../components/CardComentarios";
+import { Barnner } from "../../../../components/Tiendas";
+
 
 
 const Publicaciones = () => {
@@ -23,6 +25,10 @@ const Publicaciones = () => {
             } catch (error) {
                 console.error('Error al obtener el perfil:', error);
             }
+        }
+        const mainContainer = document.getElementById('Layout-main');
+        if (mainContainer) {
+            mainContainer.scrollTop = 0;
         }
         fetchPerfil();
     }, [idPublicacion]);
@@ -47,8 +53,9 @@ const Publicaciones = () => {
                 <meta property="og:url" content={ogUrl} />
             </Helmet>
             <PublicacionesProvider idTipo={0} idPerfil={0} idColonia={parseInt(idPublicacion)} opcion={6} hashtag="0">
+                <Barnner/>
                 <Card />
-                <CardComentarios  idPublicacion={parseInt(idPublicacion)} />
+                <CardComentarios idPublicacion={parseInt(idPublicacion)} />
             </PublicacionesProvider>
         </div>
     )

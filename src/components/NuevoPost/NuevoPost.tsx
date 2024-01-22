@@ -185,6 +185,8 @@ const NuevoPost: React.FC<Props> = (props) => {
             setSelectValue("5");
         }else if (props.tipo === 6) {
             setSelectValue("6");
+        }else if (props.tipo === 7) {
+            setSelectValue("7");
         }
 
         updateContentBodyHeight();
@@ -351,6 +353,8 @@ const NuevoPost: React.FC<Props> = (props) => {
                                         <option value="4">Experimentos y técnicas</option>
                                     ) : props.tipo === 5 ? (
                                         <option value="5">Publica en el grupo</option>
+                                    ) : props.tipo === 7 ? (
+                                        <option value="7">Alimento Vivo</option>
                                     ) : (
                                         <>
                                             <option value="">Seleccione el tipo de publicación</option>
@@ -358,6 +362,7 @@ const NuevoPost: React.FC<Props> = (props) => {
                                             <option value="2">Cría de Hormigas</option>
                                             <option value="3">Construcción de hormigueros</option>
                                             <option value="4">Experimentos y técnicas</option>
+                                            <option value="7">Alimento Vivo</option>
                                         </>
                                     )}
                                 </select>

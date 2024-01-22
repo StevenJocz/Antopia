@@ -198,7 +198,7 @@ const ModalImagenes: React.FC<ImageModalProps> = ({ imageUrls, currentIndex, onC
                           <div className='content_body-comentario_perfil-Response'>
                             <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>
 
-                              <img src={respuesta.ImagenPerfilComentarios} alt="" />
+                              <img src={respuesta.ImagenPerfilComentarios} alt="antopia" loading="lazy"/>
                             </Link>
                             <div className='content_body-comentario_content-Response'>
                               <Link to={`/Home/Perfil/${respuesta.IdPerfilComentarios}/${respuesta.urlPerfil}`}>

@@ -41,7 +41,8 @@ const Sugerencia = () => {
                         <Link to={`/Home/Perfil/${user.IdPerfil}/${user.urlPerfil}`}>
                             <img
                                 src={user.ImagenPerfil}
-                                alt=""
+                                alt="antopia"
+                                loading="lazy"
                             />
                         </Link>
                     </div>

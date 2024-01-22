@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react'
-import { personOutline, helpCircleOutline, closeCircleOutline } from 'ionicons/icons';
+import { personOutline, helpCircleOutline, closeCircleOutline, settingsOutline } from 'ionicons/icons';
 import { AppStore } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 import './PerfilAcciones.css'
@@ -28,6 +28,7 @@ const PerfilAcciones: React.FC<Props> = (props) => {
                     <IonIcon className='Icono-cerrar' onClick={props.handleMiPerfil} icon={closeCircleOutline} />
                 </div>
             </div>
+            
             <div className='MiPerfil_Contenido_Controles'>
                 <Link to={`/Home/Perfil/${userState.IdPerfil}/${userState.urlPerfil}`} onClick={props.handleMiPerfil}>
                     <div className='MiPerfil_Contenido_text'>
@@ -38,10 +39,10 @@ const PerfilAcciones: React.FC<Props> = (props) => {
                     </div>
                 </Link>
                 
-                {/* <div className='MiPerfil_Contenido_text'>
+                <div className='MiPerfil_Contenido_text'>
                     <IonIcon icon={settingsOutline} />
                     <h5>Configuración</h5>
-                </div> */}
+                </div>
                 <div className='MiPerfil_Contenido_text' onClick={props.handleMiPerfil}>
                     <IonIcon icon={helpCircleOutline} />
                     <h5>Ayuda</h5>

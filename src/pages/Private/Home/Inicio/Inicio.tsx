@@ -2,7 +2,6 @@ import { lazy, useEffect, useMemo, useState } from 'react';
 import { PublicacionesProvider } from '../../../../Context/PublicacionesContext';
 import { Slider } from '../../../../components/Slider';
 import { Helmet } from 'react-helmet';
-import { BarraProgreso } from '../../../../components/BarraProgreso';
 
 const Card = lazy(() => import('../../../../components/Card/Card'));
 const NuevoPost = lazy(() => import('../../../../components/NuevoPost/NuevoPost'));
@@ -42,9 +41,6 @@ const Inicio: React.FC = () => {
                 <meta property="og:description" content="Antopia" />
             </Helmet>
             <PublicacionesProvider key={key} {...providerKey} >
-                <div className='progreso-inicio'>
-                    <BarraProgreso />
-                </div>
                 <NuevoPost tipo={1} idColonia={0} />
                 <h2>Reciente</h2>
                 <Slider idTipo={1} />

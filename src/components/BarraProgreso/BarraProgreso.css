@@ -1,28 +1,43 @@
 .BarraProgreso {
     display: flex;
-    border-bottom: 1px solid rgb(103, 103, 103);
-    padding: 10px 0;
     z-index: 1001;
     color: aliceblue;
     
 }
 
-.BarraProgreso img {
+.BarraProgreso .BarraProgreso-contect-imagen img {
     width: 35px;
     height: 35px;
     cursor: pointer;
+    position: relative;
+    clip-path: polygon(50% 1%, 92% 25%, 93% 76%, 50% 100%, 8% 76%, 8% 25%);
+}
+
+.BarraProgreso-contect-imagenDOS {
+    text-align: center;
+}
+
+.BarraProgreso-contect-imagenDOS img {
+    width: 60px !important;
+    height: 60px;
+    cursor: pointer;
+    position: relative;
+    clip-path: polygon(50% 1%, 92% 25%, 93% 76%, 50% 100%, 8% 76%, 8% 25%);
+    
 }
 
 .BarraProgreso-nivel {
     width: 100%;
-    display: block;
+    display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
 }
 
 .BarraProgreso-nivel h3 {
     color: aliceblue;
     text-align: center;
+    margin-left: 10px;
 }
 
 .progress-bar {
@@ -58,18 +73,31 @@
 
 .BarraProgreso-contect {
     width: 600px;
-    max-height: 80vh;
+    max-height: 100vh;
     background-color: #262b34;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
     padding: 20px;
     position: relative;
     overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
+.BarraProgreso-contect::-webkit-scrollbar {
+    width: 5px;
+}
+
+.BarraProgreso-contect::-webkit-scrollbar-thumb {
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.BarraProgreso-contect::-webkit-scrollbar-track {
+    background-color: #252b3600;
+}
 .BarraProgreso-contect .BarraProgreso-contect-cerrar {
     position: absolute;
     top: 10px;

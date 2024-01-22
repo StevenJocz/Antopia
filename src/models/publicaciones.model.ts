@@ -63,3 +63,19 @@ export interface PublicacionReportinRazon {
     titulo: string;
     description: string;
 }
+
+export interface TopPublicacion {
+    IdPublicacion: number;
+    FechaPublicacion: string;
+    Titulo: string;
+    Likes: number;
+    IdUser: number;
+    NombrePerfil: string;
+    Foto: string;
+    Url: string;
+}
+
+export interface ImagenesPublicacion {
+    IdPublicacion: number;
+    Url: string;
+}

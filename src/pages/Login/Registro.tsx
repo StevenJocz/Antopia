@@ -6,6 +6,8 @@ import { BotonSubmit } from '../../components/Boton';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PostRegistrarUser } from '../../services';
+import { IonIcon } from '@ionic/react';
+import { shieldCheckmarkOutline } from 'ionicons/icons';
 
 
 
@@ -15,7 +17,7 @@ const Registro = () => {
     const [msg, setMsg] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const inputRefFondo = useRef<HTMLInputElement | null>(null);
-    const [textBoton, setTextBoton] = useState('Siguiente');
+    const [textBoton, setTextBoton] = useState('Continuar y registrarse');
 
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
@@ -34,6 +36,13 @@ const Registro = () => {
     const handlenumeroPaso = () => {
         setIsLoading(true);
         if (numeroPaso === 1) {
+            setMsg('');
+            setTextBoton('Siguiente');
+            setnumeroPaso(numeroPaso + 1);
+            setIsLoading(false);
+
+        }
+        else if (numeroPaso === 2) {
             if (nombre === '') {
                 setMsg('* El nombre es requerido');
                 setIsLoading(false);
@@ -60,7 +69,7 @@ const Registro = () => {
             setIsLoading(false);
 
         }
-        else if (numeroPaso === 2) {
+        else if (numeroPaso === 3) {
             if (fotoPerfilPreview === '') {
                 setMsg('* La foto de perfil es requerida');
                 setIsLoading(false);
@@ -76,7 +85,7 @@ const Registro = () => {
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
 
-        } else if (numeroPaso === 3) {
+        } else if (numeroPaso === 4) {
 
             if (frase === '') {
                 setMsg('* La frase es un campo requerido, ya que nos permite capturar tu pasión en palabras y expresarla al mundo.');
@@ -102,7 +111,7 @@ const Registro = () => {
             setnumeroPaso(numeroPaso + 1);
             setIsLoading(false);
         }
-        else if (numeroPaso === 4) {
+        else if (numeroPaso === 5) {
             if (contraseña === '') {
                 setMsg('* La contraseña es requerida');
                 setIsLoading(false);
@@ -132,7 +141,6 @@ const Registro = () => {
 
             CreateUser()
 
-            setIsLoading(false);
 
         }
     };
@@ -162,6 +170,7 @@ const Registro = () => {
 
             } else {
                 setnumeroPaso(numeroPaso + 1);
+                setIsLoading(false);
 
             }
 
@@ -234,7 +243,7 @@ const Registro = () => {
                 <img src={img} alt="" />
             </div>
             <div className='Registro__Content'>
-                {numeroPaso === 5 ? (
+                {numeroPaso === 6 ? (
                     <div className="paso finalizacion">
                         <h2>🎉 ¡Felicitaciones! 🎉</h2>
                         <p>Ahora eres parte de Antopia. Inicia sesión para explorar este maravilloso mundo y conectar con otros amantes de las hormigas.</p>
@@ -243,13 +252,25 @@ const Registro = () => {
                 ) : (
                     <>
                         <div className="Registro__Content-paso">
-                            <p>Paso <span>{numeroPaso}</span> de 4</p>
+                            <p>Paso <span>{numeroPaso}</span> de 5</p>
                         </div>
                         <div className='login__container__title'>
                             <h1>Crea tu cuenta</h1>
                         </div>
                         <div className='Registro__Formulario'>
                             {numeroPaso === 1 && (
+                                <div className='PasoReglas'>
+                                    <IonIcon className='PasoReglasIcono' icon={shieldCheckmarkOutline} />
+                                    <p>En Antopia, protegemos tu información. Al registrarte, recopilamos datos básicos para personalizar tu experiencia. Utilizamos tus datos solo para mejorar nuestros servicios y no los compartimos sin tu permiso. Implementamos medidas de seguridad para proteger tu información. Tienes control total sobre tus datos y puedes gestionarlos desde tu perfil.</p>
+                                    <p>Al darla continuar y registrarse, aceptas los 
+                                        <a href="https://about.antopia.org/es/ts" target='_blank'>Términos de servicio</a> 
+                                        y la <a href="https://about.antopia.org/es/tp" target='_blank'> Política de privacidad</a>, 
+                                        incluida la
+                                        <a href="https://about.antopia.org/es/tc" target='_blank'>política de Uso de Cookies</a>.</p>
+                                </div>
+
+                            )}
+                            {numeroPaso === 2 && (
                                 <div className="paso">
                                     <div className="login__container__group">
                                         <input
@@ -275,7 +296,7 @@ const Registro = () => {
                                     </div>
                                 </div>
                             )}
-                            {numeroPaso === 2 && (
+                            {numeroPaso === 3 && (
                                 <>
                                     <div className='configuracion-Perfil'>
                                         <div className='configuracion-portada registro-portada configuracion-registro-portada'>
@@ -307,7 +328,7 @@ const Registro = () => {
                                     </div>
                                 </>
                             )}
-                            {numeroPaso === 3 && (
+                            {numeroPaso === 4 && (
 
                                 <div className="paso frase">
                                     <p>Demuestra tu profundo cariño y fascinación por las hormigas en su maravilloso universo. ¡Libera tu creatividad y comparte una frase llena de amor!</p>
@@ -321,7 +342,7 @@ const Registro = () => {
 
                                 </div>
                             )}
-                            {numeroPaso === 4 && (
+                            {numeroPaso === 5 && (
                                 <div className="paso pasocuatro">
                                     <h2>Necesitarás una contraseña</h2>
                                     <p>Asegúrate de que tenga 8 caracteres o más y una mayúscula.</p>
@@ -353,10 +374,10 @@ const Registro = () => {
                             )}
 
                             <i className='mensaje'>{msg}</i>
-                            <BotonSubmit texto={textBoton} isLoading={isLoading} onClick={() => handlenumeroPaso()} color="guardar" />
-                            <Link to="/">Volver al iniciar sesión</Link>
+                            <BotonSubmit texto={textBoton} isLoading={isLoading} onClick={() => handlenumeroPaso()} color="enviar" />
+                           
                         </div>
-
+                        <Link to="/">Volver al inicio</Link>
                     </>
                 )}
             </div>

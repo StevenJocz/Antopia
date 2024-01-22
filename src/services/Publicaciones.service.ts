@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { Publicacion, PublicacionBuscador, PublicacionReportinRazon, services } from "../models";
+import { ImagenesPublicacion, Publicacion, PublicacionBuscador, PublicacionReportinRazon, TopPublicacion, services } from "../models";
 
 const baseUrl = services.local
 
@@ -196,7 +196,7 @@ export const PostPublicacionesReporting = async (idRazon: number, idPublicacion:
     }
 };
 
-export const deletePostPublicacion = async(idPublicacion: number) => {
+export const deletePostPublicacion = async (idPublicacion: number) => {
     const token = localStorage.getItem('token');
     const url = `${baseUrl}Pubication/Delete_Publication?idPublication=${idPublicacion}`;
 
@@ -208,6 +208,61 @@ export const deletePostPublicacion = async(idPublicacion: number) => {
             }
         });
         return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getTopPublicaciones = async (tipo: number) => {
+
+    const url = `${baseUrl}Pubication/TopPublicaciones?tipo=${tipo}`;
+    const token = localStorage.getItem('token');
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const pubicacion: TopPublicacion[] = response.data.map((item: any) => ({
+            IdPublicacion: item.idPublicacion,
+            IdTipo: item.idTipo,
+            FechaPublicacion: item.fechaPublicacion,
+            Titulo: item.titulo,
+            Likes: item.likes,
+            IdUser: item.idUser,
+            NombrePerfil: item.nombrePerfil,
+            Foto: item.foto,
+            Url: item.url,
+
+        }));
+
+        return pubicacion;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const getImagenesPublicaciones = async (tipo: number) => {
+
+    const url = `${baseUrl}Pubication/ImagenesPublicaciones?tipo=${tipo}`;
+    const token = localStorage.getItem('token');
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const pubicacion: ImagenesPublicacion[] = response.data.map((item: any) => ({
+            IdPublicacion: item.idPublicacion,
+            Url: item.url
+        }));
+
+        return pubicacion;
     } catch (error) {
         throw error;
     }

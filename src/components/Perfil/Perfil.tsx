@@ -105,7 +105,7 @@ const Perfil = () => {
                 <meta property="og:image" content={ogImage[0]} />
             </Helmet>
             <div className='Perfil-portada'>
-                <img src={backgroundImageUrl} alt="" />
+                <img src={backgroundImageUrl} alt="" loading="lazy"/>
                 {verEditarPerfil && (
                     <div className='Cambio__Perfil-portada' onClick={() => toggleConfiguracion(3)}>
                         <IonIcon icon={imageOutline} />
@@ -117,6 +117,7 @@ const Perfil = () => {
                     <img
                         src={profileImageUrl}
                         alt=""
+                        loading="lazy"
                     />
                     {verEditarPerfil && (
                         <div className='Cambio__Perfil-Foto'>

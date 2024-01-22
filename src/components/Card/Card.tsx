@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Card.css';
 import { IonIcon } from '@ionic/react';
 import { chatbubbleOutline, shareOutline, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
@@ -7,6 +7,7 @@ import AccionesDos from '../Acciones/AccionesDos';
 import { format, } from 'date-fns';
 import IconAnt from '../../assets/imagenes/IconAnts.png';
 import IconHormiguero from '../../assets/imagenes/hormiguero.png';
+import insectos from '../../assets/imagenes/insectos.png'
 import Home from '../../assets/imagenes/eco-home.png';
 import { usePublicaciones } from '../../Context/PublicacionesContext';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ import { AppStore } from '../../redux/store';
 import { ModalImagenes } from '../ModalImagenes';
 import Like from '../Like/Like';
 import VideosYoutube from '../Logout/VideosYoutube';
-import { Recomendados } from '../Tiendas';
+import { Barnner, Recomendados } from '../Tiendas';
 import { Tendencias } from '../Tendencias';
 import { PreviewPerfil } from '../Perfil/PreviewPerfil';
 import { Slider } from '../Slider';
@@ -109,7 +110,7 @@ const Card = () => {
         return imagenCount === 1 ? '2fr' : 'repeat(2, 3fr)';
     };
 
-    
+
     const renderRecomendados = (index: number) => {
         if (index > 0 && index % 4 === 0) {
             // Cada 5 publicaciones renderiza alternativamente Recomendados, Tendencias o Sugerencia
@@ -120,7 +121,7 @@ const Card = () => {
                 case 1:
                     return <Recomendados key={`recomendados-${index}`} />;
                 case 2:
-                        return <div></div>
+                    return  <Barnner/>
                 case 3:
                     return <TopColonias />
                 case 4:
@@ -132,6 +133,12 @@ const Card = () => {
         }
         return null;
     }
+
+    const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
+    useEffect(() => {
+        // Verificar si hay publicaciones y actualizar isLoading en consecuencia
+        setIsLoading(publicaciones.length === 0);
+    }, [publicacionesOrdenadas]);
 
     return (
         <div className="Card">
@@ -146,6 +153,7 @@ const Card = () => {
                             <article
                                 className={`Card-Articulo borde-${publicacion.IdTipo === 2 ? "Uno" :
                                     publicacion.IdTipo === 3 ? "dos" :
+                                    publicacion.IdTipo === 7 ? "siete" :
                                         publicacion.IdTipo === 4 ? "tres" :
                                             "home"}`}
                             >
@@ -197,7 +205,7 @@ const Card = () => {
                                         >
 
                                             {publicacion.ImagenesPublicacion.slice(0, 2).map((imagen, imgIndex) => (
-                                                <img key={imgIndex} src={imagen} alt={publicacion.Titulo} className={`imagen-${imgIndex + 1}`} onClick={() => openModal(imgIndex, publicacion.ImagenesPublicacion, publicacion.IdPublicacion)} />
+                                                <img loading="lazy" key={imgIndex} src={imagen} alt={publicacion.Titulo} className={`imagen-${imgIndex + 1}`} onClick={() => openModal(imgIndex, publicacion.ImagenesPublicacion, publicacion.IdPublicacion)} />
                                             ))}
                                             {publicacion.ImagenesPublicacion.length > 2 && (
                                                 <div className="ExtraImagesInfo" onClick={() => openModal(2, publicacion.ImagenesPublicacion, publicacion.IdPublicacion)}>
@@ -217,7 +225,7 @@ const Card = () => {
                                             {publicacion.InfoColonia.map((info, infoIndex) => (
                                                 <Link to={`/Home/Colonias/${info.id_colonies}/${encodeURIComponent(info.s_name.toLowerCase().replace(/ /g, '-'))}`} key={infoIndex}>
                                                     <div className='Card-Articulo_content-colonia'>
-                                                        <img src={info.s_photo} alt="" />
+                                                        <img src={info.s_photo} alt={info.s_name} />
                                                         <div style={{ backgroundColor: info?.points.toString() }}>
                                                             <p>{info.s_name}</p>
                                                         </div>
@@ -238,6 +246,7 @@ const Card = () => {
                             </article>
                             <div className={`Card-content_footer footer-borde-${publicacion.IdTipo === 2 ? "Uno" :
                                 publicacion.IdTipo === 3 ? "dos" :
+                                publicacion.IdTipo === 7 ? "siete" :
                                     publicacion.IdTipo === 4 ? "tres" :
                                         "home"}`}
                             >
@@ -246,6 +255,7 @@ const Card = () => {
                                         src={
                                             publicacion.IdTipo === 2 ? IconAnt :
                                                 publicacion.IdTipo === 3 ? IconHormiguero :
+                                                publicacion.IdTipo === 7 ? insectos :
                                                     publicacion.IdTipo === 4 ? IconAnt :
                                                         Home
                                         }
@@ -255,6 +265,7 @@ const Card = () => {
                                         {publicacion.IdTipo === 2 ? "Cría de Hormigas" :
                                             publicacion.IdTipo === 3 ? "Construcción de hormigueros" :
                                                 publicacion.IdTipo === 4 ? "Experimentos y técnicas" :
+                                                publicacion.IdTipo === 7 ? "Alimento Vivo" :
                                                     publicacion.IdTipo === 5 ? "Colonia" :
                                                         "General"}
                                     </p>
@@ -287,7 +298,16 @@ const Card = () => {
             ) : (
                 // Muestra un mensaje o componente alternativo si publicacionesOrdenadas está vacío
                 <div className='Cargado-Card'>
-                    <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
+                    {isLoading ? (
+                        
+                        <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
+
+                    ) : (
+                        <p>Sin publicaciones para mostrar</p>
+
+                    )}
+
+
                 </div>
             )}
 

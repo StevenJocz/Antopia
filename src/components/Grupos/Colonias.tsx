@@ -72,7 +72,7 @@ const Colonias = () => {
                                 <Link
                                     to={`/Home/Colonias/${colonia.id_colonies}/${colonia.s_name.replace(/\s/g, '')}`}
                                 >
-                                    <img src={colonia.s_photo} alt={colonia.s_name} />
+                                    <img src={colonia.s_photo} alt={colonia.s_name} loading="lazy"/>
                                     <div className="Colonias-menu-content-info" style={{ backgroundColor: colonia.colors }}>
                                         <h4>{colonia.s_name}</h4>
                                     </div>

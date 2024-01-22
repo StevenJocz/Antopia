@@ -96,7 +96,7 @@ const MiColonia = () => {
                         <div className='MiGrupo-info-content'>
                             <div className='MiGrupo-user'>
                                 {primerasOchoImagenes.map((miembro) => (
-                                    <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} />
+                                    <img src={miembro.foto} alt={miembro.nombre} key={miembro.id_user} loading="lazy" />
                                 ))}
                                 {imagenesRestantes.length > 0 && (
                                     <p> + {imagenesRestantes.length} {imagenesRestantes.length === 1 ? 'miembro' : 'miembros'}</p>

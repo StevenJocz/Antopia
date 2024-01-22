@@ -72,18 +72,17 @@ const BarraProgreso = () => {
             ) : (
                 <>
                     <div className='BarraProgreso-nivel'>
-                        <h3>¡Tu rango es {nivelTexto}! </h3>
                         <div className='BarraProgreso-contect-imagen'>
                             <img src={nivelAtual} className='' alt="" onClick={handdleNivel} />
                         </div>
+                        <h3>Nivel {nivelTexto}</h3>
                     </div>
-
                     {verNivel && (
                         <div className='BarraProgreso-contect-bg'>
                             <div className='BarraProgreso-contect'>
-                                <h3>¡Tu rango es {nivelTexto}! </h3>
+                                <h3>¡Tu nivel es {nivelTexto}! </h3>
                                 <IonIcon className='BarraProgreso-contect-cerrar' onClick={handdleNivel} icon={closeCircleOutline} />
-                                <div className='BarraProgreso-contect-imagen'>
+                                <div className='BarraProgreso-contect-imagenDOS'>
                                     <img src={nivelAtual} className='' alt="" />
                                 </div>
                                 {nivel == 6 ? (

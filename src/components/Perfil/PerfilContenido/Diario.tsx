@@ -111,12 +111,12 @@ const Diario: React.FC<Props> = (props) => {
                                             style={{ gridTemplateColumns: calculateGridColumns(registro.imagen.length) }}
                                         >
                                             {registro.imagen.slice(0, 2).map((imagen, imgIndex) => (
-                                                <img key={imgIndex} src={imagen} alt={`Imagen ${imgIndex + 1}`} className={`imagen-${imgIndex + 1}`} />
+                                                <img key={imgIndex} src={imagen} alt={`Imagen ${imgIndex + 1}`} className={`imagen-${imgIndex + 1}`}  loading="lazy"/>
                                             ))}
                                             {registro.imagen.length > 2 && (
                                                 <div className="ExtraImagesInfo" >
                                                     <p>+{registro.imagen.length - 2} </p>
-                                                    <img src={registro.imagen[2]} alt={`Imagen 5`} className={`imagen-5`} />
+                                                    <img src={registro.imagen[2]} alt={`Imagen 5`} className={`imagen-5`} loading="lazy" />
                                                 </div>
                                             )}
                                         </div>

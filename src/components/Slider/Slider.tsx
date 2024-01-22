@@ -11,12 +11,24 @@ import 'swiper/css/navigation';
 import './Slider.css'
 import { Keyboard, Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
+import ModalImagenComplet from '../ModalImagenes/ModalImagenComplet';
 
 interface Props {
     idTipo: number | null;
 }
 
 const Slider: React.FC<Props> = () => {
+    const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string[]>([]);
+
+    const openModal = (index: number, imagen: string[]) => {
+        setSelectedImageIndex(index);
+        setSelectedImage(imagen);
+    };
+
+    const closeModal = () => {
+        setSelectedImageIndex(null);
+    };
 
     const imagenes = [
         "https://radio.antopia.org/assets/Imagenesantopia/imagen1.png",
@@ -43,6 +55,16 @@ const Slider: React.FC<Props> = () => {
     ]
 
     const imagenesCautro  = [
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-1.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-2.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-3.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-4.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-5.png",
+        "https://radio.antopia.org/assets/Imagenesantopia/consejo-6.png",
+        
+    ]
+
+    const imagenesCinco  = [
         "https://radio.antopia.org/assets/Imagenesantopia/1.png",
         "https://radio.antopia.org/assets/Imagenesantopia/2.png",
         "https://radio.antopia.org/assets/Imagenesantopia/3.png",
@@ -59,19 +81,22 @@ const Slider: React.FC<Props> = () => {
         
         // Condiciones para decidir qué lista de imágenes utilizar
         let nuevaLista;
-        if (randomValue < 0.25) {
+        if (randomValue < 0.2) {
             nuevaLista = imagenesdos;
-        } else if (randomValue < 0.5) {
+        } else if (randomValue < 0.4) {
             nuevaLista = imagenestres;
-        } else if (randomValue < 0.75) {
+        } else if (randomValue < 0.6) {
             nuevaLista = imagenesCautro;
-        } else {
+        } else if (randomValue < 0.8) {
             nuevaLista = imagenes;
+        } else {
+            nuevaLista = imagenesCinco;
         }
     
         // Establecer la nueva lista de imágenes
         setImagenActual(nuevaLista);
     }, []);
+    
 
     return (
         <div className='Swiper swiperdos'>
@@ -88,12 +113,22 @@ const Slider: React.FC<Props> = () => {
                 modules={[Keyboard, Pagination, Navigation]}
                 className="mySwiper"
             >
-                {imagenActual.map((img) => (
+                {imagenActual.map((img, index) => (
                     <SwiperSlide key={img}>
-                        <img src={img} alt="" />
+                        <img src={img} alt="antopia.org" onClick={() => openModal(index, imagenActual)}/>
                     </SwiperSlide>
                 ))}
             </Swiper>
+
+            {
+                selectedImageIndex !== null && (
+                    <ModalImagenComplet
+                        imageUrls={selectedImage}
+                        currentIndex={selectedImageIndex}
+                        onClose={closeModal}
+                    />
+                )
+            }
 
         </div>
     )

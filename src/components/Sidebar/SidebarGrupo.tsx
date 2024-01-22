@@ -10,6 +10,7 @@ import { getImagenesColonia, getMiColonia } from '../../services';
 import { format } from 'date-fns';
 import { PublicacionesProvider } from '../../Context/PublicacionesContext';
 import { ModalImagenesDos } from '../ModalImagenes';
+import { Barnner } from '../Tiendas';
 
 const SidebarGrupo = () => {
     const userState = useSelector((store: AppStore) => store.user);
@@ -75,11 +76,12 @@ const SidebarGrupo = () => {
                         </p>
 
                     </div>
-                    
-                
+
+
                 </div>
                 <button><Link className='Link-About' to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/about`}>Más información</Link></button>
             </div>
+            <Barnner/>
             <div className="sidebar-content">
 
                 <div className="sidebar-content-imagenes">
@@ -90,9 +92,10 @@ const SidebarGrupo = () => {
                             src={imageUrl.url}
                             alt={`Hormiga ${index}`}
                             onClick={() => openModal(index)}
+                            loading="lazy"
                         />
                     ))}
-                     <button><Link className='Link-About' to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/fotos`}>Ver todo</Link></button>
+                    <button><Link className='Link-About' to={`/Home/Colonias/${grupo?.id_colonies}/${grupo?.s_name.replace(/\s/g, '')}/fotos`}>Ver todo</Link></button>
                 </div>
 
                 {selectedImageIndex !== null && (

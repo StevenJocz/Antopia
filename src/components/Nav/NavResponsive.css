@@ -5,13 +5,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 90%;
+    width: 100%;
     padding: 30px;
     z-index: 10001;
 }
 
 .NavResponsive  .NavResponsive-logo {
-    width: 80%;
+    width: 90%;
     margin-top: -50px;
 }
 .cerrarNavResponsive {
@@ -69,6 +69,11 @@
     border: 1px solid #43b3c7;
 }
 
+.NavResponsive ul .bg-Icono_cinco {
+    background-color: #f09d3f1f;
+    border: 1px solid #f09d3f4c;
+}
+
 .NavResponsive ul   a .bg-Icono_home {
     color:  #ffffffdf;
 }
@@ -87,6 +92,10 @@
 
 .NavResponsive ul  a .bg-Icono_cuatro {
     color:  #edededdc;
+}
+
+.NavResponsive ul a .bg-Icono_cinco {
+    color: #f09d3f;
 }
 
 
@@ -120,6 +129,10 @@
 
 .NavResponsive .bg-Icono_cuatro img{
     background-color: #ffffff;
+}
+
+.NavResponsive .bg-Icono_cinco img {
+    background-color: #f09d3f;
 }
 
 .NavResponsive ul  a {
