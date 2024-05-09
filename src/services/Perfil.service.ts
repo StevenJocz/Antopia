@@ -23,6 +23,7 @@ export const getPerfil = async (idUser: number, idUserConsulta: number) => {
             ImagenPortada: item.imagenPortada,
             Nivel: 5,
             Frase: item.frase,
+            Correo: item.correo,
             CantidadPublicaciones: item.cantidadPublicaciones,
             Seguidores: item.seguidores,
             TotalSeguiendo: item.totalSeguiendo,
@@ -225,6 +226,23 @@ export const getHayNotificacion = async (idUser: number) => {
 export const getNivel = async (idUser: number) => {
 
     const url = `${baseUrl}User/level?idUser=${idUser}`;
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        
+    }
+};
+
+export const GetInvitarDiario = async (idPerfil: number, Nombre: string) => {
+    const url = `${baseUrl}/User/InvitarDiario?idPerfil=${idPerfil}&NombreUser=${Nombre}`;
     const token = localStorage.getItem('token');
 
     try {

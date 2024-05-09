@@ -21,6 +21,7 @@ export interface InfoPerfil {
   ImagenPerfil: string;
   Nivel: number;
   Frase: string;
+  Correo: string;
   CantidadPublicaciones: number;
   Seguidores: number;
   TotalSeguiendo: number;

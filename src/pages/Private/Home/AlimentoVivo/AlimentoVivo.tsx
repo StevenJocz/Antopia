@@ -2,6 +2,7 @@ import { lazy, useEffect } from 'react';
 import { PublicacionesProvider } from '../../../../Context/PublicacionesContext';
 import { Slider } from '../../../../components/Slider';
 import { Helmet } from 'react-helmet';
+import { Barnner } from '../../../../components/Tiendas';
 
 const Card = lazy(() => import('../../../../components/Card/Card'));
 const NuevoPost = lazy(() => import('../../../../components/NuevoPost/NuevoPost'));
@@ -25,6 +26,7 @@ const AlimentoVivo = () => {
                 <NuevoPost tipo={7} idColonia={0} />
                 <h2>Alimento Vivo</h2>
                 <Slider idTipo={1} />
+                <Barnner/>
                 <Card />
             </PublicacionesProvider>
         </div>

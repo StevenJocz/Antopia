@@ -4,6 +4,7 @@ import { PublicacionesProvider } from "../../../../Context/PublicacionesContext"
 import Card from "../../../../components/Card/Card";
 import { Helmet } from "react-helmet";
 import { NuevoPost } from "../../../../components/NuevoPost";
+import { Barnner } from "../../../../components/Tiendas";
 
 const Hashtag = () => {
     const location = useLocation();
@@ -32,10 +33,11 @@ const Hashtag = () => {
                 <meta property="og:title" content={decodedHashtag} />
                 <meta property="og:description" content={decodedHashtag} />
             </Helmet>
-            
+          
             <h2>#{decodedHashtag}</h2>
             <PublicacionesProvider idTipo={5} idPerfil={0} idColonia={0} opcion={5} hashtag={decodedHashtag}>
                 <NuevoPost tipo={1} idColonia={0} />
+                <Barnner/>
                 <Card />
             </PublicacionesProvider>
         </div>

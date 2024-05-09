@@ -57,7 +57,7 @@ const SidebarPublicacion: React.FC<Props> = (props) => {
 
     return (
         <div>
-            
+
             <div className="sidebar-content">
                 <h3>Tops Publicaciones </h3>
                 {top.map((top, index) => (
@@ -69,7 +69,7 @@ const SidebarPublicacion: React.FC<Props> = (props) => {
                                 <div className="SidebarPublicacion-perfil">
                                     <img src={top.Foto} alt="" />
                                     <p>{top.NombrePerfil}</p>
-                                    <p>-</p> 
+                                    <p>-</p>
                                     <p>{format(new Date(top.FechaPublicacion), "dd 'de' MMMM")}  </p>
                                 </div>
                             </div>
@@ -77,16 +77,16 @@ const SidebarPublicacion: React.FC<Props> = (props) => {
                     </Link>
                 ))}
             </div>
-            <Barnner/>
+            <Barnner />
             <div className="sidebar-content">
                 <h3>Imagenes</h3>
                 <div className="SidebarPublicacion-imagenes">
                     {imagenes.slice(0, 3).map((imagen, index) => (
-                        <img 
-                        src={imagen.Url} 
-                        alt="hormigas" key={index} 
-                        onClick={() => openModal(index, imagenes)} 
-                        loading="lazy"/>
+                        <img
+                            src={imagen.Url}
+                            alt="hormigas" key={index}
+                            onClick={() => openModal(index, imagenes)}
+                            loading="lazy" />
                     ))}
 
                     {imagenes.length > 3 && (

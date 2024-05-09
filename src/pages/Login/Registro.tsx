@@ -375,7 +375,6 @@ const Registro = () => {
 
                             <i className='mensaje'>{msg}</i>
                             <BotonSubmit texto={textBoton} isLoading={isLoading} onClick={() => handlenumeroPaso()} color="enviar" />
-                           
                         </div>
                         <Link to="/">Volver al inicio</Link>
                     </>

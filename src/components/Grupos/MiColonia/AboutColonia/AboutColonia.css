@@ -70,51 +70,53 @@
     border-bottom: 1px solid #9797974b;
 }
 
+.AboutColonia__soldados h3, .AboutColonia__Members h3, .AboutColonia__Reinas h3 {
+    margin: 10px 0;
+}
+
 .AboutColonia__soldados_info {
+    width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 2%;
 }
 
-.AboutColonia__soldados_info-img {
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
+.AboutColonia__soldados_info a {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 10px;
 }
 
-.AboutColonia__soldados_info-img img{
-    width: 100%;
-    height: 80px;
+.AboutColonia__soldados_info a div h4 {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.AboutColonia__soldados_info a div p {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.AboutColonia__soldados_info img{
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    margin-right: 10px;
 }
 
-.AboutColonia__soldados_info-content {
-    width: 25%;
+.AboutColonia__Reinas {
+    position: relative;
 }
 
-.AboutColonia__soldados_info-content h4 {
-    color: #ffffff;
-    font-size: 20px;
-}
-
-.AboutColonia__soldados_info-content a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.AboutColonia__soldados_info-seguir button {
-    width: 100px;
-    height: 40px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    cursor: pointer;
+.AboutColonia_hover {
+    position: absolute;
+    top: 0;
+    left: 300px;
 }
 
 .AboutColonia .BotonFollowers-mensaje {

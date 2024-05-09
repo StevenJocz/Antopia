@@ -102,6 +102,34 @@ export const getPublicacionesBuscador = async (texto: string) => {
     }
 };
 
+export const getPublicacionesSimilares = async (texto: string) => {
+
+    const url = `${baseUrl}Pubication/BuscarPublicationSimilares?searchTerm=${texto}`;
+    const token = localStorage.getItem('token');
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const pubicacion: PublicacionBuscador[] = response.data.map((item: any) => ({
+            NombrePerfil: item.nombrePerfil,
+            ImagenPerfil: item.imagenPerfil,
+            IdPublicacion: item.idPublicacion,
+            IdTipo: item.idTipo,
+            FechaPublicacion: item.fechaPublicacion,
+            Titulo: item.titulo,
+            Contenido: item.contenido,
+        }));
+
+        return pubicacion;
+    } catch (error) {
+        throw error;
+    }
+};
+
 
 export const getPublicacionesHashtag = async (idUser: number, texto: string): Promise<Publicacion[]> => {
     const token = localStorage.getItem('token');

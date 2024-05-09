@@ -2,7 +2,7 @@
 
 import { Tendencias } from "../Tendencias";
 import { Sugerencia } from "../Followers";
-import { Recomendados } from '../Tiendas';
+import { Barnner, Recomendados } from '../Tiendas';
 import './Sidebar.css'
 import { TopColonias } from '../Grupos/TopColonias';
 
@@ -18,7 +18,8 @@ const Sidebar = () => {
                 <p>¡Haz que nuestra pasión por las hormigas siga latiendo! Con tu apoyo, impulsamos el crecimiento y mantenimiento de nuestra comunidad.</p>
                 <button>Donar ahora</button>
             </div>
-            <TopColonias />
+            <Barnner />
+            <TopColonias tipo={2} />
             <Tendencias />
             <Recomendados />
             <Sugerencia />

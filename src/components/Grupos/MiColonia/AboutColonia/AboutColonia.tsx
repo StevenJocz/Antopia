@@ -5,20 +5,14 @@ import { format } from "date-fns";
 
 import './AboutColonia.css';
 import { Link } from "react-router-dom";
-import { AppStore } from '../../../../redux/store';
-import { useSelector } from 'react-redux';
-import { BotonFollowers } from "../../../BotonFollowers";
 
 interface Props {
   grupo: Colonia | null;
 }
 
 export const AboutColonia: React.FC<Props> = (props) => {
-  const userState = useSelector((store: AppStore) => store.user);
   const { grupo } = props;
 
-  const handleM = () => {};
-  
   return (
     <div className="AboutColonia">
       <div className="AboutColonia__header">
@@ -88,27 +82,15 @@ export const AboutColonia: React.FC<Props> = (props) => {
             .filter((miembro) => miembro.level == 6)
             .map((miembro) => (
               <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-                <div className="AboutColonia__soldados_info-img">
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    <img src={miembro.foto} alt={miembro.nombre} />
-                  </Link>
-                </div>
-                <div className="AboutColonia__soldados_info-content">
-                  <h4>{miembro.nombre}</h4>
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    @{miembro.nombre.replace(/\s/g, '')}
-                  </Link>
-                </div>
-                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                  <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers
-                      idPerfil={miembro.id_user}
-                      idSeguidor={userState.IdPerfil}
-                      Siguiendo={miembro.siguiendo}
-                      mostrar={handleM}
-                    />
+                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                  <img src={miembro.foto} alt={miembro.nombre} />
+                  <div>
+                    <h4>{miembro.nombre}</h4>
+                    <p>@{miembro.nombre.replace(/\s/g, '')}</p>
+
                   </div>
-                )}
+                </Link>
+
               </div>
             ))}
         </div>
@@ -118,27 +100,14 @@ export const AboutColonia: React.FC<Props> = (props) => {
             .filter((miembro) => miembro.level === 5)
             .map((miembro) => (
               <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-                <div className="AboutColonia__soldados_info-img">
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    <img src={miembro.foto} alt={miembro.nombre} />
-                  </Link>
-                </div>
-                <div className="AboutColonia__soldados_info-content">
-                  <h4>{miembro.nombre}</h4>
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    @{miembro.nombre.replace(/\s/g, '')}
-                  </Link>
-                </div>
-                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                  <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers
-                      idPerfil={miembro.id_user}
-                      idSeguidor={userState.IdPerfil}
-                      Siguiendo={miembro.siguiendo}
-                      mostrar={handleM}
-                    />
+                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                  <img src={miembro.foto} alt={miembro.nombre} />
+                  <div>
+                    <h4>{miembro.nombre}</h4>
+                    <p>@{miembro.nombre.replace(/\s/g, '')}</p>
+
                   </div>
-                )}
+                </Link>
               </div>
             ))}
         </div>
@@ -148,27 +117,14 @@ export const AboutColonia: React.FC<Props> = (props) => {
             .filter((miembro) => miembro.level != 5 && miembro.level != 6)
             .map((miembro) => (
               <div className="AboutColonia__soldados_info" key={miembro.id_user}>
-                <div className="AboutColonia__soldados_info-img">
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    <img src={miembro.foto} alt={miembro.nombre} />
-                  </Link>
-                </div>
-                <div className="AboutColonia__soldados_info-content">
-                  <h4>{miembro.nombre}</h4>
-                  <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
-                    @{miembro.nombre.replace(/\s/g, '')}
-                  </Link>
-                </div>
-                {miembro.siguiendo === 0 && miembro.id_user != userState.IdPerfil && (
-                  <div className="AboutColonia__soldados_info-seguir">
-                    <BotonFollowers
-                      idPerfil={miembro.id_user}
-                      idSeguidor={userState.IdPerfil}
-                      Siguiendo={miembro.siguiendo}
-                      mostrar={handleM}
-                    />
+                <Link to={`/Home/Perfil/${miembro.id_user}/${miembro.nombre.replace(/\s/g, '')}`}>
+                  <img src={miembro.foto} alt={miembro.nombre} />
+                  <div>
+                    <h4>{miembro.nombre}</h4>
+                    <p>@{miembro.nombre.replace(/\s/g, '')}</p>
+
                   </div>
-                )}
+                </Link>
               </div>
             ))}
         </div>

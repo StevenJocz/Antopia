@@ -2,6 +2,7 @@ import { lazy, useEffect, useMemo, useState } from 'react';
 import { PublicacionesProvider } from '../../../../Context/PublicacionesContext';
 import { Slider } from '../../../../components/Slider';
 import { Helmet } from 'react-helmet';
+import { Barnner } from '../../../../components/Tiendas';
 
 const Card = lazy(() => import('../../../../components/Card/Card'));
 const NuevoPost = lazy(() => import('../../../../components/NuevoPost/NuevoPost'));
@@ -48,6 +49,7 @@ const Inicio: React.FC = () => {
                     <li className={tipo == 1 ? 'UlLinea' : ''} onClick={() => handdleTipo(1)}>Para ti</li>
                     <li className={tipo == 7 ? 'UlLinea' : ''} onClick={() => handdleTipo(7)}>Siguiendo</li>
                 </ul>
+                <Barnner/>
                 <Card />
             </PublicacionesProvider>
         </div>

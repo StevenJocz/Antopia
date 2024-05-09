@@ -121,9 +121,9 @@ const Card = () => {
                 case 1:
                     return <Recomendados key={`recomendados-${index}`} />;
                 case 2:
-                    return  <Barnner/>
+                    return <Barnner />
                 case 3:
-                    return <TopColonias />
+                    return <TopColonias tipo={1} />
                 case 4:
                     return <Tendencias key={`tendencias-${index}`} />;
 
@@ -153,9 +153,9 @@ const Card = () => {
                             <article
                                 className={`Card-Articulo borde-${publicacion.IdTipo === 2 ? "Uno" :
                                     publicacion.IdTipo === 3 ? "dos" :
-                                    publicacion.IdTipo === 7 ? "siete" :
-                                        publicacion.IdTipo === 4 ? "tres" :
-                                            "home"}`}
+                                        publicacion.IdTipo === 7 ? "siete" :
+                                            publicacion.IdTipo === 4 ? "tres" :
+                                                "home"}`}
                             >
                                 <div className="Card-Articulo_header"
                                     onMouseEnter={() => handleMouseEnter(publicacion.IdPublicacion, publicacion.IdPerfil)}
@@ -191,6 +191,21 @@ const Card = () => {
                                                     </span>
                                                 );
                                             }
+                                            const urlRegex = /https:\/\/[^\s]+/;
+                                            const isHttpsUrl = urlRegex.test(word);
+                                            
+
+                                            if (isHttpsUrl) {
+                                                
+                                                return (
+                                                    <span className='hashtag' key={index}>
+                                                        <a href={word} target="_blank" rel="noopener noreferrer">
+                                                            {word}
+                                                        </a>
+                                                    </span>
+                                                );
+                                            }
+
                                             return `${word} `;
                                         })}
                                     </p>
@@ -246,18 +261,18 @@ const Card = () => {
                             </article>
                             <div className={`Card-content_footer footer-borde-${publicacion.IdTipo === 2 ? "Uno" :
                                 publicacion.IdTipo === 3 ? "dos" :
-                                publicacion.IdTipo === 7 ? "siete" :
-                                    publicacion.IdTipo === 4 ? "tres" :
-                                        "home"}`}
+                                    publicacion.IdTipo === 7 ? "siete" :
+                                        publicacion.IdTipo === 4 ? "tres" :
+                                            "home"}`}
                             >
                                 <div className='Cardstile'>
                                     <img
                                         src={
                                             publicacion.IdTipo === 2 ? IconAnt :
                                                 publicacion.IdTipo === 3 ? IconHormiguero :
-                                                publicacion.IdTipo === 7 ? insectos :
-                                                    publicacion.IdTipo === 4 ? IconAnt :
-                                                        Home
+                                                    publicacion.IdTipo === 7 ? insectos :
+                                                        publicacion.IdTipo === 4 ? IconAnt :
+                                                            Home
                                         }
                                         alt=""
                                     />
@@ -265,9 +280,9 @@ const Card = () => {
                                         {publicacion.IdTipo === 2 ? "Cría de Hormigas" :
                                             publicacion.IdTipo === 3 ? "Construcción de hormigueros" :
                                                 publicacion.IdTipo === 4 ? "Experimentos y técnicas" :
-                                                publicacion.IdTipo === 7 ? "Alimento Vivo" :
-                                                    publicacion.IdTipo === 5 ? "Colonia" :
-                                                        "General"}
+                                                    publicacion.IdTipo === 7 ? "Alimento Vivo" :
+                                                        publicacion.IdTipo === 5 ? "Colonia" :
+                                                            "General"}
                                     </p>
                                 </div>
                                 <div className='footer_action'>
@@ -299,7 +314,7 @@ const Card = () => {
                 // Muestra un mensaje o componente alternativo si publicacionesOrdenadas está vacío
                 <div className='Cargado-Card'>
                     {isLoading ? (
-                        
+
                         <PropagateLoader color="#fff" speedMultiplier={1} size={30} />
 
                     ) : (

@@ -99,7 +99,7 @@ const Perfil = () => {
         <div className="Perfil">
             <Helmet>
                 <title>Antopia | {ogTitle}</title>
-                <meta name="description" content="Descripción de la página" />
+                <meta name="description" content={ogDescription} />
                 <meta property="og:title" content={ogTitle} />
                 <meta property="og:description" content={ogDescription} />
                 <meta property="og:image" content={ogImage[0]} />

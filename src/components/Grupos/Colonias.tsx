@@ -60,7 +60,7 @@ const Colonias = () => {
                     <button onClick={toggleCrearColonia}>Crear colonia</button>
                 </div>
             </div>
-            <TopColonias />
+            <TopColonias tipo={1}/>
             {listColonia.length === 0 ? (
                 <p className='colonias-null'>Aún no haces parte de una colonia. Únete a una y comparte tus experiencias..</p>
             ) : (

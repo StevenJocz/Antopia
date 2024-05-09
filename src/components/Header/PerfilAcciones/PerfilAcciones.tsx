@@ -16,19 +16,19 @@ const PerfilAcciones: React.FC<Props> = (props) => {
     return (
         <div className='MiPerfil_Contenido'>
             <div className='MiPerfil_Contenido_Info'>
-                
+
                 <Link to={`/Home/Perfil/${userState.IdPerfil}/${userState.urlPerfil}`} onClick={props.handleMiPerfil}>
                     <div>
                         <h3>{userState.NombrePerfil}</h3>
                         <h4>{userState.email}</h4>
                     </div>
                 </Link>
-                
+
                 <div className='MiPerfil_Contenido-cerrar'>
                     <IonIcon className='Icono-cerrar' onClick={props.handleMiPerfil} icon={closeCircleOutline} />
                 </div>
             </div>
-            
+
             <div className='MiPerfil_Contenido_Controles'>
                 <Link to={`/Home/Perfil/${userState.IdPerfil}/${userState.urlPerfil}`} onClick={props.handleMiPerfil}>
                     <div className='MiPerfil_Contenido_text'>
@@ -38,11 +38,13 @@ const PerfilAcciones: React.FC<Props> = (props) => {
 
                     </div>
                 </Link>
-                
-                <div className='MiPerfil_Contenido_text'>
-                    <IonIcon icon={settingsOutline} />
-                    <h5>Configuración</h5>
-                </div>
+
+                <Link to={`/Home/Configuracion`} onClick={props.handleMiPerfil}>
+                    <div className='MiPerfil_Contenido_text'>
+                        <IonIcon icon={settingsOutline} />
+                        <h5>Configuración</h5>
+                    </div>
+                </Link>
                 <div className='MiPerfil_Contenido_text' onClick={props.handleMiPerfil}>
                     <IonIcon icon={helpCircleOutline} />
                     <h5>Ayuda</h5>

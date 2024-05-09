@@ -37,12 +37,13 @@ const SidebarPerfil = () => {
 
         const fetchUserColonias = async () => {
             try {
-                const colonias: Colonia[] = await getUserColonias(userState.IdPerfil);
+                const colonias: Colonia[] = await getUserColonias(Number(idPerfil));
                 setListColonia(colonias);
             } catch (error) {
                 console.error('Error al obtener las colonias del usuario:', error);
             }
         };
+
         fetchUserColonias();
 
         fetchPerfil();
@@ -56,6 +57,7 @@ const SidebarPerfil = () => {
     const closeModal = () => {
         setSelectedImageIndex(null);
     };
+
 
 
 
@@ -116,7 +118,7 @@ const SidebarPerfil = () => {
                             </Link>
                         </>
                     ) : (
-                        <button>¡Invita al usuario a empezar su viaje diario ahora!</button>
+                        <button>Aún no ha comenzado el viaje diario</button>
                     )}
 
                 </div>

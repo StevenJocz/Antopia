@@ -10,9 +10,10 @@ import { resetUser, UserKey, TokenKey } from '../../../redux/states/user';
 import { AppStore } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 import { Chat } from './PublicacionesAntopia';
-import { SidebarGrupo, SidebarPerfil, SidebarPublicacion, SiderbarViewPublicacion } from '../../../components/Sidebar';
+import { SidebarGrupo, SidebarPerfil, SidebarPublicacion, SiderbarColonias, SiderbarViewPublicacion } from '../../../components/Sidebar';
 import { AlimentoVivo } from './AlimentoVivo';
 import { DiarioProvider } from '../../../Context/DiarioContext';
+import ConfiguracionPerfil from './ConfiguracionPerfil/ConfiguracionPerfil';
 
 
 const Nav = lazy(() => import('../../../components/Nav/Nav'));
@@ -50,7 +51,7 @@ const Home: React.FC = () => {
   };
 
   const currentPath = location.pathname;
-
+  const isColoniaRoute = currentPath.startsWith('/Home/Colonias');
   const isColoniasRoute = currentPath.startsWith('/Home/Colonias/');
   const isPerfilRoute = currentPath.startsWith('/Home/Perfil/');
   const isPublicacionRoute = currentPath.startsWith('/Home/Publicacion/');
@@ -74,6 +75,8 @@ const Home: React.FC = () => {
       <aside className="Layout-sidebar-right">
         {isColoniasRoute ? (
           <SidebarGrupo />
+        ) : isColoniaRoute ? (
+          < SiderbarColonias />
         ) : isPerfilRoute ? (
           <DiarioProvider idPerfil={Number(idPerfil)}>
             <SidebarPerfil />
@@ -112,6 +115,7 @@ const Home: React.FC = () => {
           <Route path="/Felicidades/*" element={<Noticas />} />
           <Route path="/Chat/*" element={<Chat />} />
           <Route path="/AlimentoVivo" element={<AlimentoVivo />} />
+          <Route path="/Configuracion" element={<ConfiguracionPerfil />} />
         </RoutesWithNotFound>
       </main>
     </div>

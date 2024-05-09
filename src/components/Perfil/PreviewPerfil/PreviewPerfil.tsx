@@ -47,7 +47,7 @@ const PreviewPerfil: React.FC<Props> = (props) => {
     if (!perfil) {
         return null;
     }
-    const handleM = () => {};
+    const handleM = () => { };
     return (
         <div className='PreviewPerfil'
             onMouseEnter={() => props.handleMouseEnter(props.idPublicacion, perfil.IdPerfil)}
@@ -57,12 +57,12 @@ const PreviewPerfil: React.FC<Props> = (props) => {
                 <Link to={`/Home/Perfil/${perfil.IdPerfil}/${perfil.urlPerfil}`}>
                     <img src={perfil.ImagenPerfil} alt="" />
                 </Link>
-                <BotonFollowers 
-                idPerfil={perfil.IdPerfil} 
-                idSeguidor={userState.IdPerfil} 
-                Siguiendo={perfil.Siguiendo}
-                mostrar={handleM}
-                 />
+                <BotonFollowers
+                    idPerfil={perfil.IdPerfil}
+                    idSeguidor={userState.IdPerfil}
+                    Siguiendo={perfil.Siguiendo}
+                    mostrar={handleM}
+                />
             </div>
             <div className='PreviewPerfil-content-nombre'>
                 <div>

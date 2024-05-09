@@ -8,7 +8,7 @@ import { Colonia } from '../../../models';
 
 const DescubreColonias = () => {
     const [respuesta, setRespuesta] = useState([] as Colonia[]);
-    const [busqueda, setBusqueda] = useState<string>('a'); // Inicializar con "colonia"
+    const [busqueda, setBusqueda] = useState<string>('1'); 
 
     // Enviar la palabra inicial al servicio cuando se monte el componente
     useEffect(() => {
@@ -22,11 +22,12 @@ const DescubreColonias = () => {
         }
 
         enviarBusquedaInicial();
-    }, [busqueda]); // Se ejecutará cuando cambie la búsqueda
+    }, [busqueda]);
 
     // Actualizar el estado de búsqueda cuando el input cambie
     const handleInputValue = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const input = event.target;
+        setBusqueda(input.value);
         if (input.value != '') {
             setBusqueda(input.value);
         }
