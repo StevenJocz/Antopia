@@ -1,51 +1,54 @@
-# Flujo de trabajo simple para implementar contenido estático en Github Pages
-name: Implementar contenido estático a Pages
+# Nombre del workflow
+name: Deploy Vite React App to GitHub Pages
 
 on:
-  # Se ejecuta en anotaciones dirigidas a la rama predeterminada
   push:
-    branches: ['main']
+    branches:
+      - main # Asegúrate de que esta sea tu rama principal
+  workflow_dispatch: # Permite ejecutar el workflow manualmente
 
-  # Te permite ejecutar este flujo de trabajo manualmente desde la pestaña Acciones
-  workflow_dispatch:
-
-# Establece los permisos de GITHUB_TOKEN para permitir la implementación en GitHub Pages
+# Permisos necesarios para la implementación en GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permite una implementación simultánea
+# Permitir una única ejecución a la vez
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # Trabajo de implementación único ya que solo estamos implementando
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Set up Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
+
       - name: Install dependencies
-        run: npm install
-      - name: Build
+        run: npm ci
+
+      - name: Build project
         run: npm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2 # Usa la versión más reciente
         with:
-          # Subir repositorio dist
-          path: './dist'
+          path: "./dist" # Asegúrate de que el build se genera en "dist"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
